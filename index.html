@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://petershaggynoble.github.io/MDI-Sandbox/light/?icon=arrow-left">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"> </script>
+    <script>
+        let IDXs = [];
+        let MAXs = [];
+        let SRCDIR = [];
+        let CREW = 0;
+        let THRUSTER = 1;
+        let GENERATOR = 2;
+        let REACTOR = 3;
+        let REFINERY = 4;
+        let ROBONAUT = 5;
+        let RADIATOR = 6;
+        let FREIGHTER = 7;
+        let GWTHRUSTER = 8;
+        let BERNAL = 9;
+        let COLONIST = 10;
+
+        for(let i=0;i<11; ++i){
+            IDXs.push(0);
+        }
+        SRCDIR.push("crew/card");
+        SRCDIR.push("thruster/card");
+        SRCDIR.push("generator/card");
+        SRCDIR.push("reactor/card");
+        SRCDIR.push("refinery/card");
+        SRCDIR.push("robonaut/card");
+        SRCDIR.push("radiator/card");
+        SRCDIR.push("freighter/card");
+        SRCDIR.push("gwthruster/card");
+        SRCDIR.push("bernal/card");
+        SRCDIR.push("colonist/card");
+        MAXs.push(5);
+        MAXs.push(11);//thruster
+        MAXs.push(16);//generator
+        MAXs.push(11);//reactor
+        MAXs.push(11);//refinery
+        MAXs.push(11);//robonaut
+        MAXs.push(11);//radiator
+        MAXs.push(6);//freighter
+        MAXs.push(6);//gwthruster
+        MAXs.push(11);//bernal
+        MAXs.push(17);//colonist
+
+        function next(idx){
+
+            IDXs[idx]++;
+            if(IDXs[idx] > MAXs[idx]) {
+                IDXs[idx] = 0;
+            }
+
+            let SRC = SRCDIR[idx];
+            SRC += String(IDXs[idx]);
+            SRC += ".jpg";
+
+            let SRCb = SRCDIR[idx];
+            SRCb += String(IDXs[idx]);
+            SRCb += "b.jpg";
+
+            let OBJ = "img";
+            OBJ += String(idx);
+            OBJ += ".src = SRC;";
+            let OBJb = "img";
+            OBJb += String(idx);
+            OBJb += "b.src = SRCb;";
+            eval(OBJ);
+            eval(OBJb);
+            
+
+        }
+        function prev(idx){
+
+            if(IDXs[idx]>0)
+               IDXs[idx]--;
+            else
+               IDXs[idx]=MAXs[idx];
+
+            let SRC = SRCDIR[idx];
+            SRC += String(IDXs[idx]);
+            SRC += ".jpg";
+
+            let SRCb = SRCDIR[idx];
+            SRCb += String(IDXs[idx]);
+            SRCb += "b.jpg";
+
+            let OBJ = "img";
+            OBJ += String(idx);
+            OBJ += ".src = SRC;";
+            let OBJb = "img";
+            OBJb += String(idx);
+            OBJb += "b.src = SRCb;";
+            eval(OBJ);
+            eval(OBJb);
+           
+           
+
+        }
+    </script>
+</head>
+<body>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class = "mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+        <header class = "mdl-layout__header">
+           <!-- Top row, always visible -->
+           <div class = "mdl-layout__header-row">
+              <!-- Title -->
+              <span class = "mdl-layout-title">High Frontier 4 All</span>          
+           </div>
+        
+           <!-- Tabs -->
+           <div class = "mdl-layout__tab-bar mdl-js-ripple-effect">
+              <a href = "#crew" class = "mdl-layout__tab is-active">Crew</a>
+              <a href = "#thruster" class = "mdl-layout__tab">Thruster</a>
+              <a href = "#generator" class = "mdl-layout__tab">Generator</a>   
+              <a href = "#reactor" class = "mdl-layout__tab">Reactor</a>    
+              <a href = "#refinery" class = "mdl-layout__tab">Refinery</a>   
+              <a href = "#robonaut" class = "mdl-layout__tab">Robonaut</a>  
+              <a href = "#radiator" class = "mdl-layout__tab">Radiator</a>    
+              <a href = "#freighter" class = "mdl-layout__tab">Freighter</a>    
+              <a href = "#gwthruster" class = "mdl-layout__tab">GW Thruster</a>    
+              <a href = "#bernal" class = "mdl-layout__tab">Bernal</a>   
+              <a href = "#colonist" class = "mdl-layout__tab">Colonist</a>   
+           </div>
+        </header>
+        
+        <div class = "mdl-layout__drawer">
+           <span class = "mdl-layout-title">HTML5 Tutorial</span>
+           <nav class = "mdl-navigation">
+              <a class = "mdl-navigation__link" href = "https://cutt.ly/hf4-core">Core Rules</a>
+              <a class = "mdl-navigation__link" href = "https://cutt.ly/hf4-m1">M1 Terrawatt & Futures</a>    
+              <a class = "mdl-navigation__link" href = "https://cutt.ly/hf4-m2">M2 Colonization</a>    
+              <a class = "mdl-navigation__link" href = "https://cutt.ly/hf4-m3">M3 Conflict</a>    
+              <a class = "mdl-navigation__link" href = "https://assets.adobe.com/id/urn:aaid:sc:US:e57a0306-5567-4fb9-ab6a-e677771faaad?view=published">M4 Exodus</a>   
+              <a class = "mdl-navigation__link" href = "https://assets.adobe.com/id/urn:aaid:sc:US:96c76442-e2e7-4ba5-8ca1-f55e0967b697?view=published">M5 Economy</a>    
+           </nav>
+        </div>
+        
+        <main class = "mdl-layout__content">
+           <section class = "mdl-layout__tab-panel is-active" id = "crew">
+            
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(0)">
+                <i class="material-icons">
+                    arrow_back
+                    </i>
+              </button>
+              <img src="crew/card0.jpg" alt="Italian Trulli" id="img0">
+              <img src="crew/card0b.jpg" alt="Italian Trulli" id="img0b">
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(0)">
+                <i class="material-icons">
+                    arrow_forward
+                    </i>
+              </button>
+
+  
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "thruster">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(1)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="thruster/card0.jpg" alt="Italian Trulli" id="img1">
+             <img src="thruster/card0b.jpg" alt="Italian Trulli" id="img1b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(1)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "generator">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(2)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="generator/card0.jpg" alt="Italian Trulli" id="img2">
+             <img src="generator/card0b.jpg" alt="Italian Trulli" id="img2b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(2)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "reactor">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(3)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="reactor/card0.jpg" alt="Italian Trulli" id="img3">
+             <img src="reactor/card0b.jpg" alt="Italian Trulli" id="img3b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(3)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "refinery">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(4)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="refinery/card0.jpg" alt="Italian Trulli" id="img4">
+             <img src="refinery/card0b.jpg" alt="Italian Trulli" id="img4b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(4)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "robonaut">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(5)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="robonaut/card0.jpg" alt="Italian Trulli" id="img5">
+             <img src="robonaut/card0b.jpg" alt="Italian Trulli" id="img5b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(5)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "radiator">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(6)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="radiator/card0.jpg" alt="Italian Trulli" id="img6">
+             <img src="radiator/card0b.jpg" alt="Italian Trulli" id="img6b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(6)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "freighter">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(7)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="freighter/card0.jpg" alt="Italian Trulli" id="img7">
+             <img src="freighter/card0b.jpg" alt="Italian Trulli" id="img7b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(7)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "gwthruster">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(8)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="gwthruster/card0.jpg" alt="Italian Trulli" id="img8">
+             <img src="gwthruster/card0b.jpg" alt="Italian Trulli" id="img8b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(8)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "bernal">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(9)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="bernal/card0.jpg" alt="Italian Trulli" id="img9">
+             <img src="bernal/card0b.jpg" alt="Italian Trulli" id="img9b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(9)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "colonist">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(10)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="colonist/card0.jpg" alt="Italian Trulli" id="img10">
+             <img src="colonist/card0b.jpg" alt="Italian Trulli" id="img10b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(10)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+           </section>
+        </main>
+     </div>
+</body>
+</html>
