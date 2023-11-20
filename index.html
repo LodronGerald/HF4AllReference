@@ -12,6 +12,8 @@
         let IDXs = [];
         let MAXs = [];
         let SRCDIR = [];
+        let NOTES = [];
+
         let CREW = 0;
         let THRUSTER = 1;
         let GENERATOR = 2;
@@ -26,6 +28,7 @@
 
         for(let i=0;i<11; ++i){
             IDXs.push(0);
+            NOTES.push([]);
         }
         SRCDIR.push("crew/card");
         SRCDIR.push("thruster/card");
@@ -50,6 +53,35 @@
         MAXs.push(11);//bernal
         MAXs.push(17);//colonist
 
+        for(let i=0;i<11; ++i){
+            
+          for(let j=0; j<=MAXs[i];++j){
+            NOTES[i].push("");
+          }
+        }
+        NOTES[CREW][0] = "<h6><b>Secretary General:</b> With this faction privilege, start the game with two extra Aquas. M2: The two Aquas are given when you Anchor your first Home Bernal.</h6>";
+        NOTES[CREW][0] +="<h6><b>Blink Telescope:</b> With this faction privelege, for each prospecting attempt using a raygun platform, you are allowed a single reroll of any size roll (I6.3) made in a prospect operation.</h6>";
+        NOTES[CREW][1] = "<h6><b>Taxes:</b> This faction privilege gives you a 1 Aqua bonus from the Pool for each Claim placed or industrialization by any player (including yourself). No tax bonus for Claim Jumping.</h6>";
+        NOTES[CREW][1] +="<h6><b>Felonious:</b> As free actions during your Turn, this faction privilege allows you to perform Felonies: Claim Jumping (G4), Murder/Suicide, and Factory Hijacking.</h6>";
+        //NOTES[CREW][1] += "<h6><b>M3 Human Kamikaze:</b> Only Player Purple may fire this weapon, which allows him to use sacrificial Humans in combat. Paying a victim a bribe allows you unlimited use of both Human kamikazes (3E5d) and Human dropstones (3D7c) against him that Turn.</h6>";
+
+        NOTES[CREW][2] = "<h6><b>Dharma Refulel:</b> With this faction privilege, site refueling yields are doubled if a Human carrying a glory chit is present.</h6>";
+        NOTES[CREW][3] = "<h6><b>Open Source FINAO:</b> With this faction privilege, FINAO only costs 3 Aqua (6 if doubled by any rule).</h6>";
+        
+        NOTES[CREW][4] = "<h6><b>Note G1c:</b> Crew dirt thrusters are limited by one fuel tank during a factory or ISRU once-per-turn free action.</h6>";
+        NOTES[CREW][5] = "<h6><b>Note G1c:</b> Crew dirt thrusters are limited by one fuel tank during a factory or ISRU once-per-turn free action.</h6>";
+        NOTES[CREW][5] += "<h6><b>Marketeer:</b> With this faction privilege, you always win auction ties (I2e), even if you are not the initiator.</h6>";
+
+        for(let idx = 0; idx < 11; ++idx)
+        {
+            let note = "document.getElementById('note";
+            note += String(idx);
+            note += "').innerHTML ='";
+            note += NOTES[idx][IDXs[idx]];
+            note += "';";
+            eval(note);
+        }
+
         function next(idx){
 
             IDXs[idx]++;
@@ -64,6 +96,16 @@
             let SRCb = SRCDIR[idx];
             SRCb += String(IDXs[idx]);
             SRCb += "b.jpg";
+
+            if(NOTES[idx].length){
+              let note = "document.getElementById('note";
+              note += String(idx);
+              note += "').innerHTML ='";
+              note += NOTES[idx][IDXs[idx]];
+              note += "';";
+              eval(note);
+
+            }
 
             let OBJ = "img";
             OBJ += String(idx);
@@ -90,6 +132,16 @@
             let SRCb = SRCDIR[idx];
             SRCb += String(IDXs[idx]);
             SRCb += "b.jpg";
+
+            if(NOTES[idx].length){
+              let note = "document.getElementById('note";
+              note += String(idx);
+              note += "').innerHTML ='";
+              note += NOTES[idx][IDXs[idx]];
+              note += "';";
+              eval(note);
+
+            }
 
             let OBJ = "img";
             OBJ += String(idx);
@@ -146,7 +198,7 @@
         </div>
         
         <main class = "mdl-layout__content">
-           <section class = "mdl-layout__tab-panel is-active" id = "crew">
+           <section class = "mdl-layout__tab-panel is-active" id = "crew" style="text-align:center"> 
             
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(0)">
                 <i class="material-icons">
@@ -160,10 +212,14 @@
                     arrow_forward
                     </i>
               </button>
+              <div id="note0" style="text-align:center">
+                <h6><b>Secretary General:</b> With this faction privilege, start the game with two extra Aquas. M2: The two Aquas are given when you Anchor your first Home Bernal.</h6>
+                <h6><b>Blink Telescope:</b> With this faction privelege, for each prospecting attempt using a raygun platform, you are allowed a single reroll of any size roll (I6.3) made in a prospect operation.</h6>"
+              </div>
 
   
            </section>
-           <section class = "mdl-layout__tab-panel" id = "thruster">
+           <section class = "mdl-layout__tab-panel" id = "thruster" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(1)">
                <i class="material-icons">
                    arrow_back
@@ -177,7 +233,7 @@
                    </i>
              </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "generator">
+           <section class = "mdl-layout__tab-panel" id = "generator" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(2)">
                <i class="material-icons">
                    arrow_back
@@ -191,7 +247,7 @@
                    </i>
              </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "reactor">
+           <section class = "mdl-layout__tab-panel" id = "reactor" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(3)">
                <i class="material-icons">
                    arrow_back
@@ -205,7 +261,7 @@
                    </i>
              </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "refinery">
+           <section class = "mdl-layout__tab-panel" id = "refinery" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(4)">
                <i class="material-icons">
                    arrow_back
@@ -219,7 +275,7 @@
                    </i>
              </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "robonaut">
+           <section class = "mdl-layout__tab-panel" id = "robonaut" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(5)">
                <i class="material-icons">
                    arrow_back
@@ -233,7 +289,7 @@
                    </i>
              </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "radiator">
+           <section class = "mdl-layout__tab-panel" id = "radiator" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(6)">
                <i class="material-icons">
                    arrow_back
@@ -247,7 +303,7 @@
                    </i>
              </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "freighter">
+           <section class = "mdl-layout__tab-panel" id = "freighter" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(7)">
                <i class="material-icons">
                    arrow_back
@@ -261,7 +317,7 @@
                    </i>
              </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "gwthruster">
+           <section class = "mdl-layout__tab-panel" id = "gwthruster" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(8)">
                <i class="material-icons">
                    arrow_back
@@ -275,7 +331,7 @@
                    </i>
              </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "bernal">
+           <section class = "mdl-layout__tab-panel" id = "bernal" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(9)">
                <i class="material-icons">
                    arrow_back
@@ -289,7 +345,7 @@
                    </i>
              </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "colonist">
+           <section class = "mdl-layout__tab-panel" id = "colonist" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(10)">
                <i class="material-icons">
                    arrow_back
