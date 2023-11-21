@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-    <meta name="viewport" content="initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="https://petershaggynoble.github.io/MDI-Sandbox/light/?icon=arrow-left">
+    <style>
+        img {
+          width: 25%;
+        } 
+        h6 {
+          font-size: 14px;
+          padding: 14px 14px;
+        }
+
+        @media only screen and (max-width: 850px) {
+
+        h6 {
+          font-size: 12px;
+        }
+      }
+
+    </style>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"> </script>
     <script>
         let IDXs = [];
@@ -72,6 +89,11 @@
         NOTES[CREW][4] = "<h6><b>Note G1c:</b> Crew dirt thrusters are limited by one fuel tank during a factory or ISRU once-per-turn free action.</h6>";
         NOTES[CREW][5] = "<h6><b>Note G1c:</b> Crew dirt thrusters are limited by one fuel tank during a factory or ISRU once-per-turn free action.</h6>";
         NOTES[CREW][5] += "<h6><b>Marketeer:</b> With this faction privilege, you always win auction ties (I2e), even if you are not the initiator.</h6>";
+
+        NOTES[ROBONAUT][5] = "<h6><b>MagBeam errata:</b> If pushed by Powersat: ISRU = 2 & base thrust = 6.</h6>";
+        NOTES[COLONIST][0] = "<h6><b>New Venus Future (errata fix):</b> Req = Decommission this card and an Operational thruster with net thrust 7+ on an Industrialized Synodic Comet of yours. Effects = Bust both Venus and the Comet and Decommission all their tokens & unanchor any Bernals (represents the drop in property values prior to the comet-Venus collision), 12 VP.  Note: If this Future is completed, for thematic effect (with no game effect unless play is continued beyond the endgame), place the Venus overlay card (V8b) to show how New Venus will eventually appear.</h6>";
+
+
 
         function next(idx){
 
@@ -162,8 +184,8 @@
 </head>
 <body>
     <!-- Always shows a header, even in smaller screens. -->
-    <div class = "mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
-        <header class = "mdl-layout__header" >
+    <div class = "mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs mdl-layout__header--scroll">
+        <header class = "mdl-layout__header mdl-layout__header--scroll" >
            <!-- Top row, always visible -->
            <div class = "mdl-layout__header-row mdl-layout--large-screen-only">
               <!-- Title -->
@@ -188,6 +210,7 @@
         
         <div class = "mdl-layout__drawer">
            <span class = "mdl-layout-title">HF4All</span>
+
            <nav class = "mdl-navigation">
               <a class = "mdl-navigation__link" href = "https://cutt.ly/hf4-core">Core Rules</a>
               <a class = "mdl-navigation__link" href = "https://cutt.ly/hf4-m1">M1 Terrawatt & Futures</a>    
@@ -380,6 +403,9 @@
                    </i>
              </button>
              <div id="note10" style="text-align:center">
+              <h6><b>New Venus Future (errata fix):</b> Req = Decommission this card and an Operational thruster with net thrust 7+ on an Industrialized Synodic Comet of yours. Effects = Bust both Venus and the Comet and Decommission all their tokens & unanchor any Bernals (represents the drop in property values prior to the comet-Venus collision), 12 VP.  Note: If this Future is completed, for thematic effect (with no game effect unless play is continued beyond the endgame), place the Venus overlay card (V8b) to show how New Venus will eventually appear.</h6>
+
+
             </div>
            </section>
         </main>
