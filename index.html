@@ -18,12 +18,31 @@
         }
 
       
+        @media only screen and (max-width: 1000px) {
+
+        h6 {
+          font-size: 13px;
+        }
+
+                
+        .mdl-button{
+          width: 30px;
+          height: 30px;
+          min-width: initial;
+        } 
+
         @media only screen and (max-width: 850px) {
 
         h6 {
           font-size: 12px;
         }
 
+                
+        .mdl-button{
+          width: 20px;
+          height: 20px;
+          min-width: initial;
+        } 
       }
 
     </style>
@@ -189,13 +208,27 @@
     <div class = "mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs mdl-layout__header--scroll">
         <header class = "mdl-layout__header mdl-layout__header--scroll" >
            <!-- Top row, always visible -->
-           <div class = "mdl-layout__header-row mdl-layout--large-screen-only">
+           <div class = "mdl-layout__header-row">
               <!-- Title -->
-              <span class = "mdl-layout-title mdl-layout--large-screen-only">High Frontier 4 All</span>          
+              <span class = "mdl-layout-title">High Frontier 4 All</span>          
            </div>
         
-           <!-- Tabs -->
            <div class = "mdl-layout__tab-bar mdl-js-ripple-effect" id="small">
+              <a href = "#crew" class = "mdl-layout__tab is-active">CRW</a>
+              <a href = "#thruster" class = "mdl-layout__tab">THR</a>
+              <a href = "#generator" class = "mdl-layout__tab">GEN</a>   
+              <a href = "#reactor" class = "mdl-layout__tab">REA</a>    
+              <a href = "#refinery" class = "mdl-layout__tab">REF</a>   
+              <a href = "#robonaut" class = "mdl-layout__tab">ROB</a>  
+              <a href = "#radiator" class = "mdl-layout__tab">RAD</a>    
+              <a href = "#freighter" class = "mdl-layout__tab">FRE</a>    
+              <a href = "#gwthruster" class = "mdl-layout__tab">GW</a>    
+              <a href = "#bernal" class = "mdl-layout__tab">BER</a>   
+              <a href = "#colonist" class = "mdl-layout__tab">COL</a>  
+            </div>
+
+           <!--
+           <div class = "mdl-layout__tab-bar mdl-js-ripple-effect mdl-layout--small-screen-only" id="small">
               <a href = "#crew" class = "mdl-layout__tab is-active">C</a>
               <a href = "#thruster" class = "mdl-layout__tab">THR</a>
               <a href = "#generator" class = "mdl-layout__tab">GEN</a>   
@@ -207,9 +240,9 @@
               <a href = "#gwthruster" class = "mdl-layout__tab">GW</a>    
               <a href = "#bernal" class = "mdl-layout__tab">BER</a>   
               <a href = "#colonist" class = "mdl-layout__tab">COL</a>  
-            </div>
-            <!--
-            <div class = "mdl-layout__tab-bar mdl-js-ripple-effect" id="big">
+            </div> Tabs 
+            
+            <div class = "mdl-layout__tab-bar mdl-js-ripple-effect mdl-layout--large-screen-only" id="big">
               <a href = "#crew" class = "mdl-layout__tab is-active">Crew</a>
               <a href = "#thruster" class = "mdl-layout__tab">Thruster</a>
               <a href = "#generator" class = "mdl-layout__tab">Generator</a>   
