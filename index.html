@@ -73,16 +73,6 @@
         NOTES[CREW][5] = "<h6><b>Note G1c:</b> Crew dirt thrusters are limited by one fuel tank during a factory or ISRU once-per-turn free action.</h6>";
         NOTES[CREW][5] += "<h6><b>Marketeer:</b> With this faction privilege, you always win auction ties (I2e), even if you are not the initiator.</h6>";
 
-        for(let idx = 0; idx < 11; ++idx)
-        {
-            let note = "document.getElementById('note";
-            note += String(idx);
-            note += "').innerHTML ='";
-            note += NOTES[idx][IDXs[idx]];
-            note += "';";
-            eval(note);
-        }
-
         function next(idx){
 
             IDXs[idx]++;
@@ -98,7 +88,13 @@
             SRCb += String(IDXs[idx]);
             SRCb += "b.jpg";
 
-            if(NOTES[idx].length){
+            if(NOTES[idx].length == 0 || NOTES[idx][IDXs[idx]] == null){
+              let note = "document.getElementById('note";
+              note += String(idx);
+              note += "').innerHTML ='';";
+              eval(note);
+            }
+            else {
               let note = "document.getElementById('note";
               note += String(idx);
               note += "').innerHTML ='";
@@ -134,7 +130,13 @@
             SRCb += String(IDXs[idx]);
             SRCb += "b.jpg";
 
-            if(NOTES[idx].length){
+            if(NOTES[idx].length == 0 || NOTES[idx][IDXs[idx]] == null){
+              let note = "document.getElementById('note";
+              note += String(idx);
+              note += "').innerHTML ='';";
+              eval(note);
+            }
+            else {
               let note = "document.getElementById('note";
               note += String(idx);
               note += "').innerHTML ='";
@@ -160,12 +162,12 @@
 </head>
 <body>
     <!-- Always shows a header, even in smaller screens. -->
-    <div class = "mdl-layout mdl-js-layout">
-        <header class = "mdl-layout__header mdl-layout__header--scroll" >
+    <div class = "mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs mdl-layout__header--waterfall">
+        <header class = "mdl-layout__header" >
            <!-- Top row, always visible -->
-           <div class = "mdl-layout__header-row">
+           <div class = "mdl-layout__header-row mdl-layout--large-screen-only">
               <!-- Title -->
-              <span class = "mdl-layout-title">High Frontier 4 All</span>          
+              <span class = "mdl-layout-title mdl-layout--large-screen-only">High Frontier 4 All</span>          
            </div>
         
            <!-- Tabs -->
