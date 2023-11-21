@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--<meta name="viewport" content="initial-scale=1.0">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -15,6 +15,9 @@
           padding: 14px 14px;
         }
 
+        #board-container img:hover { 
+        cursor: zoom-in; 
+        } 
 
         @media only screen and (max-width: 1000px) {
 
@@ -58,7 +61,7 @@
         let MAXs = [];
         let SRCDIR = [];
         let NOTES = [];
-
+        let NOTES2 = [];
         let CREW = 0;
         let THRUSTER = 1;
         let GENERATOR = 2;
@@ -74,6 +77,7 @@
         for(let i=0;i<11; ++i){
             IDXs.push(0);
             NOTES.push([]);
+            NOTES2.push([]);
         }
         SRCDIR.push("crew/card");
         SRCDIR.push("thruster/card");
@@ -104,6 +108,14 @@
             NOTES[i].push("");
           }
         }
+        let M3IMG = [];
+        M3IMG.push("boards/M3yellow.jpg");
+        M3IMG.push("boards/M3purple.jpg");
+        M3IMG.push("boards/M3white.jpg");
+        M3IMG.push("boards/M3green.jpg");
+        M3IMG.push("boards/M3red.jpg");
+        M3IMG.push("boards/M3gray.jpg");
+        
         NOTES[CREW][0] = "<h6><b>Secretary General:</b> With this faction privilege, start the game with two extra Aquas. M2: The two Aquas are given when you Anchor your first Home Bernal.</h6>";
         NOTES[CREW][0] +="<h6><b>Blink Telescope:</b> With this faction privelege, for each prospecting attempt using a raygun platform, you are allowed a single reroll of any size roll (I6.3) made in a prospect operation.</h6>";
         NOTES[CREW][1] = "<h6><b>Taxes:</b> This faction privilege gives you a 1 Aqua bonus from the Pool for each Claim placed or industrialization by any player (including yourself). No tax bonus for Claim Jumping.</h6>";
@@ -120,10 +132,95 @@
         NOTES[ROBONAUT][5] = "<h6><b>MagBeam errata:</b> If pushed by Powersat: ISRU = 2 & base thrust = 6.</h6>";
         NOTES[COLONIST][0] = "<h6><b>New Venus Future (errata fix):</b> Req = Decommission this card and an Operational thruster with net thrust 7+ on an Industrialized Synodic Comet of yours. Effects = Bust both Venus and the Comet and Decommission all their tokens & unanchor any Bernals (represents the drop in property values prior to the comet-Venus collision), 12 VP.  Note: If this Future is completed, for thematic effect (with no game effect unless play is continued beyond the endgame), place the Venus overlay card (V8b) to show how New Venus will eventually appear.</h6>";
 
+        NOTES2[CREW][1] = "<h6><b>Note:</b> Amat bombs are not used if you are the defender.</h6>";
+        NOTES2[CREW][1] += "<h6><b>War Crimes:</b> Player Purple has this Ability, which allows him to perform Felonies against allies during War/ Anarchy (3A3a), perform a sneak attack or dropstone attack without paying a bribe (3B3c,e), to use human kamikazes (3E5d) and manned dropstones (3D7c), and suffer no consequences from genocide (3E2m).<\h6>";
+        NOTES2[CREW][2] = "<h6><b>Errata fix:</b> Your Crew/Colonists (that have ISRU platforms) are marines who do not need buggies to make a buggy attack (3E4).</h6>";
+        NOTES2[CREW][4] = "<h6><b>Note:</b> Jammers are never used if you are the defender.</h6>";
 
+        var scale = 1,
+        panning = false,
+        pointX = 0,
+        pointY = 0,
+        start = { x: 0, y: 0 },
+        zoom = [];
 
+        let started = 0;
+
+        function init() {
+          if(!started) {
+            zoom = document.getElementById('zoom'); 
+           
+            zoom.onmousedown = function (e) {
+              e.preventDefault();
+              start = { x: e.clientX - pointX, y: e.clientY - pointY };
+              panning = true;
+            }
+            zoom.onmouseup = function (e) {
+              panning = false;
+            }
+            zoom.onmousemove = function (e) {
+              e.preventDefault();
+              if (!panning) {
+                return;
+              }
+              pointX = (e.clientX - start.x);
+              pointY = (e.clientY - start.y);
+              setTransform();
+            }
+            zoom.onwheel = function (e) {
+              e.preventDefault();
+              var xs = (e.clientX - pointX) / scale,
+                ys = (e.clientY - pointY) / scale,
+                delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+              (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
+              pointX = e.clientX - xs * scale;
+              pointY = e.clientY - ys * scale;
+              setTransform();
+            }
+            started = 1;
+          }
+        }
+
+        function setTransform() {
+          zoom.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
+        }
+       
+        
+
+        
+
+        function boardChanged(){
+          init();
+
+          if(boards.selectedIndex == 0) {
+            Board.src = "boards/Sun.jpg";
+          }
+          if(boards.selectedIndex == 1) {
+            Board.src = "boards/Player.jpg";
+          }
+          else if(boards.selectedIndex == 2) {
+            Board.src = "boards/M0A.jpg";
+          }
+          else if(boards.selectedIndex == 3) {
+            Board.src = "boards/M3As.jpg";
+          }
+          else if(boards.selectedIndex == 4) {
+            Board.src = "boards/M3VPs.jpg";
+          }
+          else if(boards.selectedIndex == 5) {
+            Board.src = "boards/M3Battle.jpg";
+          }
+          else if(boards.selectedIndex == 6) {
+            Board.src = "boards/Map.jpg";
+          }
+          else if(boards.selectedIndex == 7) {
+            Board.src = "boards/VenusMap.jpg";
+          }
+
+        }
         function next(idx){
 
+            init();
             IDXs[idx]++;
             if(IDXs[idx] > MAXs[idx]) {
                 IDXs[idx] = 0;
@@ -161,11 +258,35 @@
             OBJb += "b.src = SRCb;";
             eval(OBJ);
             eval(OBJb);
+
+            if(idx == 0)
+            {
+              let OBJ = "M3img.src = M3IMG[IDXs[0]];";
+              eval(OBJ );
+
+              if(NOTES2[idx].length == 0 || NOTES2[idx][IDXs[idx]] == null){
+                let note = "document.getElementById('note_2_";
+                note += String(idx);
+                note += "').innerHTML ='';";
+                eval(note);
+              }
+              else {
+                let note = "document.getElementById('note_2_";
+                note += String(idx);
+                note += "').innerHTML ='";
+                note += NOTES2[idx][IDXs[idx]];
+                note += "';";
+                eval(note);
+
+              }
+
+            }
             
 
         }
         function prev(idx){
 
+            init();
             if(IDXs[idx]>0)
                IDXs[idx]--;
             else
@@ -204,7 +325,28 @@
             eval(OBJ);
             eval(OBJb);
            
-           
+            if(idx == 0)
+            {
+              let OBJ = "M3img.src = M3IMG[IDXs[0]];";
+              eval(OBJ );
+
+              if(NOTES2[idx].length == 0 || NOTES2[idx][IDXs[idx]] == null){
+                let note = "document.getElementById('note_2_";
+                note += String(idx);
+                note += "').innerHTML ='';";
+                eval(note);
+              }
+              else {
+                let note = "document.getElementById('note_2_";
+                note += String(idx);
+                note += "').innerHTML ='";
+                note += NOTES2[idx][IDXs[idx]];
+                note += "';";
+                eval(note);
+
+              }
+
+            }
 
         }
     </script>
@@ -231,7 +373,9 @@
               <a href = "#gwthruster" class = "mdl-layout__tab">GW</a>    
               <a href = "#bernal" class = "mdl-layout__tab">BER</a>   
               <a href = "#colonist" class = "mdl-layout__tab">COL</a>  
+              <a href = "#PlayerBoard" class = "mdl-layout__tab">B</a>  
             </div>
+            
 
            <!--
            <div class = "mdl-layout__tab-bar mdl-js-ripple-effect mdl-layout--small-screen-only" id="small">
@@ -260,6 +404,8 @@
               <a href = "#gwthruster" class = "mdl-layout__tab">GW Thruster</a>    
               <a href = "#bernal" class = "mdl-layout__tab">Bernal</a>   
               <a href = "#colonist" class = "mdl-layout__tab">Colonist</a>   
+
+
            </div>-->
         </header>
         
@@ -298,8 +444,9 @@
                 <h6><b>Secretary General:</b> With this faction privilege, start the game with two extra Aquas. M2: The two Aquas are given when you Anchor your first Home Bernal.</h6>
                 <h6><b>Blink Telescope:</b> With this faction privelege, for each prospecting attempt using a raygun platform, you are allowed a single reroll of any size roll (I6.3) made in a prospect operation.</h6>"
               </div>
-
-  
+              <img src="boards/M3yellow.jpg" alt="Italian Trulli" id="M3img">
+              <div id="note_2_0" style="text-align:center">
+              </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "thruster" style="text-align:center">
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(1)">
@@ -464,7 +611,28 @@
 
             </div>
            </section>
-        </main>
+           <section class = "mdl-layout__tab-panel" id = "PlayerBoard" style="text-align:center">
+
+            <div>
+            
+              <select class="mdl-textfield__input"  name="board" id="boards" onChange="boardChanged()">
+                <option value="M0">SOL Sunspot Cycle</option>
+                <option value="P">Player Board</option>
+                <option value="M0">M0 Political Assembly</option>
+                <option value="M3">M3 Political Assembly</option>
+                <option value="M3VPs">M3 Victory Points</option>
+                <option value="M3Battle">M3 Battle Chart</option>
+                <option value="Map">Map</option>
+                <option value="VMap">Venus Map</option>
+              </select>
+              <div id="zoom">
+                <img src="boards/Sun.jpg" alt="zoom" id="Board" style="width: 100%">
+              </div>
+            </div>
+
+            
+
+          </section>
      </div>
 </body>
 </html>
