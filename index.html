@@ -256,6 +256,117 @@
           }
 
         }
+        let shuffleArray = [];
+        for(let i=0; i<11;++i){
+          shuffleArray.push([]);
+          for(let j=0; j<=MAXs[i];++j){
+            shuffleArray[i].push(j);
+          }
+        }
+
+        function randomShuffle(){
+          for(let k=0; k<shuffleArray.length;++k){
+            for (let i = shuffleArray[k].length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              const temp = shuffleArray[k][i];
+              shuffleArray[k][i] = shuffleArray[k][j];
+              shuffleArray[k][j] = temp;
+            }
+          }
+          var selectorId = document.querySelector('.mdl-layout');
+          selectorId.MaterialLayout.toggleDrawer();
+ 
+          for(let i=0; i<11; ++i){
+            paint(i);
+          }
+
+        }
+        function paint(idx){
+          let id = shuffleArray[idx][IDXs[idx]];
+
+          let RfG = 0;
+          if(idx == 1 && thrusterRfG.selectedIndex == 1){
+            RfG = 1;
+          }
+          else if(idx == 4 && refineryRfG.selectedIndex == 1){
+            RfG = 1;
+          }
+          else if(idx == 5 && robonautRfG.selectedIndex == 1){
+            RfG = 1;
+          }
+
+          let SRC = SRCDIR[idx];
+          if(RfG){
+            SRC += "RfG";
+          }
+          SRC += "/card";
+          SRC += String(id);
+          SRC += ".jpg";
+
+          let SRCb = SRCDIR[idx];
+          if(RfG){
+            SRCb += "RfG";
+          }
+          SRCb += "/card";
+          SRCb += String(id);
+          SRCb += "b.jpg";
+
+          if(NOTES[idx].length == 0 || NOTES[idx][id] == null){
+            let note = "document.getElementById('note";
+            note += String(idx);
+            note += "').innerHTML ='';";
+            eval(note);
+          }
+          else {
+            let note = "document.getElementById('note";
+            note += String(idx);
+            note += "').innerHTML ='";
+            note += NOTES[idx][id];
+            note += "';";
+            eval(note);
+
+          }
+
+          let OBJ = "img";
+          OBJ += String(idx);
+          OBJ += ".src = SRC;";
+          let OBJb = "img";
+          OBJb += String(idx);
+          OBJb += "b.src = SRCb;";
+          let CNT = "cnt";
+          CNT += String(idx);
+          CNT += ".innerHTML = '";
+          CNT += String(IDXs[idx]+1);
+          CNT += "/";
+          CNT += String(MAXs[idx]+1);
+          CNT += "'";
+          eval(OBJ);
+          eval(OBJb);
+          eval(CNT);
+
+          if(idx == 0)
+          {
+            let OBJ = "M3img.src = M3IMG[id];";
+            eval(OBJ );
+
+            if(NOTES2[idx].length == 0 || NOTES2[idx][id] == null){
+              let note = "document.getElementById('note_2_";
+              note += String(idx);
+              note += "').innerHTML ='';";
+              eval(note);
+            }
+            else {
+              let note = "document.getElementById('note_2_";
+              note += String(idx);
+              note += "').innerHTML ='";
+              note += NOTES2[idx][id];
+              note += "';";
+              eval(note);
+
+            }
+
+          }
+        }
         function next(idx){
 
             init();
@@ -263,95 +374,13 @@
             if(IDXs[idx] > MAXs[idx]) {
                 IDXs[idx] = 0;
             }
-
-            let RfG = 0;
-            if(idx == 1 && thrusterRfG.selectedIndex == 1){
-              RfG = 1;
-            }
-            else if(idx == 4 && refineryRfG.selectedIndex == 1){
-              RfG = 1;
-            }
-            else if(idx == 5 && robonautRfG.selectedIndex == 1){
-              RfG = 1;
-            }
-
-            let SRC = SRCDIR[idx];
-            if(RfG){
-              SRC += "RfG";
-            }
-            SRC += "/card";
-            SRC += String(IDXs[idx]);
-            SRC += ".jpg";
-
-            let SRCb = SRCDIR[idx];
-            if(RfG){
-              SRCb += "RfG";
-            }
-            SRCb += "/card";
-            SRCb += String(IDXs[idx]);
-            SRCb += "b.jpg";
-
-            if(NOTES[idx].length == 0 || NOTES[idx][IDXs[idx]] == null){
-              let note = "document.getElementById('note";
-              note += String(idx);
-              note += "').innerHTML ='';";
-              eval(note);
-            }
-            else {
-              let note = "document.getElementById('note";
-              note += String(idx);
-              note += "').innerHTML ='";
-              note += NOTES[idx][IDXs[idx]];
-              note += "';";
-              eval(note);
-
-            }
-
-            let OBJ = "img";
-            OBJ += String(idx);
-            OBJ += ".src = SRC;";
-            let OBJb = "img";
-            OBJb += String(idx);
-            OBJb += "b.src = SRCb;";
-            let CNT = "cnt";
-            CNT += String(idx);
-            CNT += ".innerHTML = '";
-            CNT += String(IDXs[idx]+1);
-            CNT += "/";
-            CNT += String(MAXs[idx]+1);
-            CNT += "'";
-            eval(OBJ);
-            eval(OBJb);
-            eval(CNT);
-
-            if(idx == 0)
-            {
-              let OBJ = "M3img.src = M3IMG[IDXs[0]];";
-              eval(OBJ );
-
-              if(NOTES2[idx].length == 0 || NOTES2[idx][IDXs[idx]] == null){
-                let note = "document.getElementById('note_2_";
-                note += String(idx);
-                note += "').innerHTML ='';";
-                eval(note);
-              }
-              else {
-                let note = "document.getElementById('note_2_";
-                note += String(idx);
-                note += "').innerHTML ='";
-                note += NOTES2[idx][IDXs[idx]];
-                note += "';";
-                eval(note);
-
-              }
-
-            }
+            paint(idx);
             
 
         }
         function RfGChanged(idx){
-          prev(idx);
-          next(idx);
+          init();
+          paint(idx);
         }
         function prev(idx){
 
@@ -361,88 +390,7 @@
             else
                IDXs[idx]=MAXs[idx];
 
-            let RfG = 0;
-            if(idx == 1 && thrusterRfG.selectedIndex == 1){
-              RfG = 1;
-            }
-            else if(idx == 4 && refineryRfG.selectedIndex == 1){
-              RfG = 1;
-            }
-            else if(idx == 5 && robonautRfG.selectedIndex == 1){
-              RfG = 1;
-            }
-            let SRC = SRCDIR[idx];
-            
-            if(RfG){
-              SRC += "RfG";
-            }
-            SRC += "/card";
-            SRC += String(IDXs[idx]);
-            SRC += ".jpg";
-
-            let SRCb = SRCDIR[idx];
-            if(RfG){
-              SRCb += "RfG";
-            }
-            SRCb += "/card";
-            SRCb += String(IDXs[idx]);
-            SRCb += "b.jpg";
-
-            if(RfG || NOTES[idx].length == 0 || NOTES[idx][IDXs[idx]] == null){
-              let note = "document.getElementById('note";
-              note += String(idx);
-              note += "').innerHTML ='';";
-              eval(note);
-            }
-            else {
-              let note = "document.getElementById('note";
-              note += String(idx);
-              note += "').innerHTML ='";
-              note += NOTES[idx][IDXs[idx]];
-              note += "';";
-              eval(note);
-
-            }
-
-            let OBJ = "img";
-            OBJ += String(idx);
-            OBJ += ".src = SRC;";
-            let OBJb = "img";
-            OBJb += String(idx);
-            OBJb += "b.src = SRCb;";
-            let CNT = "cnt";
-            CNT += String(idx);
-            CNT += ".innerHTML = '";
-            CNT += String(IDXs[idx]+1);
-            CNT += "/";
-            CNT += String(MAXs[idx]+1);
-            CNT += "'";
-            eval(OBJ);
-            eval(OBJb);
-            eval(CNT);
-           
-            if(idx == 0)
-            {
-              let OBJ = "M3img.src = M3IMG[IDXs[0]];";
-              eval(OBJ );
-
-              if(NOTES2[idx].length == 0 || NOTES2[idx][IDXs[idx]] == null){
-                let note = "document.getElementById('note_2_";
-                note += String(idx);
-                note += "').innerHTML ='';";
-                eval(note);
-              }
-              else {
-                let note = "document.getElementById('note_2_";
-                note += String(idx);
-                note += "').innerHTML ='";
-                note += NOTES2[idx][IDXs[idx]];
-                note += "';";
-                eval(note);
-
-              }
-
-            }
+            paint(idx);
 
         }
       
@@ -455,10 +403,10 @@
            <!-- Top row, always visible -->
            <div class = "mdl-layout__header-row">
               <!-- Title -->
-              <span class = "mdl-layout-title">High Frontier 4 All</span>          
+              <span class = "mdl-layout-title">High Frontier 4 All - Reference</span>          
            </div>
         
-           <div class = "mdl-layout__tab-bar mdl-js-ripple-effect" id="small">
+           <div class = "mdl-layout__tab-bar mdl-js-ripple-effect" id="tabbar">
               <a href = "#crew" class = "mdl-layout__tab is-active" id="crw">CRW</a>
               <a href = "#thruster" class = "mdl-layout__tab" id="thr">THR</a>
               <a href = "#generator" class = "mdl-layout__tab" id="gen">GEN</a>   
@@ -485,36 +433,7 @@
             <div class = "mdl-tooltip" for = "col">Colonist</div>
             <div class = "mdl-tooltip" for = "b">Boards</div>
 
-           <!--
-           <div class = "mdl-layout__tab-bar mdl-js-ripple-effect mdl-layout--small-screen-only" id="small">
-              <a href = "#crew" class = "mdl-layout__tab is-active">C</a>
-              <a href = "#thruster" class = "mdl-layout__tab">THR</a>
-              <a href = "#generator" class = "mdl-layout__tab">GEN</a>   
-              <a href = "#reactor" class = "mdl-layout__tab">REA</a>    
-              <a href = "#refinery" class = "mdl-layout__tab">REF</a>   
-              <a href = "#robonaut" class = "mdl-layout__tab">ROB</a>  
-              <a href = "#radiator" class = "mdl-layout__tab">RAD</a>    
-              <a href = "#freighter" class = "mdl-layout__tab">FR</a>    
-              <a href = "#gwthruster" class = "mdl-layout__tab">GW</a>    
-              <a href = "#bernal" class = "mdl-layout__tab">BER</a>   
-              <a href = "#colonist" class = "mdl-layout__tab">COL</a>  
-            </div> Tabs 
-            
-            <div class = "mdl-layout__tab-bar mdl-js-ripple-effect mdl-layout--large-screen-only" id="big">
-              <a href = "#crew" class = "mdl-layout__tab is-active">Crew</a>
-              <a href = "#thruster" class = "mdl-layout__tab">Thruster</a>
-              <a href = "#generator" class = "mdl-layout__tab">Generator</a>   
-              <a href = "#reactor" class = "mdl-layout__tab">Reactor</a>    
-              <a href = "#refinery" class = "mdl-layout__tab">Refinery</a>   
-              <a href = "#robonaut" class = "mdl-layout__tab">Robonaut</a>  
-              <a href = "#radiator" class = "mdl-layout__tab">Radiator</a>    
-              <a href = "#freighter" class = "mdl-layout__tab">Freighter</a>    
-              <a href = "#gwthruster" class = "mdl-layout__tab">GW Thruster</a>    
-              <a href = "#bernal" class = "mdl-layout__tab">Bernal</a>   
-              <a href = "#colonist" class = "mdl-layout__tab">Colonist</a>   
-
-
-           </div>-->
+           
         </header>
         
         <div class = "mdl-layout__drawer">
@@ -530,6 +449,8 @@
               <a class = "mdl-navigation__link" href = "https://boardgamegeek.com/thread/3194204/web-reference">Reference Thread</a>   
               <a class = "mdl-navigation__link" href = "https://boardgamegeek.com/thread/2838108/hf4-coreappendixm1-3-living-rules-changes-2nd-prin">Core Changes Summary</a>
               <a class = "mdl-navigation__link" href = "https://iongamedesign.com/products/high-frontier-4-all">Iongamesdesing</a>       
+              <hr>
+              <a class = "mdl-navigation__link" onclick="randomShuffle()">Shuffle Cards</a>  
            </nav>
         </div>
         
