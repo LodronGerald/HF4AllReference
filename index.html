@@ -264,6 +264,19 @@
         }
 
         function randomShuffle(){
+
+          let c = [];
+          for(let idx = 0; idx<11; ++idx){
+            let counter = 0;
+            for(let i = 0; i<=IDXs[idx];++i){
+              let h = shuffleArray[idx][i];
+              if(DEL[idx][h] == 0)
+                counter++;
+            }
+            c.push(counter);
+
+          }
+
           for(let k=0; k<shuffleArray.length;++k){
             for (let i = shuffleArray[k].length - 1; i > 0; i--) {
               const j = Math.floor(Math.random() * (i + 1));
@@ -276,12 +289,42 @@
           var selectorId = document.querySelector('.mdl-layout');
           selectorId.MaterialLayout.toggleDrawer();
  
-          for(let i=0; i<11; ++i){
-            paint(i);
+          for(let idx=0; idx<11; ++idx){
+              next(idx);
+
+              let counter = 0;
+              for(let i = 0; i<=IDXs[idx];++i){
+                let h = shuffleArray[idx][i];
+                if(DEL[idx][h] == 0)
+                  counter++;
+              }
+
+              while(c[idx]!= counter){
+                prev(idx);
+
+                counter = 0;
+                for(let i = 0; i<=IDXs[idx];++i){
+                  let h = shuffleArray[idx][i];
+                  if(DEL[idx][h] == 0)
+                    counter++;
+                }
+              }
+              
           }
 
         }
         function inspirationShuffle(){
+          let c = [];
+          for(let idx = 0; idx<11; ++idx){
+            let counter = 0;
+            for(let i = 0; i<=IDXs[idx];++i){
+              let h = shuffleArray[idx][i];
+              if(DEL[idx][h] == 0)
+                counter++;
+            }
+            c.push(counter);
+
+          }
           for(let k=0; k<shuffleArray.length;++k){
             let h = shuffleArray[k][0];
 
@@ -294,8 +337,27 @@
           var selectorId = document.querySelector('.mdl-layout');
           selectorId.MaterialLayout.toggleDrawer();
  
-          for(let i=0; i<11; ++i){
-            paint(i);
+          for(let idx=0; idx<11; ++idx){
+              next(idx);
+
+              let counter = 0;
+              for(let i = 0; i<=IDXs[idx];++i){
+                let h = shuffleArray[idx][i];
+                if(DEL[idx][h] == 0)
+                  counter++;
+              }
+
+              while(c[idx]!= counter){
+                prev(idx);
+
+                counter = 0;
+                for(let i = 0; i<=IDXs[idx];++i){
+                  let h = shuffleArray[idx][i];
+                  if(DEL[idx][h] == 0)
+                    counter++;
+                }
+              }
+              
           }
         }
         function removeCard(idx){
