@@ -295,8 +295,7 @@
           selectorId.MaterialLayout.toggleDrawer();
  
           for(let i=0; i<11; ++i){
-            next(i);
-            prev(i);
+            paint(i);
           }
         }
         function removeCard(idx){
@@ -364,8 +363,9 @@
           
           let counter = 0;
           let nr_cards = 0;
-          for(let i = 0; i<=id;++i){
-            if(DEL[idx][i] == 0)
+          for(let i = 0; i<=IDXs[idx];++i){
+            let h = shuffleArray[idx][i];
+            if(DEL[idx][h] == 0)
               counter++;
           }
 
