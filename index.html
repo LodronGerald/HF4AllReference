@@ -247,21 +247,27 @@
             Board.src = "boards/Player.jpg";
           }
           else if(boards.selectedIndex == 2) {
-            Board.src = "boards/M0A.jpg";
+            Board.src = "boards/Bernal.jpg";
           }
           else if(boards.selectedIndex == 3) {
-            Board.src = "boards/M3As.jpg";
+            Board.src = "boards/Freighter.jpg";
           }
           else if(boards.selectedIndex == 4) {
-            Board.src = "boards/M3VPs.jpg";
+            Board.src = "boards/M0A.jpg";
           }
           else if(boards.selectedIndex == 5) {
-            Board.src = "boards/M3Battle.jpg";
+            Board.src = "boards/M3As.jpg";
           }
           else if(boards.selectedIndex == 6) {
-            Board.src = "boards/Map.jpg";
+            Board.src = "boards/M3VPs.jpg";
           }
           else if(boards.selectedIndex == 7) {
+            Board.src = "boards/M3Battle.jpg";
+          }
+          else if(boards.selectedIndex == 8) {
+            Board.src = "boards/Map.jpg";
+          }
+          else if(boards.selectedIndex == 9) {
             Board.src = "boards/VenusMap.jpg";
           }
 
@@ -885,6 +891,8 @@
               <select class="mdl-textfield__input"  name="board" id="boards" onChange="boardChanged()">
                 <option value="SOL">SOL Sunspot Cycle</option>
                 <option value="P">Player Board</option>
+                <option value="B">Player Bernal Board</option>
+                <option value="F">Player Freighter Board</option>
                 <option value="M0">M0 Political Assembly</option>
                 <option value="M3">M3 Political Assembly</option>
                 <option value="M3VPs">M3 Victory Points</option>
