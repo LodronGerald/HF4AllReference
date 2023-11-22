@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!--<meta name="viewport" content="initial-scale=1.0">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HF4All Web Reference</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="https://petershaggynoble.github.io/MDI-Sandbox/light/?icon=arrow-left">
@@ -129,14 +129,52 @@
         NOTES[CREW][5] = "<h6><b>Note G1c:</b> Crew dirt thrusters are limited by one fuel tank during a factory or ISRU once-per-turn free action.</h6>";
         NOTES[CREW][5] += "<h6><b>Marketeer:</b> With this faction privilege, you always win auction ties (I2e), even if you are not the initiator.</h6>";
 
-        NOTES[ROBONAUT][5] = "<h6><b>MagBeam errata:</b> If pushed by Powersat: ISRU = 2 & base thrust = 6.</h6>";
-        NOTES[COLONIST][0] = "<h6><b>New Venus Future (errata fix):</b> Req = Decommission this card and an Operational thruster with net thrust 7+ on an Industrialized Synodic Comet of yours. Effects = Bust both Venus and the Comet and Decommission all their tokens & unanchor any Bernals (represents the drop in property values prior to the comet-Venus collision), 12 VP.  Note: If this Future is completed, for thematic effect (with no game effect unless play is continued beyond the endgame), place the Venus overlay card (V8b) to show how New Venus will eventually appear.</h6>";
+        NOTES[REACTOR][1] = "<h6><b>Project Valkyrie:</b> Only Decommissions cards in its Stack.</h6>";
 
+        NOTES[REFINERY][3] = "<h6><b>Atmospheric Scoop:</b> Adjacent/Colocated aerostat sites gain 2 hydration for prospecting and refuel.</h6>";
+
+        NOTES[ROBONAUT][5] = "<h6><b>MagBeam errata:</b> If pushed by Powersat: ISRU = 2 & base thrust = 6.</h6>";
+        NOTES[ROBONAUT][11] = "<h6><b>Lorentz-propelled Microprobe:</b> Reroll only applies to itself.</h6>";
+       
+        NOTES[COLONIST][0] = "<h6><b>New Venus Future (errata fix):</b> Req = Decommission this card and an Operational thruster with net thrust 7+ on an Industrialized Synodic Comet of yours. Effects = Bust both Venus and the Comet and Decommission all their tokens & unanchor any Bernals (represents the drop in property values prior to the comet-Venus collision), 12 VP.  Note: If this Future is completed, for thematic effect (with no game effect unless play is continued beyond the endgame), place the Venus overlay card (V8b) to show how New Venus will eventually appear.</h6>";
+        NOTES[COLONIST][0] += "<h6><b>M3 Note on New Venus Future (1D5a, 3F2g):</b> Use the dislodge operation (3D7) to complete these Futures. Completion allows you to convert any Synodic Comet into a synodic dropstone, in which you do not need to pay a bribe.</h6>";
+        
+        NOTES[COLONIST][1] = "<h6><b>Supreme Cult Future (errata fix):</b> Req (Module 0) = Active Law in authority. Effects = You may lobby without removing the delegate used. All Seniority Disks (past and future) migrate to authority. 10 VP if you control this card at the endgame.</h6>";
+        NOTES[COLONIST][6] = "<h6><b>Footfall Future (errata fix):</b> Req = Decommission this card and an Operational thruster with net thrust 7+ on an Industrialized Synodic Comet of yours. This Busts the Site and Decommissions all tokens on it. Effects = Casus belli (1D2c),30 10 VP.</h6>";
+        NOTES[COLONIST][6] += "<h6><b>M3 Note on Footfall Future (1D5a, 3F2g):</b> Use the dislodge operation (3D7) to complete these Futures. Completion allows you to convert any Synodic Comet into a synodic dropstone, in which you do not need to pay a bribe.</h6>";
+        
+        NOTES[COLONIST][9] = "<h6><b>Note:</b> Group Mind Immortalists ability does not work during war/anarchy (2C4j).</h6>";
+        NOTES[COLONIST][10] = "<h6><b>Dyson Bubble Future (errata fix):</b> Req = Both Sites of Mercury industrialized by any player, with this Colonist at one of them. Endgame Effect = 5 VP per Factory (owned by any player) on Mercury.</h6>";
+        NOTES[COLONIST][10] += "<h6><b>M3 Note on Dyson Bubble Future (1D5j, 3F2h):</b> May prevent a player from using Solar-Power cards during combat.</h6>";
+
+        NOTES[COLONIST][11] = "<h6><b>Errata fix:</b> Iceworms no longer make Epic Hazard Operations a free action.</h6>";
+
+        NOTES[GWTHRUSTER][1] = "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any SIze 1 Site. </h6>";
+        NOTES[GWTHRUSTER][2] = "<h6><b>M3 Note on Mass Beam (1D3c, 3F2b):</b> The FV of your guns (3E3b) is their firing rad-hardness minus 1d6. </h6>";
+        NOTES[GWTHRUSTER][5] = "<h6><b>M3 Note on Enzmann Starship (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
+        NOTES[GWTHRUSTER][6] = "<h6><b>M3 Note on Lithiated Ammonia (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
+       
+        NOTES[FREIGHTER][1] = "<h6><b>M3 Note on Beehive Ark (1D4b, 3F2d):</b> Your Tokens on Size 1 Sites are immune to all combat. </h6>";
+        NOTES[FREIGHTER][4] = "<h6><b>M3 Note on Golden Apples (1D4e, 3F2f):</b> FINAO is no longer a war restriction (3D4i) for all players. If other players pay for FINAO (whether Aqua or Isotopes), you receive the payment. </h6>";
+        NOTES[FREIGHTER][5] = "<h6><b>M3 Note on Antimatter (1D4f, 3F2e):</b> Gain amat bombs (3E3d), which you can use without paying Aquas. </h6>";
+        NOTES[FREIGHTER][8] = "<h6><b>M3 Note on Beehive Ark (1D4b, 3F2d):</b> Your Tokens on Size 1 Sites are immune to all combat. </h6>";
+       
+        NOTES[BERNAL][0] = "<h6><b>M3 Note:</b> (Promoted) Your Crew and Bernals can fire Antimatter Bombs.</h6>";
+        NOTES[BERNAL][1] = "<h6><b>M3 Note:</b> Red Cross Token. No combat is allowed to or from Bernal. Immune to No Home Bernal restrictions.</h6>";
+       
+        NOTES[BERNAL][2] = "<h6><b>Errata fix:</b> L1 Climate Control Bernal must be Anchored in L1 to get Home ability.</h6>";
+        NOTES[BERNAL][5] = "<h6><b>Errata fix:</b> Epic Hazard Roll to Anchor in Home Orbit.</h6>";
+        NOTES[BERNAL][5] += "<h6><b>M3 Note:</b> Immune to boost & homesteading restrictions. With an Epic Hazard Operation you may build Space Elevator over a (half)lander burn. Doubles FINAO costs for all players.</h6>";
+        NOTES[BERNAL][6] = "<h6><b>M3 Note:</b> You may fire Beamed Gray Goo (pay a bribe).</h6>";
+        
+        NOTES[BERNAL][8] = "<h6><b>Errata fix:</b> Epic Hazard Roll to Anchor at GEO.</h6>";
+        NOTES[BERNAL][8] += "<h6><b>M3 Note:</b> Immune to boost & homesteading restrictions. With an Epic Hazard Operation you may build Space Elevator over a (half)lander burn. Doubles FINAO costs for all players.</h6>";
+        
         NOTES2[CREW][1] = "<h6><b>Note:</b> Amat bombs are not used if you are the defender.</h6>";
-        NOTES2[CREW][1] += "<h6><b>War Crimes:</b> Player Purple has this Ability, which allows him to perform Felonies against allies during War/ Anarchy (3A3a), perform a sneak attack or dropstone attack without paying a bribe (3B3c,e), to use human kamikazes (3E5d) and manned dropstones (3D7c), and suffer no consequences from genocide (3E2m).<\h6>";
+        NOTES2[CREW][1] += "<h6><b>War Crimes:</b> Player Purple has this Ability, which allows him to perform Felonies against allies during War/ Anarchy (3A3a), perform a sneak attack or dropstone attack without paying a bribe (3B3c,e), to use human kamikazes (3E5d) and manned dropstones (3D7c), and suffer no consequences from genocide (3E2m).</h6>";
         NOTES2[CREW][2] = "<h6><b>Errata fix:</b> Your Crew/Colonists (that have ISRU platforms) are marines who do not need buggies to make a buggy attack (3E4).</h6>";
         NOTES2[CREW][4] = "<h6><b>Note:</b> Jammers are never used if you are the defender.</h6>";
-
+        
         var scale = 1,
         panning = false,
         pointX = 0,
@@ -256,8 +294,16 @@
             let OBJb = "img";
             OBJb += String(idx);
             OBJb += "b.src = SRCb;";
+            let CNT = "cnt";
+            CNT += String(idx);
+            CNT += ".innerHTML = '";
+            CNT += String(IDXs[idx]+1);
+            CNT += "/";
+            CNT += String(MAXs[idx]+1);
+            CNT += "'";
             eval(OBJ);
             eval(OBJb);
+            eval(CNT);
 
             if(idx == 0)
             {
@@ -322,8 +368,16 @@
             let OBJb = "img";
             OBJb += String(idx);
             OBJb += "b.src = SRCb;";
+            let CNT = "cnt";
+            CNT += String(idx);
+            CNT += ".innerHTML = '";
+            CNT += String(IDXs[idx]+1);
+            CNT += "/";
+            CNT += String(MAXs[idx]+1);
+            CNT += "'";
             eval(OBJ);
             eval(OBJb);
+            eval(CNT);
            
             if(idx == 0)
             {
@@ -349,6 +403,7 @@
             }
 
         }
+      
     </script>
 </head>
 <body>
@@ -428,6 +483,10 @@
         <main class = "mdl-layout__content">
            <section class = "mdl-layout__tab-panel is-active" id = "crew" style="text-align:center"> 
             
+            <div id="cnt0" style="text-align:center">
+                1/6
+              </div>
+
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(0)">
                 <i class="material-icons">
                     arrow_back
@@ -440,6 +499,7 @@
                     arrow_forward
                     </i>
               </button>
+              
               <div id="note0" style="text-align:center">
                 <h6><b>Secretary General:</b> With this faction privilege, start the game with two extra Aquas. M2: The two Aquas are given when you Anchor your first Home Bernal.</h6>
                 <h6><b>Blink Telescope:</b> With this faction privelege, for each prospecting attempt using a raygun platform, you are allowed a single reroll of any size roll (I6.3) made in a prospect operation.</h6>"
@@ -449,6 +509,9 @@
               </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "thruster" style="text-align:center">
+            <div id="cnt1" style="text-align:center">
+                1/12
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(1)">
                <i class="material-icons">
                    arrow_back
@@ -465,6 +528,9 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "generator" style="text-align:center">
+            <div id="cnt2" style="text-align:center">
+                1/17
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(2)">
                <i class="material-icons">
                    arrow_back
@@ -481,6 +547,9 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "reactor" style="text-align:center">
+            <div id="cnt3" style="text-align:center">
+                1/12
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(3)">
                <i class="material-icons">
                    arrow_back
@@ -497,6 +566,9 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "refinery" style="text-align:center">
+            <div id="cnt4" style="text-align:center">
+                1/12
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(4)">
                <i class="material-icons">
                    arrow_back
@@ -513,6 +585,9 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "robonaut" style="text-align:center">
+            <div id="cnt5" style="text-align:center">
+                1/12
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(5)">
                <i class="material-icons">
                    arrow_back
@@ -529,6 +604,9 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "radiator" style="text-align:center">
+            <div id="cnt6" style="text-align:center">
+                1/12
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(6)">
                <i class="material-icons">
                    arrow_back
@@ -545,6 +623,9 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "freighter" style="text-align:center">
+            <div id="cnt7" style="text-align:center">
+                1/7
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(7)">
                <i class="material-icons">
                    arrow_back
@@ -561,6 +642,9 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "gwthruster" style="text-align:center">
+            <div id="cnt8" style="text-align:center">
+                1/7
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(8)">
                <i class="material-icons">
                    arrow_back
@@ -577,6 +661,9 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "bernal" style="text-align:center">
+            <div id="cnt9" style="text-align:center">
+                1/12
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(9)">
                <i class="material-icons">
                    arrow_back
@@ -590,9 +677,13 @@
                    </i>
              </button>
              <div id="note9" style="text-align:center">
+              <h6><b>M3 Note:</b> (Promoted) Your Crew and Bernals can fire Antimatter Bombs.</h6>";
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "colonist" style="text-align:center">
+            <div id="cnt10" style="text-align:center">
+                1/18
+              </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(10)">
                <i class="material-icons">
                    arrow_back
@@ -607,7 +698,8 @@
              </button>
              <div id="note10" style="text-align:center">
               <h6><b>New Venus Future (errata fix):</b> Req = Decommission this card and an Operational thruster with net thrust 7+ on an Industrialized Synodic Comet of yours. Effects = Bust both Venus and the Comet and Decommission all their tokens & unanchor any Bernals (represents the drop in property values prior to the comet-Venus collision), 12 VP.  Note: If this Future is completed, for thematic effect (with no game effect unless play is continued beyond the endgame), place the Venus overlay card (V8b) to show how New Venus will eventually appear.</h6>
-
+              <h6><b>M3 Note on New Venus Future (1D5a, 3F2g):</b> Use the dislodge operation (3D7) to complete these Futures. Completion allows you to convert any Synodic Comet into a synodic dropstone, in which you do not need to pay a bribe.</h6>
+        
 
             </div>
            </section>
@@ -616,7 +708,7 @@
             <div>
             
               <select class="mdl-textfield__input"  name="board" id="boards" onChange="boardChanged()">
-                <option value="M0">SOL Sunspot Cycle</option>
+                <option value="SOL">SOL Sunspot Cycle</option>
                 <option value="P">Player Board</option>
                 <option value="M0">M0 Political Assembly</option>
                 <option value="M3">M3 Political Assembly</option>
