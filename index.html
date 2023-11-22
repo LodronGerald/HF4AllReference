@@ -79,17 +79,17 @@
             NOTES.push([]);
             NOTES2.push([]);
         }
-        SRCDIR.push("crew/card");
-        SRCDIR.push("thruster/card");
-        SRCDIR.push("generator/card");
-        SRCDIR.push("reactor/card");
-        SRCDIR.push("refinery/card");
-        SRCDIR.push("robonaut/card");
-        SRCDIR.push("radiator/card");
-        SRCDIR.push("freighter/card");
-        SRCDIR.push("gwthruster/card");
-        SRCDIR.push("bernal/card");
-        SRCDIR.push("colonist/card");
+        SRCDIR.push("crew");
+        SRCDIR.push("thruster");
+        SRCDIR.push("generator");
+        SRCDIR.push("reactor");
+        SRCDIR.push("refinery");
+        SRCDIR.push("robonaut");
+        SRCDIR.push("radiator");
+        SRCDIR.push("freighter");
+        SRCDIR.push("gwthruster");
+        SRCDIR.push("bernal");
+        SRCDIR.push("colonist");
         MAXs.push(5);
         MAXs.push(11);//thruster
         MAXs.push(16);//generator
@@ -149,7 +149,7 @@
 
         NOTES[COLONIST][11] = "<h6><b>Errata fix:</b> Iceworms no longer make Epic Hazard Operations a free action.</h6>";
 
-        NOTES[GWTHRUSTER][1] = "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any SIze 1 Site. </h6>";
+        NOTES[GWTHRUSTER][1] = "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any Size 1 Site. </h6>";
         NOTES[GWTHRUSTER][2] = "<h6><b>M3 Note on Mass Beam (1D3c, 3F2b):</b> The FV of your guns (3E3b) is their firing rad-hardness minus 1d6. </h6>";
         NOTES[GWTHRUSTER][5] = "<h6><b>M3 Note on Enzmann Starship (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
         NOTES[GWTHRUSTER][6] = "<h6><b>M3 Note on Lithiated Ammonia (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
@@ -264,11 +264,30 @@
                 IDXs[idx] = 0;
             }
 
+            let RfG = 0;
+            if(idx == 1 && thrusterRfG.selectedIndex == 1){
+              RfG = 1;
+            }
+            else if(idx == 4 && refineryRfG.selectedIndex == 1){
+              RfG = 1;
+            }
+            else if(idx == 5 && robonautRfG.selectedIndex == 1){
+              RfG = 1;
+            }
+
             let SRC = SRCDIR[idx];
+            if(RfG){
+              SRC += "RfG";
+            }
+            SRC += "/card";
             SRC += String(IDXs[idx]);
             SRC += ".jpg";
 
             let SRCb = SRCDIR[idx];
+            if(RfG){
+              SRCb += "RfG";
+            }
+            SRCb += "/card";
             SRCb += String(IDXs[idx]);
             SRCb += "b.jpg";
 
@@ -330,6 +349,10 @@
             
 
         }
+        function RfGChanged(idx){
+          prev(idx);
+          next(idx);
+        }
         function prev(idx){
 
             init();
@@ -338,15 +361,34 @@
             else
                IDXs[idx]=MAXs[idx];
 
+            let RfG = 0;
+            if(idx == 1 && thrusterRfG.selectedIndex == 1){
+              RfG = 1;
+            }
+            else if(idx == 4 && refineryRfG.selectedIndex == 1){
+              RfG = 1;
+            }
+            else if(idx == 5 && robonautRfG.selectedIndex == 1){
+              RfG = 1;
+            }
             let SRC = SRCDIR[idx];
+            
+            if(RfG){
+              SRC += "RfG";
+            }
+            SRC += "/card";
             SRC += String(IDXs[idx]);
             SRC += ".jpg";
 
             let SRCb = SRCDIR[idx];
+            if(RfG){
+              SRCb += "RfG";
+            }
+            SRCb += "/card";
             SRCb += String(IDXs[idx]);
             SRCb += "b.jpg";
 
-            if(NOTES[idx].length == 0 || NOTES[idx][IDXs[idx]] == null){
+            if(RfG || NOTES[idx].length == 0 || NOTES[idx][IDXs[idx]] == null){
               let note = "document.getElementById('note";
               note += String(idx);
               note += "').innerHTML ='';";
@@ -509,9 +551,15 @@
               </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "thruster" style="text-align:center">
+            
+            <select class="mdl-textfield__input"  id="thrusterRfG" onChange="RfGChanged(1)">
+                <option value="Core">Core</option>
+                <option value="RfG">Race for Glory</option>
+            </select>
             <div id="cnt1" style="text-align:center">
                 1/12
               </div>
+
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(1)">
                <i class="material-icons">
                    arrow_back
@@ -566,6 +614,10 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "refinery" style="text-align:center">
+            <select class="mdl-textfield__input"  id="refineryRfG" onChange="RfGChanged(4)">
+                <option value="Core">Core</option>
+                <option value="RfG">Race for Glory</option>
+            </select>
             <div id="cnt4" style="text-align:center">
                 1/12
               </div>
@@ -585,6 +637,10 @@
             </div>
            </section>
            <section class = "mdl-layout__tab-panel" id = "robonaut" style="text-align:center">
+            <select class="mdl-textfield__input"  id="robonautRfG" onChange="RfGChanged(5)">
+                <option value="Core">Core</option>
+                <option value="RfG">Race for Glory</option>
+            </select>
             <div id="cnt5" style="text-align:center">
                 1/12
               </div>
