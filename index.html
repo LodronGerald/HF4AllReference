@@ -244,7 +244,11 @@
         for(let i=0; i< 6;++i)
           contractArray.push(3);
 
-
+        colonistArray = [];
+        for(let i=0; i<14; ++i)
+          colonistArray.push(0);
+        for(let i = 14; i<36; ++i)
+          colonistArray.push(1);
 
         let started = 0;
 
@@ -349,6 +353,9 @@
                 if(idx == CONTRACT){
                   counter += contractArray[h] == contracts.selectedIndex;
                 }
+                else if(idx == COLONIST){
+                  counter += colonistArray[h] == colonists.selectedIndex;
+                }
                 else           
                   counter++;
               }
@@ -379,6 +386,9 @@
                   if(idx == CONTRACT){
                     counter += contractArray[h] == contracts.selectedIndex;
                   }
+                  else if(idx == COLONIST){
+                    counter += colonistArray[h] == colonists.selectedIndex;
+                  }
                   else           
                     counter++;
                 }
@@ -393,6 +403,9 @@
                   if(DEL[idx][h] == 0){
                     if(idx == CONTRACT){
                       counter += contractArray[h] == contracts.selectedIndex;
+                    }
+                    else if(idx == COLONIST){
+                      counter += colonistArray[h] == colonists.selectedIndex;
                     }
                     else           
                       counter++;
@@ -423,6 +436,9 @@
               if(DEL[idx][h] == 0){
                 if(idx == CONTRACT){
                   counter += contractArray[h] == contracts.selectedIndex;
+                }
+                else if(idx == COLONIST){
+                  counter += colonistArray[h] == colonists.selectedIndex;
                 }
                 else           
                   counter++;
@@ -466,6 +482,23 @@
                   }
                   shuffleArray[idx][42 - 1]=h;
               }
+              else if(idx == COLONIST){
+                let h = shuffleArray[idx][0];
+
+                  for (let i = 0; i < 14 - 1; ++i) {
+                    shuffleArray[idx][i] = shuffleArray[idx][i+1];
+
+                  }
+                  shuffleArray[idx][14 - 1]=h;
+                  //
+                  h = shuffleArray[idx][14];
+
+                  for (let i = 14; i < 36 - 1; ++i) {
+                    shuffleArray[idx][i] = shuffleArray[idx][i+1];
+
+                  }
+                  shuffleArray[idx][36 - 1]=h;
+              }
               else {
                 let h = shuffleArray[idx][0];
 
@@ -491,6 +524,9 @@
                   if(idx == CONTRACT){
                     counter += contractArray[h] == contracts.selectedIndex;
                   }
+                  else if(idx == COLONIST){
+                    counter += colonistArray[h] == colonists.selectedIndex;
+                  }
                   else           
                     counter++;
                 }
@@ -505,6 +541,9 @@
                   if(DEL[idx][h] == 0){
                     if(idx == CONTRACT){
                       counter += contractArray[h] == contracts.selectedIndex;
+                    }
+                    else if(idx == COLONIST){
+                      counter += colonistArray[h] == colonists.selectedIndex;
                     }
                     else           
                       counter++;
@@ -629,6 +668,9 @@
               if(idx == CONTRACT){
                 counter += contractArray[h] == contracts.selectedIndex;
               }
+              else if(idx == COLONIST){
+                counter += colonistArray[h] == colonists.selectedIndex;
+              }
               else           
                 counter++;
             }
@@ -640,6 +682,10 @@
               if(idx == CONTRACT){
                 let h = shuffleArray[idx][i];
                 nr_cards += contractArray[h] == contracts.selectedIndex;
+              }
+              else  if(idx == COLONIST){
+                let h = shuffleArray[idx][i];
+                nr_cards += colonistArray[h] == colonists.selectedIndex;
               }
               else           
                 nr_cards++;
@@ -699,8 +745,11 @@
                 break;
               
               next = DEL[idx][id]==1;
-              if(!next && idx ==CONTRACT){
+              if(!next && idx == CONTRACT){
                 next = contractArray[id] != contracts.selectedIndex;
+              }
+              if(!next && idx == COLONIST){
+                next = colonistArray[id] != colonists.selectedIndex;
               }
 
             } while(next);
@@ -714,6 +763,10 @@
           paint(idx);
         }
         function ContractChanged(idx){
+          next(idx);
+          prev(idx);
+        }
+        function ColonistChanged(idx){
           next(idx);
           prev(idx);
         }
@@ -737,6 +790,9 @@
               next = DEL[idx][id]==1;
               if(!next && idx ==CONTRACT){
                 next = contractArray[id] != contracts.selectedIndex;
+              }
+              if(!next && idx == COLONIST){
+                next = colonistArray[id] != colonists.selectedIndex;
               }
 
             } while(next);
@@ -1081,8 +1137,13 @@
                 </button>
            </section>
            <section class = "mdl-layout__tab-panel" id = "colonist" style="text-align:center">
+            <select class="mdl-textfield__input"  id="colonists" onChange="ColonistChanged(10)">
+                <option value="0">Earthborns</option>
+                <option value="1">Spaceborns</option>
+            </select>
+
             <div id="cnt10" style="text-align:center">
-                1/18
+                1/36
               </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(10)">
                <i class="material-icons">
