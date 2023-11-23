@@ -92,9 +92,10 @@
         let GWTHRUSTER = 8;
         let BERNAL = 9;
         let COLONIST = 10;
-        let PROJECTX = 11;
+        let CONTRACT = 11;
+        let PROJECTX = 12;
 
-        let MAX = 12;
+        let MAX = 13;
 
         for(let i=0;i<MAX; ++i){
             IDXs.push(0);
@@ -113,7 +114,9 @@
         SRCDIR.push("gwthruster");
         SRCDIR.push("bernal");
         SRCDIR.push("colonist");
+        SRCDIR.push("contract");           
         SRCDIR.push("promo1");
+        
 
         MAXs.push(5);//crew
         MAXs.push(11);//thruster
@@ -125,7 +128,8 @@
         MAXs.push(6);//freighter
         MAXs.push(6);//gwthruster
         MAXs.push(12);//bernal
-        MAXs.push(19);//colonist
+        MAXs.push(35);//colonist
+        MAXs.push(12+12+12+6-1);//contract
         MAXs.push(8);//promo1
 
         for(let i=0;i<MAX; ++i){
@@ -181,6 +185,9 @@
         NOTES[COLONIST][18] = "<h6><b>Note:</b> This colonist is from promo pack 1.</h6>";
         NOTES[COLONIST][19] = "<h6><b>Note:</b> This colonist is from promo pack 1.</h6>";
 
+        for(let i = 20; i<=MAXs[COLONIST]; ++i)
+          NOTES[COLONIST][i] = "<h6><b>Note:</b> This colonist is from M4.</h6>";
+
 
         NOTES[GWTHRUSTER][1] = "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any Size 1 Site. </h6>";
         NOTES[GWTHRUSTER][2] = "<h6><b>M3 Note on Mass Beam (1D3c, 3F2b):</b> The FV of your guns (3E3b) is their firing rad-hardness minus 1d6. </h6>";
@@ -227,6 +234,17 @@
             shuffleArray[i].push(j);
           }
         }
+        let contractArray = [];
+        for(let i=0; i< 12;++i)
+          contractArray.push(0);
+        for(let i=0; i< 12;++i)
+          contractArray.push(1);
+        for(let i=0; i< 12;++i)
+          contractArray.push(2);
+        for(let i=0; i< 6;++i)
+          contractArray.push(3);
+
+
 
         let started = 0;
 
@@ -261,9 +279,22 @@
               pointY = e.clientY - ys * scale;
               setTransform();
             }
+            
             started = 1;
+            //default selection of option does not work...
+            prev(THRUSTER);
+            next(THRUSTER);
+            prev(REFINERY);
+            next(REFINERY);
+            prev(ROBONAUT);
+            next(ROBONAUT);
+            prev(COLONIST);
+            next(COLONIST);
+            prev(CONTRACT);
+            next(CONTRACT);
           }
         }
+        setTimeout(init, 250); 
 
         function setTransform() {
           zoom.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
@@ -296,9 +327,12 @@
             Board.src = "boards/M3Battle.jpg";
           }
           else if(boards.selectedIndex == 8) {
-            Board.src = "boards/Map.jpg";
+            Board.src = "boards/M4.jpg";
           }
           else if(boards.selectedIndex == 9) {
+            Board.src = "boards/Map.jpg";
+          }
+          else if(boards.selectedIndex == 10) {
             Board.src = "boards/VenusMap.jpg";
           }
 
@@ -311,8 +345,13 @@
             let counter = 0;
             for(let i = 0; i<=IDXs[idx];++i){
               let h = shuffleArray[idx][i];
-              if(DEL[idx][h] == 0)
-                counter++;
+              if(DEL[idx][h] == 0){
+                if(idx == CONTRACT){
+                  counter += contractArray[h] == contracts.selectedIndex;
+                }
+                else           
+                  counter++;
+              }
             }
             c.push(counter);
 
@@ -336,8 +375,13 @@
               let counter = 0;
               for(let i = 0; i<=IDXs[idx];++i){
                 let h = shuffleArray[idx][i];
-                if(DEL[idx][h] == 0)
-                  counter++;
+                if(DEL[idx][h] == 0){
+                  if(idx == CONTRACT){
+                    counter += contractArray[h] == contracts.selectedIndex;
+                  }
+                  else           
+                    counter++;
+                }
               }
 
               while(c[idx]!= counter){
@@ -346,13 +390,29 @@
                 counter = 0;
                 for(let i = 0; i<=IDXs[idx];++i){
                   let h = shuffleArray[idx][i];
-                  if(DEL[idx][h] == 0)
-                    counter++;
+                  if(DEL[idx][h] == 0){
+                    if(idx == CONTRACT){
+                      counter += contractArray[h] == contracts.selectedIndex;
+                    }
+                    else           
+                      counter++;
+                  }
                 }
               }
               
           }
 
+        }
+        function getMax(idx){
+          if(idx != CONTRACT)
+            return MAXs[idx];
+          else
+          {
+            if(contracts.selectedIndex == 3)
+              return 5;
+            else
+              return 11;
+          }
         }
         function inspirationShuffle(){
           let c = [];
@@ -360,23 +420,66 @@
             let counter = 0;
             for(let i = 0; i<=IDXs[idx];++i){
               let h = shuffleArray[idx][i];
-              if(DEL[idx][h] == 0)
-                counter++;
+              if(DEL[idx][h] == 0){
+                if(idx == CONTRACT){
+                  counter += contractArray[h] == contracts.selectedIndex;
+                }
+                else           
+                  counter++;
+              }
             }
             c.push(counter);
 
           }
-          for(let k=0; k<shuffleArray.length;++k){
-            let h = shuffleArray[k][0];
+          
+          for(let idx=0; idx<MAX;++idx){
+              if(idx == CONTRACT){
+                let h = shuffleArray[idx][0];
 
-            for (let i = 0; i < shuffleArray[k].length - 1; ++i) {
-              shuffleArray[k][i] = shuffleArray[k][i+1];
+                  for (let i = 0; i < 12 - 1; ++i) {
+                    shuffleArray[idx][i] = shuffleArray[idx][i+1];
 
-            }
-            shuffleArray[k][shuffleArray[k].length - 1]=h;
+                  }
+                  shuffleArray[idx][12 - 1]=h;
+                  //
+                  h = shuffleArray[idx][12];
+
+                  for (let i = 12; i < 24 - 1; ++i) {
+                    shuffleArray[idx][i] = shuffleArray[idx][i+1];
+
+                  }
+                  shuffleArray[idx][24 - 1]=h;
+                  //
+                  h = shuffleArray[idx][24];
+
+                  for (let i = 24; i < 36 - 1; ++i) {
+                    shuffleArray[idx][i] = shuffleArray[idx][i+1];
+
+                  }
+                  shuffleArray[idx][36 - 1]=h;
+                  //
+                  h = shuffleArray[idx][36];
+
+                  for (let i = 36; i < 42 - 1; ++i) {
+                    shuffleArray[idx][i] = shuffleArray[idx][i+1];
+
+                  }
+                  shuffleArray[idx][42 - 1]=h;
+              }
+              else {
+                let h = shuffleArray[idx][0];
+
+                for (let i = 0; i < shuffleArray[idx].length - 1; ++i) {
+                  shuffleArray[idx][i] = shuffleArray[idx][i+1];
+
+                }
+                shuffleArray[idx][shuffleArray[idx].length - 1]=h;                
+              }
           }
+          
           var selectorId = document.querySelector('.mdl-layout');
           selectorId.MaterialLayout.toggleDrawer();
+
  
           for(let idx=0; idx<MAX; ++idx){
               next(idx);
@@ -384,8 +487,13 @@
               let counter = 0;
               for(let i = 0; i<=IDXs[idx];++i){
                 let h = shuffleArray[idx][i];
-                if(DEL[idx][h] == 0)
-                  counter++;
+                if(DEL[idx][h] == 0){
+                  if(idx == CONTRACT){
+                    counter += contractArray[h] == contracts.selectedIndex;
+                  }
+                  else           
+                    counter++;
+                }
               }
 
               while(c[idx]!= counter){
@@ -394,8 +502,13 @@
                 counter = 0;
                 for(let i = 0; i<=IDXs[idx];++i){
                   let h = shuffleArray[idx][i];
-                  if(DEL[idx][h] == 0)
-                    counter++;
+                  if(DEL[idx][h] == 0){
+                    if(idx == CONTRACT){
+                      counter += contractArray[h] == contracts.selectedIndex;
+                    }
+                    else           
+                      counter++;
+                  }
                 }
               }
               
@@ -425,16 +538,59 @@
           if(RfG){
             SRC += "RfG";
           }
+          if(idx == CONTRACT){
+            if(contracts.selectedIndex == 0)
+              SRC += "1";
+            if(contracts.selectedIndex == 1)
+              SRC += "2";
+            if(contracts.selectedIndex == 2)
+              SRC += "3";
+            if(contracts.selectedIndex == 3)
+              SRC += "E";
+          }
           SRC += "/card";
-          SRC += String(id);
+          if(idx == CONTRACT){
+            if(contracts.selectedIndex == 0)
+              SRC += String(id);
+            if(contracts.selectedIndex == 1)
+              SRC += String(id-12);
+            if(contracts.selectedIndex == 2)
+              SRC += String(id-12-12);
+            if(contracts.selectedIndex == 3)
+              SRC += String(id-12-12-12);
+          }
+          else
+            SRC += String(id);
           SRC += ".jpg";
 
           let SRCb = SRCDIR[idx];
           if(RfG){
             SRCb += "RfG";
           }
+          if(idx == CONTRACT){
+            if(contracts.selectedIndex == 0)
+              SRCb += "1";
+            if(contracts.selectedIndex == 1)
+              SRCb += "2";
+            if(contracts.selectedIndex == 2)
+              SRCb += "3";
+            if(contracts.selectedIndex == 3)
+              SRCb += "E";
+          }
+
           SRCb += "/card";
-          SRCb += String(id);
+          if(idx == CONTRACT){
+            if(contracts.selectedIndex == 0)
+              SRCb += String(id);
+            if(contracts.selectedIndex == 1)
+              SRCb += String(id-12);
+            if(contracts.selectedIndex == 2)
+              SRCb += String(id-12-12);
+            if(contracts.selectedIndex == 3)
+              SRCb += String(id-12-12-12);
+          }
+          else
+            SRCb += String(id);
           SRCb += "b.jpg";
 
           if(NOTES[idx].length == 0 || NOTES[idx][id] == null){
@@ -468,13 +624,27 @@
           let nr_cards = 0;
           for(let i = 0; i<=IDXs[idx];++i){
             let h = shuffleArray[idx][i];
-            if(DEL[idx][h] == 0)
-              counter++;
-          }
 
+            if(DEL[idx][h] == 0){
+              if(idx == CONTRACT){
+                counter += contractArray[h] == contracts.selectedIndex;
+              }
+              else           
+                counter++;
+            }
+          }
           for(let i = 0; i<=MAXs[idx];++i){
-            if(DEL[idx][i] == 0)
-              nr_cards++;
+            
+
+            if(DEL[idx][i] == 0){
+              if(idx == CONTRACT){
+                let h = shuffleArray[idx][i];
+                nr_cards += contractArray[h] == contracts.selectedIndex;
+              }
+              else           
+                nr_cards++;
+            }
+
           }
 
 
@@ -517,6 +687,7 @@
      
             let id = 0;
             let cnt = 0;
+            let next = 0;
             do{
               IDXs[idx]++;
               if(IDXs[idx] > MAXs[idx]) {
@@ -526,7 +697,13 @@
               ++cnt;
               if(cnt > MAXs[idx]+1)
                 break;
-            } while(DEL[idx][id]==1);
+              
+              next = DEL[idx][id]==1;
+              if(!next && idx ==CONTRACT){
+                next = contractArray[id] != contracts.selectedIndex;
+              }
+
+            } while(next);
 
             paint(idx);
             
@@ -536,11 +713,16 @@
           init();
           paint(idx);
         }
+        function ContractChanged(idx){
+          next(idx);
+          prev(idx);
+        }
         function prev(idx){
 
             init();
             let id = 0;
             let cnt = 0;
+            let next = 0;
             do{
               if(IDXs[idx]>0)
                 IDXs[idx]--;
@@ -552,7 +734,12 @@
               if(cnt > MAXs[idx]+1)
                 break;
 
-            } while(DEL[idx][id]==1);
+              next = DEL[idx][id]==1;
+              if(!next && idx ==CONTRACT){
+                next = contractArray[id] != contracts.selectedIndex;
+              }
+
+            } while(next);
 
             paint(idx);
 
@@ -582,6 +769,7 @@
               <a href = "#gwthruster" class = "mdl-layout__tab" id="gw">GW</a>    
               <a href = "#bernal" class = "mdl-layout__tab" id="ber">BER</a>   
               <a href = "#colonist" class = "mdl-layout__tab" id="col">COL</a>  
+              <a href = "#contract" class = "mdl-layout__tab" id="con">CON</a>  
               <a href = "#promo1" class = "mdl-layout__tab" id="X">X</a>  
               <a href = "#PlayerBoard" class = "mdl-layout__tab" id="b">BOA</a>  
             </div>
@@ -596,6 +784,7 @@
             <div class = "mdl-tooltip" for = "gw">GW/TW Thruster</div>
             <div class = "mdl-tooltip" for = "ber">Bernal</div>
             <div class = "mdl-tooltip" for = "col">Colonist</div>
+            <div class = "mdl-tooltip" for = "con">Contract</div>
             <div class = "mdl-tooltip" for = "X">Project X</div>
 
             <div class = "mdl-tooltip" for = "b">Boards</div>
@@ -919,17 +1108,23 @@
                   </i>
                 </button>
            </section>
-           <section class = "mdl-layout__tab-panel" id = "promo1" style="text-align:center">
+           <section class = "mdl-layout__tab-panel" id = "contract" style="text-align:center">
+            <select class="mdl-textfield__input"  id="contracts" onChange="ContractChanged(11)">
+                <option selected value="0" >Stack 1</option>
+                <option value="1">Stack 2</option>
+                <option value="2">Stack 3</option>
+                <option value="3">Exodus</option>
+            </select>
             <div id="cnt11" style="text-align:center">
-                1/9
+                1/12
               </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(11)">
                <i class="material-icons">
                    arrow_back
                    </i>
              </button>
-             <img src="promo1/card0.jpg" alt="Italian Trulli" id="img11">
-             <img src="promo1/card0b.jpg" alt="Italian Trulli" id="img11b">
+             <img src="contract1/card0.jpg" alt="Italian Trulli" id="img11">
+             <img src="contract1/card0b.jpg" alt="Italian Trulli" id="img11b">
              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(11)">
                <i class="material-icons">
                    arrow_forward
@@ -943,12 +1138,36 @@
                   </i>
                 </button>
            </section>
+           <section class = "mdl-layout__tab-panel" id = "promo1" style="text-align:center">
+            <div id="cnt12" style="text-align:center">
+                1/9
+              </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(12)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="promo1/card0.jpg" alt="Italian Trulli" id="img12">
+             <img src="promo1/card0b.jpg" alt="Italian Trulli" id="img12b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(12)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+             <div id="note12" style="text-align:center">
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="removeCard(12)">
+                  <i class="material-icons">
+                    close
+                  </i>
+                </button>
+           </section>
            <section class = "mdl-layout__tab-panel" id = "PlayerBoard" style="text-align:center">
 
             <div>
             
               <select class="mdl-textfield__input"  name="board" id="boards" onChange="boardChanged()">
-                <option value="SOL">SOL Sunspot Cycle</option>
+                <option selected value="SOL" >SOL Sunspot Cycle</option>
                 <option value="P">Player Board</option>
                 <option value="B">Player Bernal Board</option>
                 <option value="F">Player Freighter Board</option>
@@ -956,6 +1175,7 @@
                 <option value="M3">M3 Political Assembly</option>
                 <option value="M3VPs">M3 Victory Points</option>
                 <option value="M3Battle">M3 Battle Chart</option>
+                <option value="M4">M4 Isobank/Starship</option>
                 <option value="Map">Map</option>
                 <option value="VMap">Venus Map</option>
               </select>
