@@ -94,8 +94,9 @@
         let COLONIST = 10;
         let CONTRACT = 11;
         let PROJECTX = 12;
+        let SUMMARY = 13;
 
-        let MAX = 13;
+        let MAX = 14;
 
         for(let i=0;i<MAX; ++i){
             IDXs.push(0);
@@ -116,6 +117,7 @@
         SRCDIR.push("colonist");
         SRCDIR.push("contract");           
         SRCDIR.push("promo1");
+        SRCDIR.push("tools");
         
 
         MAXs.push(5);//crew
@@ -131,6 +133,7 @@
         MAXs.push(35);//colonist
         MAXs.push(12+12+12+6-1);//contract
         MAXs.push(8);//promo1
+        MAXs.push(9);//tools
 
         for(let i=0;i<MAX; ++i){
             
@@ -704,7 +707,8 @@
           CNT += String(nr_cards);
           CNT += "'";
           eval(OBJ);
-          eval(OBJb);
+          if(idx != SUMMARY)
+            eval(OBJb);
           eval(CNT);
 
           if(idx == 0)
@@ -830,6 +834,7 @@
               <a href = "#colonist" class = "mdl-layout__tab" id="col">COL</a>  
               <a href = "#contract" class = "mdl-layout__tab" id="con">CON</a>  
               <a href = "#promo1" class = "mdl-layout__tab" id="X">X</a>  
+              <a href = "#summary" class = "mdl-layout__tab" id="S">S</a>  
               <a href = "#PlayerBoard" class = "mdl-layout__tab" id="b">BOA</a>  
             </div>
             <div class = "mdl-tooltip" for = "crw">Crew</div>
@@ -845,6 +850,7 @@
             <div class = "mdl-tooltip" for = "col">Colonist</div>
             <div class = "mdl-tooltip" for = "con">Contract</div>
             <div class = "mdl-tooltip" for = "X">Project X</div>
+            <div class = "mdl-tooltip" for = "T">Summary</div>
 
             <div class = "mdl-tooltip" for = "b">Boards</div>
 
@@ -1221,6 +1227,29 @@
              <div id="note12" style="text-align:center">
             </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="removeCard(12)">
+                  <i class="material-icons">
+                    close
+                  </i>
+                </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "summary" style="text-align:center">
+            <div id="cnt13" style="text-align:center">
+                1/10
+              </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(13)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="tools/card0.jpg" alt="Italian Trulli" id="img13">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(13)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+             <div id="note13" style="text-align:center">
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="removeCard(13)">
                   <i class="material-icons">
                     close
                   </i>
