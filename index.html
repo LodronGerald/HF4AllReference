@@ -92,8 +92,11 @@
         let GWTHRUSTER = 8;
         let BERNAL = 9;
         let COLONIST = 10;
+        let PROJECTX = 11;
 
-        for(let i=0;i<11; ++i){
+        let MAX = 12;
+
+        for(let i=0;i<MAX; ++i){
             IDXs.push(0);
             NOTES.push([]);
             NOTES2.push([]);
@@ -110,7 +113,9 @@
         SRCDIR.push("gwthruster");
         SRCDIR.push("bernal");
         SRCDIR.push("colonist");
-        MAXs.push(5);
+        SRCDIR.push("promo1");
+
+        MAXs.push(5);//crew
         MAXs.push(11);//thruster
         MAXs.push(16);//generator
         MAXs.push(11);//reactor
@@ -119,10 +124,11 @@
         MAXs.push(11);//radiator
         MAXs.push(6);//freighter
         MAXs.push(6);//gwthruster
-        MAXs.push(11);//bernal
-        MAXs.push(17);//colonist
+        MAXs.push(12);//bernal
+        MAXs.push(19);//colonist
+        MAXs.push(8);//promo1
 
-        for(let i=0;i<11; ++i){
+        for(let i=0;i<MAX; ++i){
             
           for(let j=0; j<=MAXs[i];++j){
             NOTES[i].push("");
@@ -172,6 +178,10 @@
 
         NOTES[COLONIST][11] = "<h6><b>Errata fix:</b> Iceworms no longer make Epic Hazard Operations a free action.</h6>";
 
+        NOTES[COLONIST][18] = "<h6><b>Note:</b> This colonist is from promo pack 1.</h6>";
+        NOTES[COLONIST][19] = "<h6><b>Note:</b> This colonist is from promo pack 1.</h6>";
+
+
         NOTES[GWTHRUSTER][1] = "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any Size 1 Site. </h6>";
         NOTES[GWTHRUSTER][2] = "<h6><b>M3 Note on Mass Beam (1D3c, 3F2b):</b> The FV of your guns (3E3b) is their firing rad-hardness minus 1d6. </h6>";
         NOTES[GWTHRUSTER][5] = "<h6><b>M3 Note on Enzmann Starship (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
@@ -184,6 +194,9 @@
        
         NOTES[BERNAL][0] = "<h6><b>M3 Note:</b> (Promoted) Your Crew and Bernals can fire Antimatter Bombs.</h6>";
         NOTES[BERNAL][1] = "<h6><b>M3 Note:</b> Red Cross Token. No combat is allowed to or from Bernal. Immune to No Home Bernal restrictions.</h6>";
+        NOTES[BERNAL][10] = "<h6><b>Note:</b> This bernal is from 6th player expansion</h6>";
+        NOTES[BERNAL][11] = "<h6><b>Note:</b> This bernal is from 6th player expansion</h6>";
+        NOTES[BERNAL][12] = "<h6><b>Note:</b> This bernal is from Promo Pack 1</h6>";
        
         //NOTES[BERNAL][2] = "<h6><b>Errata fix:</b> L1 Climate Control Bernal must be Anchored in L1 to get Home ability.</h6>";
         NOTES[BERNAL][5] = "<h6><b>Errata fix:</b> Epic Hazard Roll to Anchor in Home Orbit.</h6>";
@@ -208,7 +221,7 @@
         zoom = [];
 
         let shuffleArray = [];
-        for(let i=0; i<11;++i){
+        for(let i=0; i<MAX;++i){
           shuffleArray.push([]);
           for(let j=0; j<=MAXs[i];++j){
             shuffleArray[i].push(j);
@@ -294,7 +307,7 @@
         function randomShuffle(){
 
           let c = [];
-          for(let idx = 0; idx<11; ++idx){
+          for(let idx = 0; idx<MAX; ++idx){
             let counter = 0;
             for(let i = 0; i<=IDXs[idx];++i){
               let h = shuffleArray[idx][i];
@@ -317,7 +330,7 @@
           var selectorId = document.querySelector('.mdl-layout');
           selectorId.MaterialLayout.toggleDrawer();
  
-          for(let idx=0; idx<11; ++idx){
+          for(let idx=0; idx<MAX; ++idx){
               next(idx);
 
               let counter = 0;
@@ -343,7 +356,7 @@
         }
         function inspirationShuffle(){
           let c = [];
-          for(let idx = 0; idx<11; ++idx){
+          for(let idx = 0; idx<MAX; ++idx){
             let counter = 0;
             for(let i = 0; i<=IDXs[idx];++i){
               let h = shuffleArray[idx][i];
@@ -365,7 +378,7 @@
           var selectorId = document.querySelector('.mdl-layout');
           selectorId.MaterialLayout.toggleDrawer();
  
-          for(let idx=0; idx<11; ++idx){
+          for(let idx=0; idx<MAX; ++idx){
               next(idx);
 
               let counter = 0;
@@ -569,6 +582,7 @@
               <a href = "#gwthruster" class = "mdl-layout__tab" id="gw">GW</a>    
               <a href = "#bernal" class = "mdl-layout__tab" id="ber">BER</a>   
               <a href = "#colonist" class = "mdl-layout__tab" id="col">COL</a>  
+              <a href = "#promo1" class = "mdl-layout__tab" id="X">X</a>  
               <a href = "#PlayerBoard" class = "mdl-layout__tab" id="b">BOA</a>  
             </div>
             <div class = "mdl-tooltip" for = "crw">Crew</div>
@@ -582,6 +596,8 @@
             <div class = "mdl-tooltip" for = "gw">GW/TW Thruster</div>
             <div class = "mdl-tooltip" for = "ber">Bernal</div>
             <div class = "mdl-tooltip" for = "col">Colonist</div>
+            <div class = "mdl-tooltip" for = "X">Project X</div>
+
             <div class = "mdl-tooltip" for = "b">Boards</div>
 
            
@@ -898,6 +914,30 @@
 
             </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="removeCard(10)">
+                  <i class="material-icons">
+                    close
+                  </i>
+                </button>
+           </section>
+           <section class = "mdl-layout__tab-panel" id = "promo1" style="text-align:center">
+            <div id="cnt11" style="text-align:center">
+                1/9
+              </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="prev(11)">
+               <i class="material-icons">
+                   arrow_back
+                   </i>
+             </button>
+             <img src="promo1/card0.jpg" alt="Italian Trulli" id="img11">
+             <img src="promo1/card0b.jpg" alt="Italian Trulli" id="img11b">
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="next(11)">
+               <i class="material-icons">
+                   arrow_forward
+                   </i>
+             </button>
+             <div id="note11" style="text-align:center">
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="removeCard(11)">
                   <i class="material-icons">
                     close
                   </i>
