@@ -334,9 +334,12 @@
             Board.src = "boards/M4.jpg";
           }
           else if(boards.selectedIndex == 9) {
-            Board.src = "boards/Map.jpg";
+            Board.src = "boards/M4-2.jpg";
           }
           else if(boards.selectedIndex == 10) {
+            Board.src = "boards/Map.jpg";
+          }
+          else if(boards.selectedIndex == 11) {
             Board.src = "boards/VenusMap.jpg";
           }
 
@@ -1171,9 +1174,9 @@
            </section>
            <section class = "mdl-layout__tab-panel" id = "contract" style="text-align:center">
             <select class="mdl-textfield__input"  id="contracts" onChange="ContractChanged(11)">
-                <option selected value="0" >Stack 1</option>
-                <option value="1">Stack 2</option>
-                <option value="2">Stack 3</option>
+                <option selected value="0" >Freedom / Individuality</option>
+                <option value="1">Honor / Unity</option>
+                <option value="2">Equality / Authority</option>
                 <option value="3">Exodus</option>
             </select>
             <div id="cnt11" style="text-align:center">
@@ -1237,6 +1240,7 @@
                 <option value="M3VPs">M3 Victory Points</option>
                 <option value="M3Battle">M3 Battle Chart</option>
                 <option value="M4">M4 Isobank/Starship</option>
+                <option value="M42">M4 Playmat</option>
                 <option value="Map">Map</option>
                 <option value="VMap">Venus Map</option>
               </select>
