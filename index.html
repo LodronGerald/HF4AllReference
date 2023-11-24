@@ -649,7 +649,7 @@
         }
         function zoomIn()
         {
-          cameraZoom+=0.1;
+          cameraZoom+=0.25;
          // ctx.translate( window.innerWidth / 2, window.innerHeight / 2 );
             ctx.scale(cameraZoom, cameraZoom);
             //ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y );
@@ -659,27 +659,27 @@
         }
         function scrollToLeft()
         {
-          cameraOffset.x -= 50;
+          cameraOffset.x -= 35;
           requestAnimationFrame( draw );
         }
         function scrollToRight()
         {
-          cameraOffset.x += 50;
+          cameraOffset.x += 35;
           requestAnimationFrame( draw );
         }
         function scrollToUp()
         {
-          cameraOffset.y -= 50;
+          cameraOffset.y -= 35;
           requestAnimationFrame( draw );
         }
         function scrollToDown()
         {
-          cameraOffset.y += 50;
+          cameraOffset.y += 35;
           requestAnimationFrame( draw );
         }
         function zoomOut()
         {
-          cameraZoom-=0.1;
+          cameraZoom-=0.25;
           //ctx.translate( window.innerWidth / 2, window.innerHeight / 2 );
             ctx.scale(cameraZoom, cameraZoom);
             //ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y );
@@ -1948,10 +1948,10 @@
   <div class="modal-body">
     <select id="findLocation">
       <option x=672 y=1804>1990OY</option>
-<option>2002TX</option>
-<option>Achilles</option>
-<option>Aegis Moonlet</option>
-<option>Aeneas</option>
+<option x=429 y=1856>2002TX</option>
+<option x=3870 y=6839>Achilles</option>
+<option x=10089 y=2908>Aegis Moonlet</option>
+<option x=6821 y=974>Aeneas</option>
 <option>Agamemnon</option>
 <option>Agamemnon Moonlet</option>
 <option>Alexhelios</option>
