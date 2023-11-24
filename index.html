@@ -339,10 +339,11 @@
             canvas.addEventListener( 'wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY));
             canvas.addEventListener ("mouseout", onPointerUp);
             // Ready, set, go
-            draw();
+            started = 1;
+           // draw();
 
             requestAnimationFrame( draw );
-            started = 1;
+            
             //default selection of option does not work...
             prev(THRUSTER);
             next(THRUSTER);
@@ -376,6 +377,7 @@
 
         function draw()
         {
+           init();
             canvas.width = WIDTH;
             canvas.height =HEIGHT;
             
@@ -718,7 +720,12 @@
             requestAnimationFrame( draw );
           }
         }
-        setTimeout(init, 250); 
+        setTimeout(init, 1); 
+        var intervalId = window.setInterval(function(){
+  draw()
+}, 1000);
+
+        setInterval(requestAnimationFrame( draw ), 500); 
 
         function isBigImage(){
           if(boards.selectedIndex == 10 || boards.selectedIndex == 11)
