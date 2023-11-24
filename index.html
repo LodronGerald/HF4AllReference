@@ -429,7 +429,7 @@
         }
         var image;
         var currentId=-1;
-        let FAC = 8;
+        let FAC = 4;
         let WIDTH = 10817/FAC;
         let HEIGHT = 7287/FAC;
         function drawCircle(x,y,r)
@@ -613,10 +613,7 @@
         findPosY = -1;
 
         function findSide(){
-          cameraZoom=1;
-          ctx.scale(cameraZoom, cameraZoom);
-          ctx.translate(  - cameraOffset.x, - cameraOffset.y );
-
+          zoomReset();
           let i=0;
           for(const child of findLocation.children)
           {
@@ -1954,14 +1951,14 @@
 <option x=6821 y=974>Aeneas</option>
 <option x=3647 y=6146>Agamemnon</option>
 <option x=3590 y=6391>Agamemnon Moonlet</option>
-<option x=0 y=0>Alexhelios</option>
+<option x=4570 y=4257>Alexhelios</option>
 <option x=0 y=0>Antenor</option>
 <option x=7570 y=3970>Apophis</option>
-<option x=0 y=0>Ariadne</option>
+<option x=5182 y=3553>Ariadne</option>
 <option x=0 y=0>Ariel</option>
 <option x=0 y=0>Arrokoth</option>
 <option x=0 y=0>Asbolus</option>
-<option x=0 y=0>Badenia</option>
+<option x=4223 y=5140>Badenia</option>
 <option x=0 y=0>Bee-Zed</option>
 <option x=5171 y=5253>Belenus</option>
 <option x=0 y=0>Belinda</option>
@@ -1972,23 +1969,23 @@
 <option x=0 y=0>Ceres</option>
 <option x=0 y=0>Chariklo</option>
 <option x=0 y=0>Charon</option>
-<option x=0 y=0>Chaucer</option>
+<option x=6294 y=2523>Chaucer</option>
 <option x=0 y=0>Chiron</option>
-<option x=0 y=0>Churynmov-Gerasimenko</option>
-<option x=0 y=0>Cleoselene</option>
+<option x=5073 y=2909>Churynmov-Gerasimenko</option>
+<option x=4695 y=3646>Cleoselene</option>
 <option x=0 y=0>Comet Borrelly</option>
 <option x=0 y=0>Comet Crommelin</option>
-<option x=0 y=0>Comet Elst-Pizarro</option>
-<option x=0 y=0>Comet Encke</option>
+<option x=5423 y=2362>Comet Elst-Pizarro</option>
+<option x=5834 y=2344>Comet Encke</option>
 <option x=0 y=0>Comet Halley</option>
-<option x=0 y=0>Comet Hartley 2</option>
+<option x=4361 y=4664>Comet Hartley 2</option>
 <option x=0 y=0>Comet Holmes</option>
 <option x=0 y=0>Comet McNaught</option>
 <option x=0 y=0>Comet Neujmin 1</option>
 <option x=5953 y=5786>Comet Phaethon</option>
 <option x=0 y=0>Comet Schwassmann-Wachmann 1</option>
 <option x=3945 y=5887>Comet Wild 2</option>
-<option x=0 y=0>Comet Wilson-Harrington</option>
+<option x=4557 y=5147>Comet Wilson-Harrington</option>
 <option x=0 y=0>Cordelia</option>
 <option x=8991 y=6429>Cruithne</option>
 <option x=0 y=0>Dactyl Moonlet</option>
@@ -2009,27 +2006,27 @@
 <option x=10195 y=5984>Eureka</option>
 <option x=0 y=0>Europa Conamara Chaos</option>
 <option x=0 y=0>Europa Subsurface Ocean</option>
-<option x=0 y=0>Flora</option>
-<option x=0 y=0>Fortuna</option>
-<option x=0 y=0>Friederike</option>
+<option x=5470 y=3098>Flora</option>
+<option x=4443 y=6342>Fortuna</option>
+<option x=3990 y=4627>Friederike</option>
 <option x=0 y=0>Galatea</option>
 <option x=0 y=0>Ganymede Memphis Facula</option>
 <option x=0 y=0>Ganymede Uruk Sulcus</option>
-<option x=0 y=0>Gaspra</option>
+<option x=5006 y=3351>Gaspra</option>
 <option x=0 y=0>Gefion</option>
 <option x=0 y=0>Glaukos</option>
 <option x=6966 y=5482>Hathor</option>
 <option x=0 y=0>Haumea</option>
 <option x=3245 y=6495>Hektor</option>
 <option x=0 y=0>Helene</option>
-<option x=0 y=0>Hermes A</option>
-<option x=0 y=0>Hermes B</option>
-<option x=0 y=0>Hertha</option>
+<option x=4704 y=6423>Hermes A</option>
+<option x=4996 y=6721>Hermes B</option>
+<option x=6085 y=2572>Hertha</option>
 <option x=0 y=0>Hi'iaka</option>
 <option x=0 y=0>Himalia</option>
 <option x=0 y=0>Huya</option>
 <option x=0 y=0>Hydra</option>
-<option x=0 y=0>Hygiea</option>
+<option x=4141 y=5402>Hygiea</option>
 <option x=0 y=0>Hylonome</option>
 <option x=0 y=0>Hyperion</option>
 <option x=0 y=0>Iapetus</option>
@@ -2046,7 +2043,7 @@
 <option x=0 y=0>Karin B</option>
 <option x=0 y=0>Karin C</option>
 <option x=6489 y=5393>Khufu</option>
-<option x=0 y=0>Kleopatra</option>
+<option x=4397 y=4009>Kleopatra</option>
 <option x=0 y=0>Kollaa</option>
 <option x=0 y=0>Koronis</option>
 <option x=0 y=0>Kreutz Sungrazer</option>
@@ -2056,12 +2053,12 @@
 <option x=0 y=0>Leda</option>
 <option x=9215 y=5095>Luna Aristarchus Plateau</option>
 <option x=9477 y=5109>Luna Shackleton Polar Rim</option>
-<option x=0 y=0>Lutetia</option>
+<option x=4790 y=6197>Lutetia</option>
 <option x=0 y=0>Lysithea</option>
 <option x=9646 y=3784>Mars Arsia Mons Caves</option>
 <option x=9935 y=3526>Mars Hellas Basin Buried Glaciers</option>
 <option x=9563 y=3505>Mars North Pole</option>
-<option x=0 y=0>Mathilde</option>
+<option x=4424 y=5547>Mathilde</option>
 <option x=0 y=0>Menoetius</option>
 <option x=7564 y=5419>Mercury Discovery Rupes</option>
 <option x=7767 y=5617>Mercury North Pole</option>
@@ -2091,7 +2088,7 @@
 <option x=0 y=0>Phoebe</option>
 <option x=0 y=0>Pholus</option>
 <option x=0 y=0>Pluto</option>
-<option x=0 y=0>Polana</option>
+<option x=6395 y=2195>Polana</option>
 <option x=0 y=0>Polydeuces</option>
 <option x=0 y=0>Portia</option>
 <option x=0 y=0>Prometheus</option>
@@ -2100,9 +2097,9 @@
 <option x=0 y=0>Psyche</option>
 <option x=0 y=0>Puck</option>
 <option x=0 y=0>Quaoar</option>
-<option x=0 y=0>Remus Moonlet</option>
+<option x=4450 y=3577>Remus Moonlet</option>
 <option x=0 y=0>Rhea</option>
-<option x=0 y=0>Romulus Moonlet</option>
+<option x=4279 y=3748>Romulus Moonlet</option>
 <option x=0 y=0>Sao</option>
 <option x=0 y=0>Saturn Aerostat</option>
 <option x=0 y=0>Sawiakera</option>
@@ -2112,7 +2109,7 @@
 <option x=0 y=0>Skoll</option>
 <option x=0 y=0>Suttungr</option>
 <option x=0 y=0>Sycorax</option>
-<option x=0 y=0>Sylvia</option>
+<option x=4636 y=3341>Sylvia</option>
 <option x=0 y=0>Teharonhiawako</option>
 <option x=3090 y=6116>Telamon</option>
 <option x=0 y=0>Telesto</option>
