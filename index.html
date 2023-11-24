@@ -7,8 +7,31 @@
     <title>HF4All Web Reference</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="https://petershaggynoble.github.io/MDI-Sandbox/light/?icon=arrow-left">
-    <style>
+    <!--<link rel="stylesheet" href="https://petershaggynoble.github.io/MDI-Sandbox/light/?icon=arrow-left">-->
+    <!--<script src="https://unpkg.com/konva@9.2.3/konva.min.js"></script>-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+        body {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #f0f0f0;
+          height: 100%;
+          overflow: auto;
+        }
+
+        #canvas
+        {
+          width: 100%;
+          height: 100%;
+          background: #111;
+        }
+
         .mdl-layout--fixed-tabs .mdl-layout__tab-bar-button {
           display: initial;
           color: #ff4081;
@@ -224,14 +247,7 @@
         
         NOTES2[CREW][2] = "<h6><b>Errata fix:</b> Your Crew/Colonists (that have ISRU platforms) are marines who do not need buggies to make a buggy attack (3E4).</h6>";
         NOTES2[CREW][4] = "<h6><b>Note:</b> Jammers are never used if you are the defender.</h6>";
-        
-        var scale = 1,
-        panning = false,
-        pointX = 0,
-        pointY = 0,
-        start = { x: 0, y: 0 },
-        zoom = [];
-
+ 
         let shuffleArray = [];
         for(let i=0; i<MAX;++i){
           shuffleArray.push([]);
@@ -239,6 +255,7 @@
             shuffleArray[i].push(j);
           }
         }
+
         let contractArray = [];
         for(let i=0; i< 12;++i)
           contractArray.push(0);
@@ -256,39 +273,75 @@
           colonistArray.push(1);
 
         let started = 0;
+        var canvas;
+        var ctx;
+        var cameraOffset;
 
+        let cameraZoom = 1;
+        let MAX_ZOOM = 5;
+        let MIN_ZOOM = 0.1;
+        let SCROLL_SENSITIVITY = 0.005;  
+
+        function generateImage(){
+          var imageObj = new Image();
+          var image = new Konva.Image({
+              x: 0,
+              y: 0,
+              image: imageObj,
+              width: 10817,
+              height: 7287
+          });
+
+          imageObj.src = 'boards/Map.jpg';
+          return image;
+        }
+        function repositionStage() {
+          if(panning){
+            var zoomLevel = 2;
+              layer.on('mouseenter', function () {
+                layer.scale({
+                  x: zoomLevel,
+                  y: zoomLevel,
+                });
+              });
+          }
+          else{
+          var dx = scrollContainer.scrollLeft - PADDING;
+          var dy = scrollContainer.scrollTop - PADDING;
+          
+          stage.container().style.transform =
+            'translate(' + dx + 'px, ' + dy + 'px)';
+          stage.x(-dx);
+          stage.y(-dy);
+          }
+
+        }
+        
         function init() {
           if(!started) {
-            zoom = document.getElementById('zoom'); 
-           
-            zoom.onmousedown = function (e) {
-              e.preventDefault();
-              start = { x: e.clientX - pointX, y: e.clientY - pointY };
-              panning = true;
-            }
-            zoom.onmouseup = function (e) {
-              panning = false;
-            }
-            zoom.onmousemove = function (e) {
-              e.preventDefault();
-              if (!panning) {
-                return;
-              }
-              pointX = (e.clientX - start.x);
-              pointY = (e.clientY - start.y);
-              setTransform();
-            }
-            zoom.onwheel = function (e) {
-              e.preventDefault();
-              var xs = (e.clientX - pointX) / scale,
-                ys = (e.clientY - pointY) / scale,
-                delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
-              (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
-              pointX = e.clientX - xs * scale;
-              pointY = e.clientY - ys * scale;
-              setTransform();
-            }
-            
+
+           // findLocation  = document.getElementById("findLocation");
+
+
+
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext('2d');
+
+            //cameraOffset = { x: window.innerWidth/2, y: window.innerHeight/2 }
+            cameraOffset = { x: 0, y: 0 }
+
+            canvas.addEventListener('mousedown', onPointerDown);
+            canvas.addEventListener('touchstart', (e) => handleTouch(e, onPointerDown));
+            canvas.addEventListener('mouseup', onPointerUp);
+            canvas.addEventListener('touchend',  (e) => handleTouch(e, onPointerUp));
+            canvas.addEventListener('mousemove', onPointerMove);
+            canvas.addEventListener('touchmove', (e) => handleTouch(e, onPointerMove));
+            canvas.addEventListener( 'wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY));
+            canvas.addEventListener ("mouseout", onPointerUp);
+            // Ready, set, go
+            draw();
+
+            requestAnimationFrame( draw );
             started = 1;
             //default selection of option does not work...
             prev(THRUSTER);
@@ -303,51 +356,502 @@
             next(CONTRACT);
           }
         }
-        setTimeout(init, 250); 
+        var image;
+        var currentId=-1;
+        let FAC = 8;
+        let WIDTH = 10817/FAC;
+        let HEIGHT = 7287/FAC;
+        function drawCircle(x,y,r)
+        {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, 2 * Math.PI);
+            ctx.strokeStyle= '#FF0000';
+            ctx.lineWidth = 10;
+            ctx.fillStyle = 'rgba(0, 0, 0, 0)';
+            ctx.stroke();
+            ctx.fill();
+            ctx.restore();
+        }
 
-        function setTransform() {
-          zoom.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
-        }       
-        function boardChanged(){
-          init();
-
+        function draw()
+        {
+            canvas.width = WIDTH;
+            canvas.height =HEIGHT;
+            
+            // Translate to the canvas centre before zooming - so you'll always zoom on what you're looking directly at
+            ctx.translate( window.innerWidth / 2, window.innerHeight / 2 );
+            ctx.scale(cameraZoom, cameraZoom);
+            ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y );
+            
+            if(currentId != boards.selectedIndex){
+            image = new Image(); 
+            //boardChanged();
+            ctx.clearRect(0, 0, WIDTH, HEIGHT);}
+          
           if(boards.selectedIndex == 0) {
-            Board.src = "boards/Sun.jpg";
+            image.src = "boards/Sun.jpg";
+
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1397,987,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           if(boards.selectedIndex == 1) {
-            Board.src = "boards/Player.jpg";
+            image.src = "boards/Player.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1430,1017,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 2) {
-            Board.src = "boards/Bernal.jpg";
+            image.src = "boards/Bernal.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              600,852,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 3) {
-            Board.src = "boards/Freighter.jpg";
+            image.src = "boards/Freighter.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              596,846,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 4) {
-            Board.src = "boards/M0A.jpg";
+            image.src = "boards/M0A.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1397,996,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 5) {
-            Board.src = "boards/M3As.jpg";
+            image.src = "boards/M3As.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1410,1001,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 6) {
-            Board.src = "boards/M3VPs.jpg";
+            image.src = "boards/M3VPs.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              912,640,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 7) {
-            Board.src = "boards/M3Battle.jpg";
+            image.src = "boards/M3Battle.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              901,667,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 8) {
-            Board.src = "boards/M4.jpg";
+            image.src = "boards/M4.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1494,1057,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 9) {
-            Board.src = "boards/M4-2.jpg";
+            image.src = "boards/M4-2.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1493,1054,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 10) {
-            Board.src = "boards/Map.jpg";
+            image.src = "boards/Map.jpg";
+
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              10817,7287 ,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 11) {
-            Board.src = "boards/VenusMap.jpg";
+            image.src = "boards/VenusMap.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              10817,7287 ,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
+          if(findPosX >=0 )
+          {
+            //ctx.fillStyle = "#991111";
+            drawCircle(findPosX,findPosY,50,50);
+          }
+          currentId = boards.selectedIndex;
+            /*
+            image.src = 'boards/MapSmall.jpg';
 
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at [1600,0]
+              5409,3644 ,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              5409,3644          // use the same 800x600 size that was clipped
+            );*/
+            /*ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
+            ctx.fillStyle = "#991111";
+            drawRect(-50,-50,100,100);
+            
+            ctx.fillStyle = "#eecc77";
+            drawRect(-35,-35,20,20);
+            drawRect(15,-35,20,20);
+            drawRect(-35,15,70,20);
+            
+            ctx.fillStyle = "#fff";
+            drawText("Simple Pan and Zoom Canvas", -255, -100, 32, "courier");
+            
+            ctx.rotate(-31*Math.PI / 180);
+            ctx.fillStyle = `#${(Math.round(Date.now()/40)%4096).toString(16)}`;
+            drawText("Now with touch!", -110, 100, 32, "courier");
+            
+            ctx.fillStyle = "#fff";
+            ctx.rotate(31*Math.PI / 180);
+            
+            drawText("Wow, you found me!", -260, -2000, 48, "courier");
+            */
+            //requestAnimationFrame( draw );
+        }
+        findPosX = -1;
+        findPosY = -1;
+
+        function findSide(){
+          cameraZoom=1;
+          ctx.scale(cameraZoom, cameraZoom);
+          ctx.translate(  - cameraOffset.x, - cameraOffset.y );
+
+          let i=0;
+          for(const child of findLocation.children)
+          {
+            if(i == findLocation.selectedIndex)
+            {
+              let out = child.outerHTML;
+              let b = out.indexOf("x=");
+              b+=3;
+              let e = out.indexOf(" ", b);
+              e-=1;
+              let n = out.substr(b, e-b);
+
+              findPosX = parseInt(n)/FAC;
+              b = out.indexOf("y=");
+              b+=3;
+              e = out.indexOf(">", b);
+              e-=1;
+              n = out.substr(b, e-b);
+              findPosY = parseInt(n)/FAC;
+            }
+            ++i;
+          }
+          /*
+          if(findLocation.selectedIndex == 0) {
+            findPosX = 9320/FAC;
+            findPosY = 5800/FAC;
+            
+          }*/
+          requestAnimationFrame( draw );
+        }
+        function zoomIn()
+        {
+          cameraZoom+=0.1;
+         // ctx.translate( window.innerWidth / 2, window.innerHeight / 2 );
+            ctx.scale(cameraZoom, cameraZoom);
+            //ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y );
+
+          //ctx.draw();
+          requestAnimationFrame( draw );
+        }
+        function zoomOut()
+        {
+          cameraZoom-=0.1;
+          //ctx.translate( window.innerWidth / 2, window.innerHeight / 2 );
+            ctx.scale(cameraZoom, cameraZoom);
+            //ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y );
+
+          //ctx.draw();
+          requestAnimationFrame( draw );
+        }
+        function zoomReset()
+        {
+          cameraZoom=1;
+          ctx.scale(cameraZoom, cameraZoom);
+            ctx.translate(  - cameraOffset.x, - cameraOffset.y );
+            cameraOffset.x =0;
+            cameraOffset.y =0;
+            findPosX = -1;
+            findPosY = -1;
+          requestAnimationFrame( draw );
+        }
+        // Gets the relevant location from a mouse or single touch event
+        function getEventLocation(e)
+        {
+            if (e.touches && e.touches.length == 1)
+            {
+                return { x:e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+            else if (e.clientX && e.clientY)
+            {
+                return { x: e.clientX, y: e.clientY }   ;     
+            }
+        }
+
+
+        function drawRect(x, y, width, height)
+        {
+            ctx.fillRect( x, y, width, height );
+        }
+
+        function drawText(text, x, y, size, font)
+        {
+            ctx.font = `${size}px ${font}`;
+            ctx.fillText(text, x, y);
+        }
+
+        let isDragging = false;
+        let dragStart = { x: 0, y: 0 }
+
+        function onPointerDown(e)
+        {
+            isDragging = true;
+            dragStart.x = getEventLocation(e).x/cameraZoom - cameraOffset.x;
+            dragStart.y = getEventLocation(e).y/cameraZoom - cameraOffset.y;
+        }
+
+        function onPointerUp(e)
+        {
+            isDragging = false;
+            initialPinchDistance = null;
+            lastZoom = cameraZoom;
+        }
+
+        function onPointerMove(e)
+        {
+            if (isDragging)
+            {
+                cameraOffset.x = (getEventLocation(e).x/cameraZoom - dragStart.x);
+                cameraOffset.y = (getEventLocation(e).y/cameraZoom - dragStart.y);
+                requestAnimationFrame( draw );
+            }
+        }
+
+        function handleTouch(e, singleTouchHandler)
+        {
+            if ( e.touches.length == 1 )
+            {
+                singleTouchHandler(e);
+            }
+            else if (e.type == "touchmove" && e.touches.length == 2)
+            {
+                isDragging = false;
+                handlePinch(e);
+            }
+        }
+
+        let initialPinchDistance = null;
+        let lastZoom = cameraZoom;
+
+        function handlePinch(e)
+        {
+            e.preventDefault();
+            
+            let touch1 = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+            let touch2 = { x: e.touches[1].clientX, y: e.touches[1].clientY }
+            
+            // This is distance squared, but no need for an expensive sqrt as it's only used in ratio
+            let currentDistance = (touch1.x - touch2.x)**2 + (touch1.y - touch2.y)**2;
+            
+            if (initialPinchDistance == null)
+            {
+                initialPinchDistance = currentDistance;
+            }
+            else
+            {
+                adjustZoom( null, currentDistance/initialPinchDistance );
+            }
+        }
+        
+        function adjustZoom(zoomAmount, zoomFactor)
+        {
+          if(isBigImage())
+          {
+            if (!isDragging)
+            {
+                if (zoomAmount)
+                {
+                    cameraZoom += zoomAmount;
+                }
+                else if (zoomFactor)
+                {
+                    //console.log(zoomFactor);
+                    cameraZoom = zoomFactor*lastZoom;
+                }
+                
+                cameraZoom = Math.min( cameraZoom, MAX_ZOOM );
+                cameraZoom = Math.max( cameraZoom, MIN_ZOOM );
+                
+                //console.log(zoomAmount);
+            }
+            requestAnimationFrame( draw );
+          }
+        }
+        setTimeout(init, 250); 
+
+        function isBigImage(){
+          if(boards.selectedIndex == 10 || boards.selectedIndex == 11)
+            return 1;
+          else
+            return 0;
+        }
+        function boardChanged(){
+         
+          
+          ctx.clearRect(0, 0, WIDTH, HEIGHT);
+          
+
+          //zoomReset();
+          cameraZoom=1;
+
+            ctx.scale(cameraZoom, cameraZoom);
+            ctx.translate(  - cameraOffset.x, - cameraOffset.y );
+            cameraOffset.x =0;
+            cameraOffset.y =0;
+          //repositionStage();
+          
+          if(boards.selectedIndex == 0) {
+            image.src = "boards/Sun.jpg";
+
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1397,987,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          if(boards.selectedIndex == 1) {
+            image.src = "boards/Player.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1430,1017,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 2) {
+            image.src = "boards/Bernal.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              600,852,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 3) {
+            image.src = "boards/Freighter.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              596,846,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 4) {
+            image.src = "boards/M0A.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1397,996,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 5) {
+            image.src = "boards/M3As.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1410,1001,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 6) {
+            image.src = "boards/M3VPs.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              912,640,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 7) {
+            image.src = "boards/M3Battle.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              901,667,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 8) {
+            image.src = "boards/M4.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1494,1057,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 9) {
+            image.src = "boards/M4-2.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1493,1054,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 10) {
+            image.src = "boards/Map.jpg";
+
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              10817,7287 ,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 11) {
+            image.src = "boards/VenusMap.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              10817,7287 ,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          requestAnimationFrame( draw );
         }
 
         function randomShuffle(){
@@ -1275,14 +1779,244 @@
                 <option value="Map">Map</option>
                 <option value="VMap">Venus Map</option>
               </select>
-              <div id="zoom">
-                <img src="boards/Sun.jpg" alt="zoom" id="Board" style="width: 100%">
-              </div>
-            </div>
 
+          <canvas id="canvas"></canvas>
+            <div>
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="zoomIn" onclick="zoomIn()">
+                <i class="material-icons">
+                   add
+                   </i>
+                   </button>
+                   <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="zoomReset" onclick="zoomReset()">
+                <i class="material-icons">
+                   autorenew
+                   </i>
+                   </button>
+                   
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="zoomOut" onclick="zoomOut()">
+                <i class="material-icons">
+                   remove
+                   </i>
+                   </button>
+            </div>
+            </div>
+            <a data-target="#myModal" role="button" class="btn" data-toggle="modal">Side Finder</a>
             
 
           </section>
+          
+
+
      </div>
+
+
+     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+  <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Side Finder</h3>
+  </div>
+  <div class="modal-body">
+    <select id="findLocation">
+      <option x=672 y=1804>1990OY</option>
+<option>2002TX</option>
+<option>Achilles</option>
+<option>Aegis Moonlet</option>
+<option>Aeneas</option>
+<option>Agamemnon</option>
+<option>Agamemnon Moonlet</option>
+<option>Alexhelios</option>
+<option>Antenor</option>
+<option>Apophis</option>
+<option>Ariadne</option>
+<option>Ariel</option>
+<option>Arrokoth</option>
+<option>Asbolus</option>
+<option>Badenia</option>
+<option>Bee-Zed</option>
+<option>Belenus</option>
+<option>Belinda</option>
+<option>Bennu</option>
+<option>Callisto Asgard Ice Spires</option>
+<option>Callisto Valhalla</option>
+<option>Calypso</option>
+<option>Ceres</option>
+<option>Chariklo</option>
+<option>Charon</option>
+<option>Chaucer</option>
+<option>Chiron</option>
+<option>Churynmov-Gerasimenko</option>
+<option>Cleoselene</option>
+<option>Comet Borrelly</option>
+<option>Comet Crommelin</option>
+<option>Comet Elst-Pizarro</option>
+<option>Comet Encke</option>
+<option>Comet Halley</option>
+<option>Comet Hartley 2</option>
+<option>Comet Holmes</option>
+<option>Comet McNaught</option>
+<option>Comet Neujmin 1</option>
+<option>Comet Phaethon</option>
+<option>Comet Schwassmann-Wachmann 1</option>
+<option>Comet Wild 2</option>
+<option>Comet Wilson-Harrington</option>
+<option>Cordelia</option>
+<option>Cruithne</option>
+<option>Dactyl Moonlet</option>
+<option>Davida</option>
+<option>Deimos</option>
+<option>Despina</option>
+<option>Didymos</option>
+<option>Didymos Moonlet</option>
+<option>Dione</option>
+<option>Dresda</option>
+<option>Echelus</option>
+<option>Eichsfeldia</option>
+<option>Elara</option>
+<option>Elatus</option>
+<option>Enceladus</option>
+<option>Epimetheus</option>
+<option>Eros</option>
+<option>Eureka</option>
+<option>Europa Conamara Chaos</option>
+<option>Europa Subsurface Ocean</option>
+<option>Flora</option>
+<option>Fortuna</option>
+<option>Friederike</option>
+<option>Galatea</option>
+<option>Ganymede Memphis Facula</option>
+<option>Ganymede Uruk Sulcus</option>
+<option>Gaspra</option>
+<option>Gefion</option>
+<option>Glaukos</option>
+<option>Hathor</option>
+<option>Haumea</option>
+<option>Hektor</option>
+<option>Helene</option>
+<option>Hermes A</option>
+<option>Hermes B</option>
+<option>Hertha</option>
+<option>Hi'iaka</option>
+<option>Himalia</option>
+<option>Huya</option>
+<option>Hydra</option>
+<option>Hygiea</option>
+<option>Hylonome</option>
+<option>Hyperion</option>
+<option>Iapetus</option>
+<option>Icarion</option>
+<option>Icarus</option>
+<option>Ida</option>
+<option>Io Gish Bar Mons</option>
+<option>Io Loki Patera</option>
+<option>Itokawa</option>
+<option>Ivar</option>
+<option>Janus</option>
+<option>Juliet</option>
+<option>Karin A</option>
+<option>Karin B</option>
+<option>Karin C</option>
+<option>Khufu</option>
+<option>Kleopatra</option>
+<option>Kollaa</option>
+<option>Koronis</option>
+<option>Kreutz Sungrazer</option>
+<option>Lacrimosa</option>
+<option>Laocoon</option>
+<option>Larissa</option>
+<option>Leda</option>
+<option>Luna Aristarchus Plateau</option>
+<option>Luna Shackleton Polar Rim</option>
+<option>Lutetia</option>
+<option>Lysithea</option>
+<option>Mars Arsia Mons Caves</option>
+<option>Mars Hellas Basin Buried Glaciers</option>
+<option>Mars North Pole</option>
+<option>Mathilde</option>
+<option>Menoetius</option>
+<option>Mercury Discovery Rupes</option>
+<option>Mercury North Pole</option>
+<option>Methone</option>
+<option>Miahelena</option>
+<option>Mimas</option>
+<option>Minerva</option>
+<option>Miranda</option>
+<option>Mjolnir</option>
+<option>Namaka</option>
+<option>Neckar</option>
+<option>Neptune Aerostat</option>
+<option>Nereid</option>
+<option>Nereus</option>
+<option>Nestor</option>
+<option>Nix</option>
+<option>Nysa</option>
+<option>Nyx</option>
+<option>Oberon</option>
+<option>Okyrhoe</option>
+<option>Oljato</option>
+<option>Pandora</option>
+<option>Patroclus</option>
+<option>Peking</option>
+<option>Philoctetes</option>
+<option>Phobos</option>
+<option>Phoebe</option>
+<option>Pholus</option>
+<option>Pluto</option>
+<option>Polana</option>
+<option>Polydeuces</option>
+<option>Portia</option>
+<option>Prometheus</option>
+<option>Prospero</option>
+<option>Proteus</option>
+<option>Psyche</option>
+<option>Puck</option>
+<option>Quaoar</option>
+<option>Remus Moonlet</option>
+<option>Rhea</option>
+<option>Romulus Moonlet</option>
+<option>Sao</option>
+<option>Saturn Aerostat</option>
+<option>Sawiakera</option>
+<option>Sedna</option>
+<option>Setebos</option>
+<option>Skamandrios Moonlet</option>
+<option>Skoll</option>
+<option>Suttungr</option>
+<option>Sycorax</option>
+<option>Sylvia</option>
+<option>Teharonhiawako</option>
+<option>Telamon</option>
+<option>Telesto</option>
+<option>Tethys</option>
+<option>Thymr</option>
+<option>Titan Aerostat</option>
+<option>Titan Kraken Mare</option>
+<option>Titan Ontario Lacus</option>
+<option>Titania</option>
+<option>Tithonus</option>
+<option>Toro</option>
+<option>Triton Mahilani Plume</option>
+<option>Triton Tuonela Planitia</option>
+<option>Umbriel</option>
+<option>Unitas</option>
+<option>Uranus Aerostat</option>
+<option>Urda</option>
+<option>Venus Aerostat-Xity</option>
+<option>Vesta</option>
+<option>Weywot</option>
+<option>Ymir</option>
+<option>YORP</option>
+
+          </select>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary" onClick="findSide()">Find</button>
+  </div>
+  </div>
+  </div>
+</div>
 </body>
 </html>
