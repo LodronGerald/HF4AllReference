@@ -7,8 +7,27 @@
     <title>HF4All Web Reference</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="https://petershaggynoble.github.io/MDI-Sandbox/light/?icon=arrow-left">
+    <!--<link rel="stylesheet" href="https://petershaggynoble.github.io/MDI-Sandbox/light/?icon=arrow-left">-->
+    <!--<script src="https://unpkg.com/konva@9.2.3/konva.min.js"></script>-->
+    <script src="openseadragon/openseadragon.min.js"></script>
+    <link rel="stylesheet" href="openseadragon/openseadragon.min.css">
     <style>
+        body {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #f0f0f0;
+          height: 100%;
+          overflow: auto;
+        }
+
+        #canvas
+        {
+          width: 100%;
+          height: 100%;
+          background: #111;
+        }
+
         .mdl-layout--fixed-tabs .mdl-layout__tab-bar-button {
           display: initial;
           color: #ff4081;
@@ -224,14 +243,7 @@
         
         NOTES2[CREW][2] = "<h6><b>Errata fix:</b> Your Crew/Colonists (that have ISRU platforms) are marines who do not need buggies to make a buggy attack (3E4).</h6>";
         NOTES2[CREW][4] = "<h6><b>Note:</b> Jammers are never used if you are the defender.</h6>";
-        
-        var scale = 1,
-        panning = false,
-        pointX = 0,
-        pointY = 0,
-        start = { x: 0, y: 0 },
-        zoom = [];
-
+ 
         let shuffleArray = [];
         for(let i=0; i<MAX;++i){
           shuffleArray.push([]);
@@ -239,6 +251,7 @@
             shuffleArray[i].push(j);
           }
         }
+
         let contractArray = [];
         for(let i=0; i< 12;++i)
           contractArray.push(0);
@@ -256,39 +269,77 @@
           colonistArray.push(1);
 
         let started = 0;
+        var canvas;
+        var ctx;
+        var cameraOffset;
 
+        let cameraZoom = 1;
+        let MAX_ZOOM = 5;
+        let MIN_ZOOM = 0.1;
+        let SCROLL_SENSITIVITY = 0.005;  
+
+        function generateImage(){
+          var imageObj = new Image();
+          var image = new Konva.Image({
+              x: 0,
+              y: 0,
+              image: imageObj,
+              width: 10817,
+              height: 7287
+          });
+
+          imageObj.src = 'boards/Map.jpg';
+          return image;
+        }
+        function repositionStage() {
+          if(panning){
+            var zoomLevel = 2;
+              layer.on('mouseenter', function () {
+                layer.scale({
+                  x: zoomLevel,
+                  y: zoomLevel,
+                });
+              });
+          }
+          else{
+          var dx = scrollContainer.scrollLeft - PADDING;
+          var dy = scrollContainer.scrollTop - PADDING;
+          
+          stage.container().style.transform =
+            'translate(' + dx + 'px, ' + dy + 'px)';
+          stage.x(-dx);
+          stage.y(-dy);
+          }
+
+        }
+        
         function init() {
           if(!started) {
-            zoom = document.getElementById('zoom'); 
-           
-            zoom.onmousedown = function (e) {
-              e.preventDefault();
-              start = { x: e.clientX - pointX, y: e.clientY - pointY };
-              panning = true;
-            }
-            zoom.onmouseup = function (e) {
-              panning = false;
-            }
-            zoom.onmousemove = function (e) {
-              e.preventDefault();
-              if (!panning) {
-                return;
-              }
-              pointX = (e.clientX - start.x);
-              pointY = (e.clientY - start.y);
-              setTransform();
-            }
-            zoom.onwheel = function (e) {
-              e.preventDefault();
-              var xs = (e.clientX - pointX) / scale,
-                ys = (e.clientY - pointY) / scale,
-                delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
-              (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
-              pointX = e.clientX - xs * scale;
-              pointY = e.clientY - ys * scale;
-              setTransform();
-            }
+
+            /*
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext('2d');
+
+            //cameraOffset = { x: window.innerWidth/2, y: window.innerHeight/2 }
+            cameraOffset = { x: 0, y: 0 }
+
+            canvas.addEventListener('mousedown', onPointerDown);
+            canvas.addEventListener('touchstart', (e) => handleTouch(e, onPointerDown));
+            canvas.addEventListener('mouseup', onPointerUp);
+            canvas.addEventListener('touchend',  (e) => handleTouch(e, onPointerUp));
+            canvas.addEventListener('mousemove', onPointerMove);
+            canvas.addEventListener('touchmove', (e) => handleTouch(e, onPointerMove));
+            //canvas.addEventListener( 'wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY));
+
+            // Ready, set, go
+            draw();
+            */
             
+            var viewer = OpenSeadragon({
+      id: "viewer",
+      prefixUrl: "boards/",
+      tileSources: "boards/Map.dzi", // Deep Zoom Image format
+    });
             started = 1;
             //default selection of option does not work...
             prev(THRUSTER);
@@ -303,51 +354,304 @@
             next(CONTRACT);
           }
         }
+        var image;
+        //let WIDTH = 5409;
+        //let HEIGHT = 3644;
+        let WIDTH = 10817;
+        let HEIGHT = 7287;
+        function draw()
+        {
+            canvas.width = WIDTH;
+            canvas.height =HEIGHT;
+            
+            // Translate to the canvas centre before zooming - so you'll always zoom on what you're looking directly at
+            ctx.translate( window.innerWidth / 2, window.innerHeight / 2 );
+            ctx.scale(cameraZoom, cameraZoom);
+            ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y );
+            image = new Image(); 
+            boardChanged();
+            /*
+            image.src = 'boards/MapSmall.jpg';
+
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at [1600,0]
+              5409,3644 ,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              5409,3644          // use the same 800x600 size that was clipped
+            );*/
+            /*ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
+            ctx.fillStyle = "#991111";
+            drawRect(-50,-50,100,100);
+            
+            ctx.fillStyle = "#eecc77";
+            drawRect(-35,-35,20,20);
+            drawRect(15,-35,20,20);
+            drawRect(-35,15,70,20);
+            
+            ctx.fillStyle = "#fff";
+            drawText("Simple Pan and Zoom Canvas", -255, -100, 32, "courier");
+            
+            ctx.rotate(-31*Math.PI / 180);
+            ctx.fillStyle = `#${(Math.round(Date.now()/40)%4096).toString(16)}`;
+            drawText("Now with touch!", -110, 100, 32, "courier");
+            
+            ctx.fillStyle = "#fff";
+            ctx.rotate(31*Math.PI / 180);
+            
+            drawText("Wow, you found me!", -260, -2000, 48, "courier");
+            */
+            requestAnimationFrame( draw );
+        }
+        function zoomIn()
+        {
+          cameraZoom+=0.1;
+         // ctx.translate( window.innerWidth / 2, window.innerHeight / 2 );
+            ctx.scale(cameraZoom, cameraZoom);
+            //ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y );
+
+          //ctx.draw();
+          requestAnimationFrame( draw );
+        }
+        function zoomOut()
+        {
+          cameraZoom-=0.1;
+          //ctx.translate( window.innerWidth / 2, window.innerHeight / 2 );
+            ctx.scale(cameraZoom, cameraZoom);
+            //ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y );
+
+          //ctx.draw();
+          requestAnimationFrame( draw );
+        }
+        // Gets the relevant location from a mouse or single touch event
+        function getEventLocation(e)
+        {
+            if (e.touches && e.touches.length == 1)
+            {
+                return { x:e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+            else if (e.clientX && e.clientY)
+            {
+                return { x: e.clientX, y: e.clientY }   ;     
+            }
+        }
+
+        function drawRect(x, y, width, height)
+        {
+            ctx.fillRect( x, y, width, height );
+        }
+
+        function drawText(text, x, y, size, font)
+        {
+            ctx.font = `${size}px ${font}`;
+            ctx.fillText(text, x, y);
+        }
+
+        let isDragging = false;
+        let dragStart = { x: 0, y: 0 }
+
+        function onPointerDown(e)
+        {
+            isDragging = true;
+            dragStart.x = getEventLocation(e).x/cameraZoom - cameraOffset.x;
+            dragStart.y = getEventLocation(e).y/cameraZoom - cameraOffset.y;
+        }
+
+        function onPointerUp(e)
+        {
+            isDragging = false;
+            initialPinchDistance = null;
+            lastZoom = cameraZoom;
+        }
+
+        function onPointerMove(e)
+        {
+            if (isDragging)
+            {
+                cameraOffset.x = (getEventLocation(e).x/cameraZoom - dragStart.x);
+                cameraOffset.y = (getEventLocation(e).y/cameraZoom - dragStart.y);
+            }
+        }
+
+        function handleTouch(e, singleTouchHandler)
+        {
+            if ( e.touches.length == 1 )
+            {
+                singleTouchHandler(e);
+            }
+            else if (e.type == "touchmove" && e.touches.length == 2)
+            {
+                isDragging = false;
+                handlePinch(e);
+            }
+        }
+
+        let initialPinchDistance = null;
+        let lastZoom = cameraZoom;
+
+        function handlePinch(e)
+        {
+            e.preventDefault();
+            
+            let touch1 = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+            let touch2 = { x: e.touches[1].clientX, y: e.touches[1].clientY }
+            
+            // This is distance squared, but no need for an expensive sqrt as it's only used in ratio
+            let currentDistance = (touch1.x - touch2.x)**2 + (touch1.y - touch2.y)**2;
+            
+            if (initialPinchDistance == null)
+            {
+                initialPinchDistance = currentDistance;
+            }
+            else
+            {
+                adjustZoom( null, currentDistance/initialPinchDistance );
+            }
+        }
+        
+        function adjustZoom(zoomAmount, zoomFactor)
+        {
+            if (!isDragging)
+            {
+                if (zoomAmount)
+                {
+                    cameraZoom += zoomAmount;
+                }
+                else if (zoomFactor)
+                {
+                    //console.log(zoomFactor);
+                    cameraZoom = zoomFactor*lastZoom;
+                }
+                
+                cameraZoom = Math.min( cameraZoom, MAX_ZOOM );
+                cameraZoom = Math.max( cameraZoom, MIN_ZOOM );
+                
+                //console.log(zoomAmount);
+            }
+        }
         setTimeout(init, 250); 
 
-        function setTransform() {
-          zoom.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
-        }       
-        function boardChanged(){
-          init();
 
+        function boardChanged(){
+         
+          
+          ctx.clearRect(0, 0, WIDTH, HEIGHT);
+          
+
+            
+         
+          //repositionStage();
+          
           if(boards.selectedIndex == 0) {
-            Board.src = "boards/Sun.jpg";
+            image.src = "boards/Sun.jpg";
+
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1397,987,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           if(boards.selectedIndex == 1) {
-            Board.src = "boards/Player.jpg";
+            image.src = "boards/Player.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1430,1017,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 2) {
-            Board.src = "boards/Bernal.jpg";
+            image.src = "boards/Bernal.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              600,852,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 3) {
-            Board.src = "boards/Freighter.jpg";
+            image.src = "boards/Freighter.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              596,846,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 4) {
-            Board.src = "boards/M0A.jpg";
+            image.src = "boards/M0A.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1397,996,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 5) {
-            Board.src = "boards/M3As.jpg";
+            image.src = "boards/M3As.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1410,1001,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 6) {
-            Board.src = "boards/M3VPs.jpg";
+            image.src = "boards/M3VPs.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              912,640,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 7) {
-            Board.src = "boards/M3Battle.jpg";
+            image.src = "boards/M3Battle.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              901,667,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 8) {
-            Board.src = "boards/M4.jpg";
+            image.src = "boards/M4.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1494,1057,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 9) {
-            Board.src = "boards/M4-2.jpg";
+            image.src = "boards/M4-2.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1493,1054,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 10) {
-            Board.src = "boards/Map.jpg";
+            image.src = "boards/Map.jpg";
+
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              WIDTH,HEIGHT ,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
           else if(boards.selectedIndex == 11) {
-            Board.src = "boards/VenusMap.jpg";
+            image.src = "boards/VenusMap.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              WIDTH,HEIGHT ,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
           }
-
+          
         }
 
         function randomShuffle(){
@@ -1275,9 +1579,21 @@
                 <option value="Map">Map</option>
                 <option value="VMap">Venus Map</option>
               </select>
-              <div id="zoom">
-                <img src="boards/Sun.jpg" alt="zoom" id="Board" style="width: 100%">
-              </div>
+              <div>
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="zoomIn" onclick="zoomIn()">
+                <i class="material-icons">
+                   add
+                   </i>
+                   </button>
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="zoomOut" onclick="zoomOut()">
+                <i class="material-icons">
+                   remove
+                   </i>
+                   </button>
+            </div>
+            <div id="viewer" style="width: 100%; height: 100vh;"></div>
+              <!--<canvas id="canvas"></canvas>
+             
             </div>
 
             
