@@ -448,8 +448,11 @@
         function draw()
         {
            init();
-            canvas.width = WIDTH;
-            canvas.height =HEIGHT;
+            //canvas.width = WIDTH;
+            //canvas.height =HEIGHT;
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             
             // Translate to the canvas centre before zooming - so you'll always zoom on what you're looking directly at
             ctx.translate( window.innerWidth / 2, window.innerHeight / 2 );
