@@ -76,11 +76,33 @@
           height: 50px;
           min-width: initial;
         }
+        #scrollToRight {
+          width: 50px;
+          height: 50px;
+          min-width: initial;
+        }
+        #scrollToLeft {
+          width: 50px;
+          height: 50px;
+          min-width: initial;
+        }
+        #scrollToUp {
+          width: 50px;
+          height: 50px;
+          min-width: initial;
+        }
+        #scrollToDown {
+          width: 50px;
+          height: 50px;
+          min-width: initial;
+        }
+        
         #zoomOut {
           width: 50px;
           height: 50px;
           min-width: initial;
         }
+
         #zoomReset {
           width: 50px;
           height: 50px;
@@ -103,6 +125,27 @@
           height: 50px;
           min-width: initial;
         }
+        #scrollToRight {
+          width: 50px;
+          height: 50px;
+          min-width: initial;
+        }
+        #scrollToLeft {
+          width: 50px;
+          height: 50px;
+          min-width: initial;
+        }
+        #scrollToUp {
+          width: 50px;
+          height: 50px;
+          min-width: initial;
+        }
+        #scrollToDown {
+          width: 50px;
+          height: 50px;
+          min-width: initial;
+        }
+        
         #zoomOut {
           width: 50px;
           height: 50px;
@@ -355,6 +398,7 @@
             //cameraOffset = { x: window.innerWidth/2, y: window.innerHeight/2 }
             cameraOffset = { x: 0, y: 0 }
 
+            if(!isTouchDevice()){
             canvas.addEventListener('mousedown', onPointerDown);
             canvas.addEventListener('touchstart', (e) => handleTouch(e, onPointerDown));
             canvas.addEventListener('mouseup', onPointerUp);
@@ -363,6 +407,7 @@
             canvas.addEventListener('touchmove', (e) => handleTouch(e, onPointerMove));
             canvas.addEventListener( 'wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY));
             canvas.addEventListener ("mouseout", onPointerUp);
+            }
             // Ready, set, go
             started = 1;
            // draw();
@@ -612,6 +657,26 @@
           //ctx.draw();
           requestAnimationFrame( draw );
         }
+        function scrollToLeft()
+        {
+          cameraOffset.x -= 50;
+          requestAnimationFrame( draw );
+        }
+        function scrollToRight()
+        {
+          cameraOffset.x += 50;
+          requestAnimationFrame( draw );
+        }
+        function scrollToUp()
+        {
+          cameraOffset.y -= 50;
+          requestAnimationFrame( draw );
+        }
+        function scrollToDown()
+        {
+          cameraOffset.y += 50;
+          requestAnimationFrame( draw );
+        }
         function zoomOut()
         {
           cameraZoom-=0.1;
@@ -656,6 +721,11 @@
         {
             ctx.font = `${size}px ${font}`;
             ctx.fillText(text, x, y);
+        }
+        function isTouchDevice() {
+          return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
         }
 
         let isDragging = false;
@@ -1814,25 +1884,46 @@
 
           <canvas id="canvas"></canvas>
             <div>
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="scrollToLeft" onclick="scrollToLeft()">
+                <i class="material-icons">
+                  arrow_back
+                   </i>
+                   </button>
+                   <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="scrollToUp" onclick="scrollToUp()">
+                <i class="material-icons">
+                  arrow_upward
+                   </i>
+                   </button>
               <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="zoomOut" onclick="zoomOut()">
                 <i class="material-icons">
                    remove
                    </i>
                    </button>
-                   
+
                              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="zoomReset" onclick="zoomReset()">
                 <i class="material-icons">
                    autorenew
                    </i>
                    </button>
-                   
-     
+                  
 
                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="zoomIn" onclick="zoomIn()">
                 <i class="material-icons">
                    add
                    </i>
                    </button>
+                   <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="scrollToDown" onclick="scrollToDown()">
+              
+              <i class="material-icons">
+             arrow_downward
+              </i>
+              </button>
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="scrollToRight" onclick="scrollToRight()">
+              
+              <i class="material-icons">
+             arrow_forward
+              </i>
+              </button>
    
             </div>
             </div>
