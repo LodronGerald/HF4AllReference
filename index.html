@@ -485,18 +485,20 @@
           }
           else if(boards.selectedIndex == 2) {
             image.src = "boards/Bernal.jpg";
+            let f = HEIGHT / 852;
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
-              600,852,         // clip 800x600px from the source
+              WIDTH/f,852,         // clip 800x600px from the source
               0,0  ,            // paint the clipping at [0,0] on the canvas
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
           else if(boards.selectedIndex == 3) {
             image.src = "boards/Freighter.jpg";
+            let f = HEIGHT / 846;
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
-              596,846,         // clip 800x600px from the source
+              WIDTH/f,846,         // clip 800x600px from the source
               0,0  ,            // paint the clipping at [0,0] on the canvas
               WIDTH,HEIGHT          // use the same size that was clipped
             );
@@ -616,6 +618,10 @@
         findPosY = -1;
 
         function findSide(){
+          if(!isBigImage())
+          {
+            boards.selectedIndex = 10;
+          }
           zoomReset();
           let i=0;
           for(const child of findLocation.children)
@@ -864,18 +870,20 @@
           }
           else if(boards.selectedIndex == 2) {
             image.src = "boards/Bernal.jpg";
+            let f = HEIGHT / 852;
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
-              600,852,         // clip 800x600px from the source
+              WIDTH/f,852,         // clip 800x600px from the source
               0,0  ,            // paint the clipping at [0,0] on the canvas
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
           else if(boards.selectedIndex == 3) {
             image.src = "boards/Freighter.jpg";
+            let f = HEIGHT / 846;
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
-              596,846,         // clip 800x600px from the source
+              WIDTH/f,846,         // clip 800x600px from the source
               0,0  ,            // paint the clipping at [0,0] on the canvas
               WIDTH,HEIGHT          // use the same size that was clipped
             );
