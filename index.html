@@ -429,9 +429,9 @@
         }
         var image;
         var currentId=-1;
-        let FAC = 8;
-        let WIDTH = 9735/FAC;
-        let HEIGHT = 6558/FAC; 
+        let FAC = 4;
+        let WIDTH = 5409/FAC;
+        let HEIGHT = 3644/FAC; 
         function drawCircle(x,y,r)
         {
             ctx.save();
@@ -560,7 +560,7 @@
 
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
-              9735,6558 ,         // clip 800x600px from the source
+              5409,3644 ,         // clip 800x600px from the source
               0,0  ,            // paint the clipping at [0,0] on the canvas
               WIDTH,HEIGHT          // use the same size that was clipped
             );
@@ -569,7 +569,7 @@
             image.src = "boards/VenusMapSmall.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
-              9735,6558 ,         // clip 800x600px from the source
+              5409,3644 ,         // clip 800x600px from the source
               0,0  ,            // paint the clipping at [0,0] on the canvas
               WIDTH,HEIGHT          // use the same size that was clipped
             );
@@ -629,13 +629,13 @@
               e-=1;
               let n = out.substr(b, e-b);
 
-              findPosX = parseInt(n)/FAC;
+              findPosX = parseInt(n)/(2*FAC);
               b = out.indexOf("y=");
               b+=3;
               e = out.indexOf(">", b);
               e-=1;
               n = out.substr(b, e-b);
-              findPosY = parseInt(n)/FAC;
+              findPosY = parseInt(n)/(2*FAC);
             }
             ++i;
           }
@@ -939,7 +939,7 @@
 
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
-              9735,6558 ,         // clip 800x600px from the source
+              5409,3644 ,         // clip 800x600px from the source
               0,0  ,            // paint the clipping at [0,0] on the canvas
               WIDTH,HEIGHT          // use the same size that was clipped
             );
@@ -948,7 +948,7 @@
             image.src = "boards/VenusMapSmall.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
-              9735,6558 ,         // clip 800x600px from the source
+              5409,3644 ,         // clip 800x600px from the source
               0,0  ,            // paint the clipping at [0,0] on the canvas
               WIDTH,HEIGHT          // use the same size that was clipped
             );
