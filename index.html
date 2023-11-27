@@ -297,7 +297,7 @@
         NOTES[GWTHRUSTER][2] = "<button onClick=\"showIOAndTriton()\">Show IO and Triton</button>";
         NOTES[GWTHRUSTER][2] += "<h6><b>M3 Note on Mass Beam (1D3c, 3F2b):</b> The FV of your guns (3E3b) is their firing rad-hardness minus 1d6. </h6>";
         NOTES[GWTHRUSTER][3] = "<button onClick=\"showTriton()\">Show Triton and Neptune aerostat</button>";
-        NOTES[GWTHRUSTER][4] = "<button onClick=\"showH()\">Show H sides</button>";
+        NOTES[GWTHRUSTER][4] = "<button onClick=\"showH()\">Show H sites</button>";
         NOTES[GWTHRUSTER][5] = "<button onClick=\"showAdAstra()\">Show Ad Astra</button>";
         NOTES[GWTHRUSTER][5] += "<h6><b>M3 Note on Enzmann Starship (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
         NOTES[GWTHRUSTER][5] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
@@ -334,7 +334,7 @@
         NOTES[CONTRACT][3] = "<button onClick=\"findMiranda()\">Show Miranda</button>";
         NOTES[CONTRACT][7] = "<button onClick=\"findChironOkyrhoe()\">Show Chiron and Okyrhoe</button>";
         NOTES[CONTRACT][9] = "<button onClick=\"findBeeZ()\">Show Bee-Zed</button>";
-        NOTES[CONTRACT][13] = "<button onClick=\"findLcarusKreutz()\">Show Lcarus and Kreutz Sungrazer</button>";
+        NOTES[CONTRACT][13] = "<button onClick=\"findLcarusKreutz()\">Show Icarus and Kreutz Sungrazer</button>";
         NOTES[CONTRACT][14] = "<button onClick=\"findLcarus()\">Show Icarus</button>";
         NOTES[CONTRACT][15] = "<div><button onClick=\"find2p()\">Show 2+ sides</button>";
         NOTES[CONTRACT][16] = "<div><button onClick=\"findS2p()\">Show S 2+ sides</button>";
@@ -350,6 +350,22 @@
         NOTES[CONTRACT][26] += "<button onClick=\"findRhea()\">Show Rhea</button></div>";
         NOTES[CONTRACT][28] = "<div><button onClick=\"findDavida()\">Show Davida</button>";
         NOTES[CONTRACT][28] += "<button onClick=\"findSycorax()\">Show Sycorax</button></div>";
+        NOTES[CONTRACT][29] = "<div><button onClick=\"findCruithne()\">Show Cruithne</button>";
+        NOTES[CONTRACT][29] += "<button onClick=\"findCrommelin()\">Show Comet Crommelin</button></div>";
+
+        NOTES[CONTRACT][32] = "<button onClick=\"findS20H()\">Show 2+ Sites with 0 Hydration</button>";
+
+        NOTES[CONTRACT][33] = "<div><button onClick=\"findPhaethon()\">Show Phaethon</button>";
+        NOTES[CONTRACT][33] += "<button onClick=\"findAgamemmonAenas()\">Show Agamemnon & Aeneas</button></div>";
+
+        NOTES[CONTRACT][36] = "<button onClick=\"findUranus()\">Show Uranus Aerostat</button>";
+        NOTES[CONTRACT][37] = "<div><button onClick=\"findSaturn()\">Show Saturn Aerostat</button>";
+        NOTES[CONTRACT][37] += "<button onClick=\"findPlutoCharon()\">Show Pluto & Charon</button></div>";
+        NOTES[CONTRACT][38] = "<button onClick=\"findLarissa()\">Show Larissa</button>";
+        NOTES[CONTRACT][39] = "<button onClick=\"findQuaoar()\">Show Quaoar</button>";
+        NOTES[CONTRACT][40] = "<button onClick=\"findTeharonhiawako()\">Show Teharonhiawako</button>";
+        NOTES[CONTRACT][41] = "<div><button onClick=\"findArrokh()\">Show Arrokoth</button>";
+        NOTES[CONTRACT][41] += "<button onClick=\"find2002TX()\">Show 2002 TX</button></div>";
 
         NOTES2[CREW][1] = "<h6><b>Note:</b> Amat bombs are not used if you are the defender.</h6>";
         NOTES2[CREW][1] += "<h6><b>War Crimes:</b> Player Purple has this Ability, which allows him to perform Felonies against allies during War/ Anarchy (3A3a), perform a sneak attack or dropstone attack without paying a bribe (3B3c,e), to use human kamikazes (3E5d) and manned dropstones (3D7c), and suffer no consequences from genocide (3E2m).</h6>";
@@ -666,6 +682,58 @@
         //findPosX = -1;
         //findPosY = -1;
 
+        function findS20H()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          let h = 0;
+          let s = 2;
+
+            let i=0;
+            for(const child of findLocation.children)
+            {
+              let out = child.outerHTML;
+              let b = out.indexOf("s=");
+              if(b > 6)
+              {
+                b+=3;
+                let e = out.indexOf(" ", b);
+                e-=1;
+                let n = parseInt(out.substr(b, e-b));
+
+                if(n >=2 )
+                {
+                  b = out.indexOf("h=");
+                  b+=3;
+                  let e = out.indexOf(" ", b);
+                  e-=1;
+                  n = parseInt(out.substr(b, e-b));
+
+                  if(n == 0)
+                  {
+
+                    findPos.push([]);
+                    b = out.indexOf("x=");
+                    b+=3;
+                    e = out.indexOf(" ", b);
+                    e-=1;
+                    n = out.substr(b, e-b);
+                    findPos[i].push(parseInt(n)/(2*FAC));
+                    b = out.indexOf("y=");
+                    b+=3;
+                    e = out.indexOf(">", b);
+                    e-=1;
+                    n = out.substr(b, e-b);
+                    findPos[i].push(parseInt(n)/(2*FAC));
+                    findPos[i].push(25);
+                    ++i;
+                  }
+
+                }
+              }
+            }
+        }
         function findS2p()
         {
           document.getElementById('b').click();
@@ -1087,6 +1155,163 @@
           findPos.push([]);
           findPos[i].push(7294 / (2*FAC));
           findPos[i].push(1543 / (2*FAC));
+          findPos[i].push(50);
+        }
+
+        function findCrommelin()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(2518 / (2*FAC));
+          findPos[i].push(4834 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findPlutoCharon()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(393 / (2*FAC));
+          findPos[i].push(2148 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(970 / (2*FAC));
+          findPos[i].push(2532 / (2*FAC));
+          findPos[i].push(50);
+
+        }
+        function find2002TX()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(429 / (2*FAC));
+          findPos[i].push(1856 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findArrokh()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(1108 / (2*FAC));
+          findPos[i].push(2025 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findTeharonhiawako()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(1951 / (2*FAC));
+          findPos[i].push(391 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findQuaoar()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(3597 / (2*FAC));
+          findPos[i].push(365 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findLarissa()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(2686 / (2*FAC));
+          findPos[i].push(1799 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findSaturn()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(1626 / (2*FAC));
+          findPos[i].push(6311 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findUranus()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(1026 / (2*FAC));
+          findPos[i].push(4097 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findAgamemmonAenas()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(3647 / (2*FAC));
+          findPos[i].push(6146 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]); 
+          findPos[i].push(6821 / (2*FAC));
+          findPos[i].push(974 / (2*FAC));
+          findPos[i].push(50);
+
+        }
+        function findPhaethon()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]); 
+          findPos[i].push(5953 / (2*FAC));
+          findPos[i].push(5786 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findCruithne()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(8996 / (2*FAC));
+          findPos[i].push(6432 / (2*FAC));
           findPos[i].push(50);
         }
         function findSycorax()
@@ -2835,7 +3060,7 @@
    
             </div>
             </div>
-            <a data-target="#myModal" role="button" class="btn" data-toggle="modal">Side Finder</a>
+            <a data-target="#myModal" role="button" class="btn" data-toggle="modal">Site Finder</a>
             
 
           </section>
@@ -2851,29 +3076,29 @@
   <div class="modal-content">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Side Finder</h3>
+    <h3 id="myModalLabel">Site Finder</h3>
   </div>
   <div class="modal-body">
     <select id="findLocation">
-<option>C Sides</option>
-<option>D Sides</option>
-<option>M Sides</option>
-<option>V Sides</option>
-<option>S Sides</option>
-<option>H Sides</option>
+<option>C Sites</option>
+<option>D Sites</option>
+<option>M Sites</option>
+<option>V Sites</option>
+<option>S Sites</option>
+<option>H Sites</option>
 
-<option>ISRU 0 Sides</option>
-<option>ISRU 1 Sides</option>
-<option>ISRU 2 Sides</option>
-<option>ISRU 3 Sides</option>
-<option>ISRU 4 Sides</option>
+<option>ISRU 0 Sites</option>
+<option>ISRU 1 Sites</option>
+<option>ISRU 2 Sites</option>
+<option>ISRU 3 Sites</option>
+<option>ISRU 4 Sites</option>
 
-<option>Size 1 Sides</option>
-<option>Size 2 Sides</option>
-<option>Size 3 Sides</option>
-<option>Size 4 Sides</option>
-<option>Size 5 Sides</option>
-<option>Size 6 Sides</option>
+<option>Size 1 Sites</option>
+<option>Size 2 Sites</option>
+<option>Size 3 Sites</option>
+<option>Size 4 Sites</option>
+<option>Size 5 Sites</option>
+<option>Size 6 Sites</option>
 <option>Dropstones</option>
 
 <option s=2 t=V h=4 x=672 y=1804>1990OY</option>
@@ -2982,7 +3207,7 @@
 <option s=1 t=H h=4 x=2157 y=4048>Kreutz Sungrazer</option>
 <option s=3 t=D h=0 x=8333 y=2169>Lacrimosa</option>
 <option s=1 t=D h=3 x=7490 y=940>Laocoon</option>
-<option s=3 t=D h=3 x=2684 y=2684>Larissa</option>
+<option s=3 t=D h=3 x=2686 y=1799>Larissa</option>
 <option s=1 t=C h=2 x=4254 y=2576>Leda</option>
 <option s=9 t=H h=0 x=9215 y=5095>Luna Aristarchus Plateau</option>
 <option s=9 t=S h=1 x=9477 y=5109>Luna Shackleton Polar Rim</option>
