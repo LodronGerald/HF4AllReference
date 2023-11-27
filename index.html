@@ -840,7 +840,9 @@
         }
         function boardChanged(){
          
-          
+          findPosX = -1;
+          findPosY = -1;
+
           ctx.clearRect(0, 0, WIDTH, HEIGHT);
           
 
@@ -2154,7 +2156,7 @@
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary" onClick="findSide()">Find</button>
+    <button class="btn btn-primary"  data-dismiss="modal" aria-hidden="true" onClick="findSide()">Find</button>
   </div>
   </div>
   </div>
