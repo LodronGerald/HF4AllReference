@@ -266,6 +266,7 @@
         
         //NOTES[COLONIST][1] = "<h6><b>Supreme Cult Future (errata fix):</b> Req (Module 0) = Active Law in authority. Effects = You may lobby without removing the delegate used. All Seniority Disks (past and future) migrate to authority. 10 VP if you control this card at the endgame.</h6>";
         //NOTES[COLONIST][1] = "<h6><b>Josephson Implants(errata fix 2C4b):</b> Your FINAO costs are halved (drop factions).</h6>";
+       NOTES[COLONIST][4] = "<button onClick=\"showJovian()\">Show Jovians</button>";
        
         //NOTES[COLONIST][6] = "<h6><b>Footfall Future (errata fix):</b> Req = Decommission this card and an Operational thruster with net thrust 7+ on an Industrialized Synodic Comet of yours. This Busts the Site and Decommissions all tokens on it. Effects = Casus belli (1D2c),30 10 VP.</h6>";
         NOTES[COLONIST][6] += "<h6><b>M3 Note on Footfall Future (1D5a, 3F2g):</b> Use the dislodge operation (3D7) to complete these Futures. Completion allows you to convert any Synodic Comet into a synodic dropstone, in which you do not need to pay a bribe.</h6>";
@@ -279,12 +280,18 @@
         NOTES[COLONIST][18] = "<h6><b>Note:</b> This colonist is from promo pack 1.</h6>";
         NOTES[COLONIST][19] = "<h6><b>Note:</b> This colonist is from promo pack 1.</h6>";
 
-        for(let i = 20; i<=MAXs[COLONIST]; ++i)
-          NOTES[COLONIST][i] = "<h6><b>Note:</b> This colonist is from M4.</h6>";
+        NOTES[COLONIST][27] = "<button onClick=\"findHaumea()\">Show Haumea</button>";
+        NOTES[COLONIST][28] = "<button onClick=\"findEMSunlens()\">Show EM Sunlens</button>";
+        NOTES[COLONIST][32] = "<button onClick=\"showAdAstra()\">Show Ad Astra</button>";
+        NOTES[COLONIST][34] = "<button onClick=\"showAdAstra()\">Show Ad Astra</button>";
 
+        for(let i = 20; i<=MAXs[COLONIST]; ++i)
+          NOTES[COLONIST][i] += "<h6><b>Note:</b> This colonist is from M4.</h6>";
+
+        
         NOTES[COLONIST][32] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
         NOTES[COLONIST][34] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
-
+        
         NOTES[GWTHRUSTER][1] = "<button onClick=\"showCentaur()\">Show Centaurs</button>";
         NOTES[GWTHRUSTER][1] += "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any Size 1 Site. </h6>";
         NOTES[GWTHRUSTER][2] = "<button onClick=\"showIO()\">Show IO</button>";
@@ -811,6 +818,47 @@
           findPos[i].push(9216 / (2*FAC));
           findPos[i].push(5089 / (2*FAC));
           findPos[i].push(50);
+        }
+        function findEMSunlens()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(743 / (2*FAC));
+          findPos[i].push(496 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findHaumea()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(848 / (2*FAC));
+          findPos[i].push(728 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function showJovian()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(3340 / (2*FAC));
+          findPos[i].push(6170 / (2*FAC));
+          findPos[i].push(140);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(7930 / (2*FAC));
+          findPos[i].push(904 / (2*FAC));
+          findPos[i].push(190);
         }
         function showAdAstra()
         {
