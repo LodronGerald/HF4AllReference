@@ -330,7 +330,12 @@
         
         //NOTES[BERNAL][8] = "<h6><b>Errata fix:</b> Epic Hazard Roll to Anchor at GEO.</h6>";
         NOTES[BERNAL][8] = "<h6><b>M3 Note:</b> Immune to boost & homesteading restrictions. With an Epic Hazard Operation you may build Space Elevator over a (half)lander burn. Doubles FINAO costs for all players.</h6>";
-        
+ 
+        NOTES[CONTRACT][3] = "<button onClick=\"findMiranda()\">Show Miranda</button>";
+        NOTES[CONTRACT][7] = "<button onClick=\"findChironOkyrhoe()\">Show Chiron and Okyrhoe</button>";
+        NOTES[CONTRACT][9] = "<button onClick=\"findBeeZ()\">Show Bee-Zed</button>";
+
+        findChironOkyrhoe
         NOTES2[CREW][1] = "<h6><b>Note:</b> Amat bombs are not used if you are the defender.</h6>";
         NOTES2[CREW][1] += "<h6><b>War Crimes:</b> Player Purple has this Ability, which allows him to perform Felonies against allies during War/ Anarchy (3A3a), perform a sneak attack or dropstone attack without paying a bribe (3B3c,e), to use human kamikazes (3E5d) and manned dropstones (3D7c), and suffer no consequences from genocide (3E2m).</h6>";
         NOTES2[CREW][1] += "<h6><b>Felonies 3A3a:</b> Only player purple can use felonies against allies.</h6>";
@@ -899,7 +904,48 @@
                 return { x: e.clientX, y: e.clientY }   ;     
             }
         }
+        function findChironOkyrhoe()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(9045 / (2*FAC));
+          findPos[i].push(439 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(4736 / (2*FAC));
+          findPos[i].push(696 / (2*FAC));
+          findPos[i].push(50);
+        }
 
+        function findMiranda()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(1661 / (2*FAC));
+          findPos[i].push(3351 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findBeeZ()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(3459 / (2*FAC));
+          findPos[i].push(5009 / (2*FAC));
+          findPos[i].push(50);
+        }
         function showSunlens()
         {
           document.getElementById('b').click();
