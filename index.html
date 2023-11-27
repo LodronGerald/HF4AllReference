@@ -343,9 +343,14 @@
         NOTES[CONTRACT][18] = "<button onClick=\"findVesta()\">Show Vesta</button>";
         NOTES[CONTRACT][19] = "<button onClick=\"findHyperionSaturn()\">Show Hyperion and Saturn Aerostat</button>";
         NOTES[CONTRACT][22] = "<button onClick=\"findHolmes()\">Show Comet Holmes</button>";
-        
         NOTES[CONTRACT][23] = "<button onClick=\"findGanymedeQuaoarHolmes()\">Show Ganymede, Quaoar and Comet Holmes</button>";
         
+        NOTES[CONTRACT][25] = "<button onClick=\"findEcheclus()\">Show Echeclus</button>";
+        NOTES[CONTRACT][26] = "<div><button onClick=\"findPatheon()\">Show Comet Patheon</button>";
+        NOTES[CONTRACT][26] += "<button onClick=\"findRhea()\">Show Rhea</button></div>";
+        NOTES[CONTRACT][28] = "<div><button onClick=\"findDavida()\">Show Davida</button>";
+        NOTES[CONTRACT][28] += "<button onClick=\"findSycorax()\">Show Sycorax</button></div>";
+
         NOTES2[CREW][1] = "<h6><b>Note:</b> Amat bombs are not used if you are the defender.</h6>";
         NOTES2[CREW][1] += "<h6><b>War Crimes:</b> Player Purple has this Ability, which allows him to perform Felonies against allies during War/ Anarchy (3A3a), perform a sneak attack or dropstone attack without paying a bribe (3B3c,e), to use human kamikazes (3E5d) and manned dropstones (3D7c), and suffer no consequences from genocide (3E2m).</h6>";
         NOTES2[CREW][1] += "<h6><b>Felonies 3A3a:</b> Only player purple can use felonies against allies.</h6>";
@@ -1046,6 +1051,66 @@
           findPos.push([]);
           findPos[i].push(1661 / (2*FAC));
           findPos[i].push(3351 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findEcheclus()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(3913 / (2*FAC));
+          findPos[i].push(1430 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findPatheon()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(5972 / (2*FAC));
+          findPos[i].push(5794 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findDavida()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(7294 / (2*FAC));
+          findPos[i].push(1543 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findSycorax()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(1030 / (2*FAC));
+          findPos[i].push(4470 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function findRhea()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(1778 / (2*FAC));
+          findPos[i].push(6930 / (2*FAC));
           findPos[i].push(50);
         }
         function findHolmes()
