@@ -294,7 +294,7 @@
         
         NOTES[GWTHRUSTER][1] = "<button onClick=\"showCentaur()\">Show Centaurs</button>";
         NOTES[GWTHRUSTER][1] += "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any Size 1 Site. </h6>";
-        NOTES[GWTHRUSTER][2] = "<button onClick=\"showIO()\">Show IO</button>";
+        NOTES[GWTHRUSTER][2] = "<button onClick=\"showIOAndTriton()\">Show IO and Triton</button>";
         NOTES[GWTHRUSTER][2] += "<h6><b>M3 Note on Mass Beam (1D3c, 3F2b):</b> The FV of your guns (3E3b) is their firing rad-hardness minus 1d6. </h6>";
         NOTES[GWTHRUSTER][3] = "<button onClick=\"showTriton()\">Show Triton and Neptune aerostat</button>";
         NOTES[GWTHRUSTER][4] = "<button onClick=\"showH()\">Show H sides</button>";
@@ -1043,6 +1043,23 @@
           findPos.push([]);
           findPos[i].push(1827 / (2*FAC));
           findPos[i].push(2116 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function showIOAndTriton()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(3766 / (2*FAC));
+          findPos[i].push(2211 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(2614 / (2*FAC));
+          findPos[i].push(1167 / (2*FAC));
           findPos[i].push(50);
         }
         function showIO()
