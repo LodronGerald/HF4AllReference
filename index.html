@@ -795,6 +795,10 @@
             }
 
           }
+          else if(findLocation.selectedIndex == 17)
+          {
+            findDropstones();
+          }
           else
           {
             let i=0;
@@ -988,6 +992,63 @@
           findPos[i].push(848 / (2*FAC));
           findPos[i].push(728 / (2*FAC));
           findPos[i].push(50);
+        }
+        function findDropstones()
+        {
+          //document.getElementById('b').click();
+          //boards.selectedIndex = 10;
+          //zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(1466 / (2*FAC));
+          findPos[i].push(4877 / (2*FAC));
+          findPos[i].push(25);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1633 / (2*FAC));
+          findPos[i].push(4667 / (2*FAC));
+          findPos[i].push(25);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1834 / (2*FAC));
+          findPos[i].push(4427 / (2*FAC));
+          findPos[i].push(25);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(2010 / (2*FAC));
+          findPos[i].push(4523 / (2*FAC));
+          findPos[i].push(25);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1987 / (2*FAC));
+          findPos[i].push(4894 / (2*FAC));
+          findPos[i].push(25);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1260 / (2*FAC));
+          findPos[i].push(5359 / (2*FAC));
+          findPos[i].push(25);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(3924 / (2*FAC));
+          findPos[i].push(2788 / (2*FAC));
+          findPos[i].push(25);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(4256 / (2*FAC));
+          findPos[i].push(2577 / (2*FAC));
+          findPos[i].push(25);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(4337 / (2*FAC));
+          findPos[i].push(2261 / (2*FAC));
+          findPos[i].push(25);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(4058 / (2*FAC));
+          findPos[i].push(2388 / (2*FAC));
+          findPos[i].push(25);
         }
         function showJovian()
         {
@@ -2463,6 +2524,8 @@
 <option>Size 4 Sides</option>
 <option>Size 5 Sides</option>
 <option>Size 6 Sides</option>
+
+<option>Dropstones</option>
 
 <option s=2 t=V h=4 x=672 y=1804>1990OY</option>
 <option s=4 t=D h=4 x=429 y=1856>2002TX</option>
