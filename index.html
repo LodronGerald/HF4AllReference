@@ -285,18 +285,29 @@
         NOTES[COLONIST][32] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
         NOTES[COLONIST][34] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
 
-        NOTES[GWTHRUSTER][1] = "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any Size 1 Site. </h6>";
-        NOTES[GWTHRUSTER][2] = "<h6><b>M3 Note on Mass Beam (1D3c, 3F2b):</b> The FV of your guns (3E3b) is their firing rad-hardness minus 1d6. </h6>";
-        NOTES[GWTHRUSTER][5] = "<h6><b>M3 Note on Enzmann Starship (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
+        NOTES[GWTHRUSTER][1] = "<button onClick=\"showCentaur()\">Show Centaurs</button>";
+        NOTES[GWTHRUSTER][1] += "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any Size 1 Site. </h6>";
+        NOTES[GWTHRUSTER][2] = "<button onClick=\"showIO()\">Show IO</button>";
+        NOTES[GWTHRUSTER][2] += "<h6><b>M3 Note on Mass Beam (1D3c, 3F2b):</b> The FV of your guns (3E3b) is their firing rad-hardness minus 1d6. </h6>";
+        NOTES[GWTHRUSTER][3] = "<button onClick=\"showTriton()\">Show Triton and Neptune aerostat</button>";
+        NOTES[GWTHRUSTER][4] = "<button onClick=\"showH()\">Show H sides</button>";
+        NOTES[GWTHRUSTER][5] = "<button onClick=\"showAdAstra()\">Show Ad Astra</button>";
+        NOTES[GWTHRUSTER][5] += "<h6><b>M3 Note on Enzmann Starship (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
         NOTES[GWTHRUSTER][5] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
-        NOTES[GWTHRUSTER][6] = "<h6><b>M3 Note on Lithiated Ammonia (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
+        NOTES[GWTHRUSTER][6] = "<button onClick=\"showAdAstra()\">Show Ad Astra</button>";
+        NOTES[GWTHRUSTER][6] += "<h6><b>M3 Note on Lithiated Ammonia (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
         NOTES[GWTHRUSTER][6] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
 
+        NOTES[FREIGHTER][0] = "<button onClick=\"showTerraformFuture()\">Show future positions on map</button>";
         NOTES[FREIGHTER][1] = "<h6><b>M3 Note on Beehive Ark (1D4b, 3F2d):</b> Your Tokens on Size 1 Sites are immune to all combat. </h6>";
-        NOTES[FREIGHTER][4] = "<h6><b>M3 Note on Golden Apples (1D4e, 3F2f):</b> FINAO is no longer a war restriction (3D4i) for all players. If other players pay for FINAO (whether Aqua or Isotopes), you receive the payment. </h6>";
+        NOTES[FREIGHTER][2] = "<button onClick=\"showExoplanetHuntFuture()\">Show Sedna</button>";
+        NOTES[FREIGHTER][4] = "<button onClick=\"showKreuzSungrazer()\">Show Kreuz Sungrazer</button>";
+        NOTES[FREIGHTER][4] += "<h6><b>M3 Note on Golden Apples (1D4e, 3F2f):</b> FINAO is no longer a war restriction (3D4i) for all players. If other players pay for FINAO (whether Aqua or Isotopes), you receive the payment. </h6>";
+        
         NOTES[FREIGHTER][5] = "<h6><b>M3 Note on Antimatter (1D4f, 3F2e):</b> Gain amat bombs (3E3d), which you can use without paying Aquas. </h6>";
-        NOTES[FREIGHTER][8] = "<h6><b>M3 Note on Beehive Ark (1D4b, 3F2d):</b> Your Tokens on Size 1 Sites are immune to all combat. </h6>";
+        NOTES[FREIGHTER][6] = "<button onClick=\"showSunlens()\">Show Sunlenses</button>";
        
+
         NOTES[BERNAL][0] = "<h6><b>M3 Note:</b> (Promoted) Your Crew and Bernals can fire Antimatter Bombs.</h6>";
         NOTES[BERNAL][1] = "<h6><b>M3 Note:</b> Red Cross Token. No combat is allowed to or from Bernal. Immune to No Home Bernal restrictions.</h6>";
         NOTES[BERNAL][2] = "<h6><b>L1 Climate Control Bernal:</b> Home = If in the L1 Home Orbit, you are always the 1st player (without swapping the Sunspot Cube), superseding all other claimants. Promoted = +2 VP per Dirtside for this Bernal.</h6>";
@@ -580,10 +591,15 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          if(findPosX >=0 )
+          for(let i =0; i<findPos.length; ++i)
           {
-            //ctx.fillStyle = "#991111";
-            drawCircle(findPosX,findPosY,50,50);
+            if(findPos[i].length == 2){
+              //ctx.fillStyle = "#991111";
+              drawCircle(findPos[i][0],findPos[i][1],50,50);
+            }
+            else if(findPos[i].length == 3){
+              drawCircle(findPos[i][0],findPos[i][1],findPos[i][2],findPos[i][2]);
+            }
           }
           currentId = boards.selectedIndex;
             /*
@@ -618,8 +634,10 @@
             */
             //requestAnimationFrame( draw );
         }
-        findPosX = -1;
-        findPosY = -1;
+        findPos = [];
+
+        //findPosX = -1;
+        //findPosY = -1;
 
         function findSide(){
           if(!isBigImage())
@@ -639,13 +657,16 @@
               e-=1;
               let n = out.substr(b, e-b);
 
-              findPosX = parseInt(n)/(2*FAC);
+              findPos = [];
+              findPos.push([]);
+
+              findPos[0].push(parseInt(n)/(2*FAC));
               b = out.indexOf("y=");
               b+=3;
               e = out.indexOf(">", b);
               e-=1;
               n = out.substr(b, e-b);
-              findPosY = parseInt(n)/(2*FAC);
+              findPos[0].push(parseInt(n)/(2*FAC));
             }
             ++i;
           }
@@ -704,8 +725,9 @@
             ctx.translate(  - cameraOffset.x, - cameraOffset.y );
             cameraOffset.x =0;
             cameraOffset.y =0;
-            findPosX = -1;
-            findPosY = -1;
+            findPos = [];
+            //findPosX = -1;
+            //findPosY = -1;
           requestAnimationFrame( draw );
         }
         // Gets the relevant location from a mouse or single touch event
@@ -721,7 +743,240 @@
             }
         }
 
+        function showSunlens()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(1714 / (2*FAC));
+          findPos[i].push(2532 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(747 / (2*FAC));
+          findPos[i].push(498 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function showH()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(372 / (2*FAC));
+          findPos[i].push(741 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1147 / (2*FAC));
+          findPos[i].push(605 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1849 / (2*FAC));
+          findPos[i].push(2123 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1032 / (2*FAC));
+          findPos[i].push(4105 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(2169 / (2*FAC));
+          findPos[i].push(4047 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1607 / (2*FAC));
+          findPos[i].push(6320 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(3444 / (2*FAC));
+          findPos[i].push(5007 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(5971 / (2*FAC));
+          findPos[i].push(5803 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(9216 / (2*FAC));
+          findPos[i].push(5089 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function showAdAstra()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(325 / (2*FAC));
+          findPos[i].push(352 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(4572 / (2*FAC));
+          findPos[i].push(2898 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1541 / (2*FAC));
+          findPos[i].push(2579 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function showTriton()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(2627 / (2*FAC));
+          findPos[i].push(1167 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1827 / (2*FAC));
+          findPos[i].push(2116 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function showIO()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(3766 / (2*FAC));
+          findPos[i].push(2211 / (2*FAC));
+          findPos[i].push(50);
 
+        }
+        function showCentaur()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(4224 / (2*FAC));
+          findPos[i].push(570 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1946 / (2*FAC));
+          findPos[i].push(3249 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1707 / (2*FAC));
+          findPos[i].push(2949 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(1005 / (2*FAC));
+          findPos[i].push(4717 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(4742 / (2*FAC));
+          findPos[i].push(694 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(3909 / (2*FAC));
+          findPos[i].push(1428 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function showKreuzSungrazer()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(2161 / (2*FAC));
+          findPos[i].push(4050 / (2*FAC));
+          findPos[i].push(50);
+        }
+        function showExoplanetHuntFuture()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(384 / (2*FAC));
+          findPos[i].push(738 / (2*FAC));
+          findPos[i].push(35);
+        }
+        function showTerraformFuture()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(2699 / (2*FAC));
+          findPos[i].push(6818 / (2*FAC));
+          findPos[i].push(35);
+          ++i;
+
+          findPos.push([]);
+          findPos[i].push(2541 / (2*FAC));
+          findPos[i].push(6646 / (2*FAC));
+          findPos[i].push(35);
+          ++i;
+          
+          findPos.push([]);
+          findPos[i].push(2557 / (2*FAC));
+          findPos[i].push(6318 / (2*FAC));
+          findPos[i].push(35);
+          ++i;
+          
+          findPos.push([]);
+          findPos[i].push(1618 / (2*FAC));
+          findPos[i].push(6315 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          
+          findPos.push([]);
+          findPos[i].push(1005 / (2*FAC));
+          findPos[i].push(4089 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          
+          findPos.push([]);
+          findPos[i].push(1812 / (2*FAC));
+          findPos[i].push(2114 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          
+          findPos.push([]);
+          findPos[i].push(7372 / (2*FAC));
+          findPos[i].push(6118 / (2*FAC));
+          findPos[i].push(50);
+          ++i;
+          
+          requestAnimationFrame( draw );
+
+        }
         function drawRect(x, y, width, height)
         {
             ctx.fillRect( x, y, width, height );
@@ -840,8 +1095,9 @@
         }
         function boardChanged(){
          
-          findPosX = -1;
-          findPosY = -1;
+          findPos = [];
+          //findPosX = -1;
+          //findPosY = -1;
 
           ctx.clearRect(0, 0, WIDTH, HEIGHT);
           
@@ -1711,6 +1967,7 @@
                    </i>
              </button>
              <div id="note7" style="text-align:center">
+              <button onClick="showTerraformFuture()">Show future positions on map</button>
             </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="removeCard(7)">
                   <i class="material-icons">
