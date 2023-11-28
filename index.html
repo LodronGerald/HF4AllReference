@@ -331,17 +331,24 @@
         //NOTES[BERNAL][8] = "<h6><b>Errata fix:</b> Epic Hazard Roll to Anchor at GEO.</h6>";
         NOTES[BERNAL][8] = "<h6><b>M3 Note:</b> Immune to boost & homesteading restrictions. With an Epic Hazard Operation you may build Space Elevator over a (half)lander burn. Doubles FINAO costs for all players.</h6>";
  
+        NOTES[CONTRACT][0] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"find2p()\">Show 2+ sides</button>";
         NOTES[CONTRACT][3] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findMiranda()\">Show Miranda</button>";
-        NOTES[CONTRACT][7] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findChironOkyrhoe()\">Show Chiron and Okyrhoe</button>";
+        NOTES[CONTRACT][7] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findChiron()\">Show Chiron</button>";
+        NOTES[CONTRACT][7] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findOkyrhoe()\">Show Okyrhoe</button></div>";
         NOTES[CONTRACT][9] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findBeeZ()\">Show Bee-Zed</button>";
-        NOTES[CONTRACT][13] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findLcarusKreutz()\">Show Icarus and Kreutz Sungrazer</button>";
+        
+        NOTES[CONTRACT][13] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findLcarus()\">Show Icarus</button>";
+        NOTES[CONTRACT][13] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findKreutz()\">Show Kreutz Sungrazer</button></div>";
         NOTES[CONTRACT][14] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findLcarus()\">Show Icarus</button>";
         NOTES[CONTRACT][15] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"find2p()\">Show 2+ sides</button>";
         NOTES[CONTRACT][16] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findS2p()\">Show S 2+ sides</button>";
         NOTES[CONTRACT][16] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findPhoebe()\">Show Phoebe</button></div>";
-        NOTES[CONTRACT][17] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findNeujmin()\">Show Neujmin</button>";
-        NOTES[CONTRACT][18] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findVesta()\">Show Vesta</button>";
-        NOTES[CONTRACT][19] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findHyperionSaturn()\">Show Hyperion and Saturn Aerostat</button>";
+        NOTES[CONTRACT][17] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findMercL1L3()\">Show Mercury L1, L3</button>";
+        NOTES[CONTRACT][17] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findNeujmin()\">Show Neujmin</button></div>";
+        NOTES[CONTRACT][18] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"find6p()\">Show 6+ sides</button>";
+        NOTES[CONTRACT][18] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findVesta()\">Show Vesta</button></div>";
+        NOTES[CONTRACT][19] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findHyperion()\">Show Hyperion</button>";
+        NOTES[CONTRACT][19] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findSaturn()\">Show Saturn Aerostat</button></div>";
         NOTES[CONTRACT][22] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findHolmes()\">Show Comet Holmes</button>";
         NOTES[CONTRACT][23] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findGanymedeQuaoarHolmes()\">Show Ganymede, Quaoar and Comet Holmes</button>";
         
@@ -352,6 +359,7 @@
         NOTES[CONTRACT][28] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findSycorax()\">Show Sycorax</button></div>";
         NOTES[CONTRACT][29] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findCruithne()\">Show Cruithne</button>";
         NOTES[CONTRACT][29] += "<button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findCrommelin()\">Show Comet Crommelin</button></div>";
+        //NOTES[CONTRACT][30] += "<button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"find9p()\">Show 9+ Sites</button></div>";
 
         NOTES[CONTRACT][32] = "<button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findS20H()\">Show 2+ Sites with 0 Hydration</button>";
 
@@ -786,13 +794,24 @@
               }
             }
         }
+
+        function find6p()
+        {
+          findSizePlus(6);
+        }
         function find2p()
+        {
+          findSizePlus(2);
+        }
+        function find9p()
+        {
+          findSizePlus(9);
+        }
+        function findSizePlus(s)
         {
           document.getElementById('b').click();
           boards.selectedIndex = 10;
           zoomReset();
-          //let f = "S";
-          let s = 2;
 
             let i=0;
             for(const child of findLocation.children)
@@ -814,7 +833,7 @@
                   e-=1;
                   n = parseInt(out.substr(b, e-b));
 
-                  if(n >= 2)
+                  if(n >= s)
                   {
 
                     findPos.push([]);
@@ -838,29 +857,49 @@
               }
             }
         }
-        function findSide(){
-          if(!isBigImage())
-          {
-            boards.selectedIndex = 10;
-          }
-          zoomReset();
-          findPos = [];
-          if(findLocation.selectedIndex < 6)
-          {
-            let f;
-            if(findLocation.selectedIndex == 0)
-              f = "C";
-            else if(findLocation.selectedIndex == 1)
-              f = "D";
-            else if(findLocation.selectedIndex == 2)
-              f = "M";
-            else if(findLocation.selectedIndex == 3)
-              f = "V";
-            else if(findLocation.selectedIndex == 4)
-              f = "S";
-            else if(findLocation.selectedIndex == 5)
-              f = "H";
+        function findCustomSite()
+        {
+          let siteT = "A";
+          if(siteType.selectedIndex == 1)
+            siteT = "C";
+          else if(siteType.selectedIndex == 2)
+            siteT = "D";
+          else if(siteType.selectedIndex == 3)
+            siteT = "M";
+          else if(siteType.selectedIndex == 4)
+            siteT= "V";
+          else if(siteType.selectedIndex == 5)
+            siteT = "S";
+          else if(siteType.selectedIndex == 6)
+            siteT = "H";
 
+          let siteS = -1;
+          let sizeMode = 0;
+
+          if(siteSize.selectedIndex > 0)
+            siteS = siteSize.selectedIndex;
+          if(siteS > 11)
+          {
+            sizeMode = 1;
+            siteS -= 10;
+            if(siteS > 10)
+            {
+              sizeMode = 2;
+              siteS -= 9;
+            }
+          }
+
+          let hydration = -1;
+          let hydrationM = 0;
+          if( isru.selectedIndex > 0)
+            hydration = isru.selectedIndex-1;
+          if(hydration > 4)
+          {
+            hydrationM = 1;
+            hydration-=4;
+          }
+
+          {
             let i=0;
             for(const child of findLocation.children)
             {
@@ -871,160 +910,107 @@
                 b+=3;
                 let e = out.indexOf(" ", b);
                 e-=1;
-                let n = out.substr(b, e-b);
+                let type = out.substr(b, e-b);
 
-                if(n == f)
+                if((siteT == "A") || (type == siteT))
                 {
-                  findPos.push([]);
-                  b = out.indexOf("x=");
+                  b = out.indexOf("h=");
                   b+=3;
                   e = out.indexOf(" ", b);
                   e-=1;
-                  n = out.substr(b, e-b);
-                  findPos[i].push(parseInt(n)/(2*FAC));
-                  b = out.indexOf("y=");
-                  b+=3;
-                  e = out.indexOf(">", b);
-                  e-=1;
-                  n = out.substr(b, e-b);
-                  findPos[i].push(parseInt(n)/(2*FAC));
-                  findPos[i].push(25);
-                  ++i;
+                  let hyd = parseInt(out.substr(b, e-b));
 
+                  if((hydration == -1) ||
+                     ((hydrationM == 0) && (hydration == hyd)) ||
+                     ((hydrationM == 1) && (hyd >= hydration)))
+                  {
+                    b = out.indexOf("s=");
+                    b+=3;
+                    e = out.indexOf(" ", b);
+                    e-=1;
+                    let siz = parseInt(out.substr(b, e-b));
+                  
+                    if((siteS == -1) ||
+                       ((sizeMode == 0) && (siteS == siz))||
+                       ((sizeMode == 1) && (siz >= siteS))||
+                       ((sizeMode == 2) && (siz <= siteS)))
+                    {
+                      findPos.push([]);
+                      b = out.indexOf("x=");
+                      b+=3;
+                      e = out.indexOf(" ", b);
+                      e-=1;
+                      n = out.substr(b, e-b);
+                      findPos[i].push(parseInt(n)/(2*FAC));
+                      b = out.indexOf("y=");
+                      b+=3;
+                      e = out.indexOf(">", b);
+                      e-=1;
+                      n = out.substr(b, e-b);
+                      findPos[i].push(parseInt(n)/(2*FAC));
+                      findPos[i].push(25);
+                      ++i;
+                    }
+                  }
                 }
               }
-
             }
-
           }
-          else if(findLocation.selectedIndex < 11)
+          
+        }
+        function findLocationSelectionChanged()
+        {
+          document.getElementById('siteType').disabled = findLocation.selectedIndex != 0;
+          document.getElementById('siteSize').disabled = findLocation.selectedIndex != 0;
+          document.getElementById('isru').disabled = findLocation.selectedIndex != 0;
+          
+        }
+        function findSide(){
+          if(!isBigImage())
           {
-            let f;
-            if(findLocation.selectedIndex == 6)
-              f = "0";
-            else if(findLocation.selectedIndex == 7)
-              f = "1";
-            else if(findLocation.selectedIndex == 8)
-              f = "2";
-            else if(findLocation.selectedIndex == 9)
-              f = "3";
-            else if(findLocation.selectedIndex == 10)
-              f = "4";
-
-            let i=0;
-            for(const child of findLocation.children)
-            {
-              let out = child.outerHTML;
-              let b = out.indexOf("h=");
-              if(b > 6)
-              {
-                b+=3;
-                let e = out.indexOf(" ", b);
-                e-=1;
-                let n = out.substr(b, e-b);
-
-                if(n == f)
-                {
-                  findPos.push([]);
-                  b = out.indexOf("x=");
-                  b+=3;
-                  e = out.indexOf(" ", b);
-                  e-=1;
-                  n = out.substr(b, e-b);
-                  findPos[i].push(parseInt(n)/(2*FAC));
-                  b = out.indexOf("y=");
-                  b+=3;
-                  e = out.indexOf(">", b);
-                  e-=1;
-                  n = out.substr(b, e-b);
-                  findPos[i].push(parseInt(n)/(2*FAC));
-                  findPos[i].push(25);
-                  ++i;
-
-                }
-              }
-
-            }
-
+            boards.selectedIndex = 10;
           }
-          else if(findLocation.selectedIndex < 17)
+          zoomReset();
+          findPos = [];
+          if(findLocation.selectedIndex == 0)
           {
-            let f = findLocation.selectedIndex - 10;
-            
-            let i=0;
-            for(const child of findLocation.children)
-            {
-              let out = child.outerHTML;
-              let b = out.indexOf("s=");
-              if(b > 6)
-              {
-                b+=3;
-                let e = out.indexOf(" ", b);
-                e-=1;
-                let n = parseInt(out.substr(b, e-b));
-
-                if(n == f)
-                {
-                  findPos.push([]);
-                  b = out.indexOf("x=");
-                  b+=3;
-                  e = out.indexOf(" ", b);
-                  e-=1;
-                  n = out.substr(b, e-b);
-                  findPos[i].push(parseInt(n)/(2*FAC));
-                  b = out.indexOf("y=");
-                  b+=3;
-                  e = out.indexOf(">", b);
-                  e-=1;
-                  n = out.substr(b, e-b);
-                  findPos[i].push(parseInt(n)/(2*FAC));
-                  findPos[i].push(25);
-                  ++i;
-
-                }
-              }
-
-            }
-
-          }
-          else if(findLocation.selectedIndex == 17)
-          {
-            findDropstones();
+              findCustomSite();
           }
           else
           {
-            let i=0;
-            for(const child of findLocation.children)
+            if(findLocation.selectedIndex == 1)
             {
-              if(i == findLocation.selectedIndex)
+              findDropstones();
+            }
+            else
+            {
+              let i=0;
+              for(const child of findLocation.children)
               {
-                let out = child.outerHTML;
-                let b = out.indexOf("x=");
-                b+=3;
-                let e = out.indexOf(" ", b);
-                e-=1;
-                let n = out.substr(b, e-b);
+                if(i == findLocation.selectedIndex)
+                {
+                  let out = child.outerHTML;
+                  let b = out.indexOf("x=");
+                  b+=3;
+                  let e = out.indexOf(" ", b);
+                  e-=1;
+                  let n = out.substr(b, e-b);
 
-                findPos = [];
-                findPos.push([]);
+                  findPos = [];
+                  findPos.push([]);
 
-                findPos[0].push(parseInt(n)/(2*FAC));
-                b = out.indexOf("y=");
-                b+=3;
-                e = out.indexOf(">", b);
-                e-=1;
-                n = out.substr(b, e-b);
-                findPos[0].push(parseInt(n)/(2*FAC));
+                  findPos[0].push(parseInt(n)/(2*FAC));
+                  b = out.indexOf("y=");
+                  b+=3;
+                  e = out.indexOf(">", b);
+                  e-=1;
+                  n = out.substr(b, e-b);
+                  findPos[0].push(parseInt(n)/(2*FAC));
+                }
+                ++i;
               }
-              ++i;
             }
           }
-          /*
-          if(findLocation.selectedIndex == 0) {
-            findPosX = 9320/FAC;
-            findPosY = 5800/FAC;
-            
-          }*/
           requestAnimationFrame( draw );
         }
         function zoomIn()
@@ -1091,7 +1077,7 @@
                 return { x: e.clientX, y: e.clientY }   ;     
             }
         }
-        function findChironOkyrhoe()
+        function findChiron()
         {
           document.getElementById('b').click();
           boards.selectedIndex = 10;
@@ -1102,13 +1088,19 @@
           findPos[i].push(9045 / (2*FAC));
           findPos[i].push(439 / (2*FAC));
           findPos[i].push(50);
-          ++i;
+        }
+        function findOkyrhoe()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
           findPos.push([]);
           findPos[i].push(4736 / (2*FAC));
           findPos[i].push(696 / (2*FAC));
           findPos[i].push(50);
         }
-
         function findMiranda()
         {
           document.getElementById('b').click();
@@ -1679,6 +1671,23 @@
           findPos[i].push(4575 / (2*FAC));
           findPos[i].push(50);
         }
+        function findMercL1L3()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
+          
+          let i=0;
+          findPos.push([]);
+          findPos[i].push(7737 / (2*FAC));
+          findPos[i].push(5353 / (2*FAC));
+          findPos[i].push(15);
+          ++i;
+          findPos.push([]);
+          findPos[i].push(8361 / (2*FAC));
+          findPos[i].push(4855 / (2*FAC));
+          findPos[i].push(15);
+        }
         function findNeujmin()
         {
           document.getElementById('b').click();
@@ -1691,7 +1700,7 @@
           findPos[i].push(1088 / (2*FAC));
           findPos[i].push(50);
         }
-        function findHyperionSaturn()
+        function findHyperion()
         {
           document.getElementById('b').click();
           boards.selectedIndex = 10;
@@ -1699,15 +1708,9 @@
           
           let i=0;
           findPos.push([]);
-          findPos[i].push(1621 / (2*FAC));
-          findPos[i].push(6298 / (2*FAC));
-          findPos[i].push(50);
-          ++i;
-          findPos.push([]);
-          findPos[i].push(2417 / (2*FAC));
+          findPos[i].push(2420 / (2*FAC));
           findPos[i].push(6100 / (2*FAC));
           findPos[i].push(50);
-
         }
         
         function findVesta()
@@ -1734,7 +1737,7 @@
           findPos[i].push(4663 / (2*FAC));
           findPos[i].push(50);
         }
-        function findLcarusKreutz()
+        function findKreutz()
         {
           document.getElementById('b').click();
           boards.selectedIndex = 10;
@@ -1745,11 +1748,7 @@
           findPos[i].push(2161 / (2*FAC));
           findPos[i].push(4050 / (2*FAC));
           findPos[i].push(50);
-          ++i;
-          findPos.push([]);
-          findPos[i].push(6343 / (2*FAC));
-          findPos[i].push(4330 / (2*FAC));
-          findPos[i].push(50);
+
         }
         function findLcarus()
         {
@@ -3079,26 +3078,9 @@
     <h3 id="myModalLabel">Site Finder</h3>
   </div>
   <div class="modal-body">
-    <select id="findLocation">
-<option>C Sites</option>
-<option>D Sites</option>
-<option>M Sites</option>
-<option>V Sites</option>
-<option>S Sites</option>
-<option>H Sites</option>
-
-<option>ISRU 0 Sites</option>
-<option>ISRU 1 Sites</option>
-<option>ISRU 2 Sites</option>
-<option>ISRU 3 Sites</option>
-<option>ISRU 4 Sites</option>
-
-<option>Size 1 Sites</option>
-<option>Size 2 Sites</option>
-<option>Size 3 Sites</option>
-<option>Size 4 Sites</option>
-<option>Size 5 Sites</option>
-<option>Size 6 Sites</option>
+  <div>
+    <select id="findLocation" onChange="findLocationSelectionChanged()">
+<option>Custom</option>
 <option>Dropstones</option>
 
 <option s=2 t=V h=4 x=672 y=1804>1990OY</option>
@@ -3291,7 +3273,64 @@
 <option s=1 t=D h=3 x=1476 y=4864>Ymir</option>
 <option s=1 t=S h=0 x=8353 y=3730>YORP</option>
           </select>
+          </div>
+          <div>
+
+          <select id="siteType">
+            <option>Any Type</option>
+            <option>C Sites</option>
+            <option>D Sites</option>
+            <option>M Sites</option>
+            <option>V Sites</option>
+            <option>S Sites</option>
+            <option>H Sites</option>
+          </select>
+          <select id="isru">
+            <option>Any ISRU</option>
+            <option>ISRU 0 Sites</option>
+            <option>ISRU 1 Sites</option>
+            <option>ISRU 2 Sites</option>
+            <option>ISRU 3 Sites</option>
+            <option>ISRU 4 Sites</option>
+            <option>ISRU 1+ Sites</option>
+            <option>ISRU 2+ Sites</option>
+            <option>ISRU 3+ Sites</option>
+            </select>
+            <select id="siteSize">
+              <option>Any Size</option>
+              <option>Size 1 Sites</option>
+              <option>Size 2 Sites</option>
+              <option>Size 3 Sites</option>
+              <option>Size 4 Sites</option>
+              <option>Size 5 Sites</option>
+              <option>Size 6 Sites</option>
+              <option>Size 7 Sites</option>
+              <option>Size 8 Sites</option>
+              <option>Size 9 Sites</option>
+              <option>Size 10 Sites</option>
+              <option>Size 11 Sites</option>
+              <option>Size 2+ Sites</option>
+              <option>Size 3+ Sites</option>
+              <option>Size 4+ Sites</option>
+              <option>Size 5+ Sites</option>
+              <option>Size 6+ Sites</option>
+              <option>Size 7+ Sites</option>
+              <option>Size 8+ Sites</option>
+              <option>Size 9+ Sites</option>
+              <option>Size 10+ Sites</option>
+              <option>Size 2- Sites</option>
+              <option>Size 3- Sites</option>
+              <option>Size 4- Sites</option>
+              <option>Size 5- Sites</option>
+              <option>Size 6- Sites</option>
+              <option>Size 7- Sites</option>
+              <option>Size 8- Sites</option>
+              <option>Size 9- Sites</option>
+              <option>Size 10- Sites</option>
+            </select>
+        </div>
   </div>
+
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     <button class="btn btn-primary"  data-dismiss="modal" aria-hidden="true" onClick="findSide()">Find</button>
