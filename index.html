@@ -882,7 +882,7 @@
           {
             sizeMode = 1;
             siteS -= 10;
-            if(siteS > 10)
+            if(siteSize.selectedIndex > 20)
             {
               sizeMode = 2;
               siteS -= 9;
@@ -918,6 +918,21 @@
           let spaceel = 0;
           if(elevator.selectedIndex == 1)
             spaceel = 1;
+
+          let z=-1;
+          let zm = 0;
+          if(zone.selectedIndex > 0)
+            z = zone.selectedIndex-1;
+          if(z > 8){
+            zm = 1;
+            z-=8;
+          
+            if(zone.selectedIndex > 16){
+              zm = 2;
+              z-= 7; 
+            }
+          } 
+
 
           {
             let i=0;
@@ -998,21 +1013,34 @@
                               if((spaceel==0) || (se==1))
                               {
 
-                                findPos.push([]);
-                                b = out.indexOf("x=");
+                                b = out.indexOf("z=");
                                 b+=3;
                                 e = out.indexOf(" ", b);
                                 e-=1;
-                                n = out.substr(b, e-b);
-                                findPos[i].push(parseInt(n)/(2*FAC));
-                                b = out.indexOf("y=");
-                                b+=3;
-                                e = out.indexOf(">", b);
-                                e-=1;
-                                n = out.substr(b, e-b);
-                                findPos[i].push(parseInt(n)/(2*FAC));
-                                findPos[i].push(25);
-                                ++i;
+                                let zo = parseInt(out.substr(b, e-b));
+                              
+                                if((z == -1) ||
+                                  ((zm == 0) && (z == zo))||
+                                  ((zm == 1) && (zo >= z))||
+                                  ((zm == 2) && (zo <= z)))
+                                {
+
+                                  findPos.push([]);
+                                  b = out.indexOf("x=");
+                                  b+=3;
+                                  e = out.indexOf(" ", b);
+                                  e-=1;
+                                  n = out.substr(b, e-b);
+                                  findPos[i].push(parseInt(n)/(2*FAC));
+                                  b = out.indexOf("y=");
+                                  b+=3;
+                                  e = out.indexOf(">", b);
+                                  e-=1;
+                                  n = out.substr(b, e-b);
+                                  findPos[i].push(parseInt(n)/(2*FAC));
+                                  findPos[i].push(25);
+                                  ++i;
+                                }
                               }
                             }
                           }
@@ -1036,7 +1064,7 @@
           document.getElementById('submarine').disabled = findLocation.selectedIndex != 0;
           document.getElementById('atmospheric').disabled = findLocation.selectedIndex != 0;
           document.getElementById('elevator').disabled = findLocation.selectedIndex != 0;
-          
+          document.getElementById('zone').disabled = findLocation.selectedIndex != 0;
         }
         function findSide(){
           if(!isBigImage())
@@ -3156,195 +3184,196 @@
 <option>Custom</option>
 <option>Dropstones</option>
 
-<option s=2 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 x=672 y=1804>1990OY</option>
-<option s=4 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=429 y=1856>2002TX</option>
-<option s=2 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 x=3870 y=6839>Achilles</option>
-<option s=1 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 x=10089 y=2908>Aegis Moonlet</option>
-<option s=2 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 x=6821 y=974>Aeneas</option>
-<option s=3 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 x=3647 y=6146>Agamemnon</option>
-<option s=1 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 x=3590 y=6391>Agamemnon Moonlet</option>
-<option s=1 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 x=4570 y=4257>Alexhelios</option>
-<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=7809 y=918>Antenor</option>
-<option s=1 t=S h=0 p=1 a=0 sub=0 atm=0 se=0 x=7570 y=3970>Apophis</option>
-<option s=2 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 x=5182 y=3553>Ariadne</option>
-<option s=6 t=V h=4 p=0 a=0 sub=1 atm=0 se=0 x=1452 y=3060>Ariel</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=1108 y=2025>Arrokoth</option>
-<option s=3 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=1949 y=3254>Asbolus</option>
-<option s=2 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 x=4223 y=5140>Badenia</option>
-<option s=1 t=H h=4 p=0 a=1 sub=0 atm=0 se=0 x=3459 y=5015>Bee-Zed</option>
-<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=5171 y=5253>Belenus</option>
-<option s=2 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 x=1780 y=3794>Belinda</option>
-<option s=1 t=C h=2 p=1 a=0 sub=0 atm=0 se=0 x=6083 y=5088>Bennu</option>
-<option s=8 t=V h=4 p=0 a=0 sub=0 atm=0 se=0 x=3803 y=4074>Callisto Asgard Ice Spires</option>
-<option s=8 t=C h=4 p=0 a=0 sub=1 atm=0 se=0 x=3919 y=3759>Callisto Valhalla</option>
-<option s=1 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 x=812 y=6477>Calypso</option>
-<option s=6 t=C h=4 p=0 a=0 sub=1 atm=0 se=0 x=9405 y=2393>Ceres</option>
-<option s=4 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=1029 y=4719>Chariklo</option>
-<option s=6 t=D h=4 p=0 a=1 sub=0 atm=0 se=1 x=970 y=2532>Charon</option>
-<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=6294 y=2523>Chaucer</option>
-<option s=4 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 x=9043 y=444>Chiron</option>
-<option s=1 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 x=5073 y=2909>Churynmov-Gerasimenko</option>
-<option s=1 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 x=4695 y=3646>Cleoselene</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=7886 y=1376>Comet Borrelly</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=2523 y=4829>Comet Crommelin</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=5423 y=2362>Comet Elst-Pizarro</option>
-<option s=1 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 x=5834 y=2344>Comet Encke</option>
-<option s=1 t=H h=4 p=0 a=1 sub=0 atm=0 se=0 x=2450 y=2595>Comet Halley</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=4361 y=4664>Comet Hartley 2</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=9660 y=1821>Comet Holmes</option>
-<option s=1 t=H h=4 p=0 a=1 sub=0 atm=0 se=0 x=1143 y=614>Comet McNaught</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=5393 y=1085>Comet Neujmin 1</option>
-<option s=1 t=H h=4 p=1 a=1 sub=0 atm=0 se=0 x=5953 y=5786>Comet Phaethon</option>
-<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=2875 y=4580>Comet Schwassmann-Wachmann 1</option>
-<option s=1 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 x=10511 y=3330>Comet Tempel 1</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=3945 y=5887>Comet Wild 2</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=4557 y=5147>Comet Wilson-Harrington</option>
-<option s=1 t=C h=4 p=0 a=1 sub=0 atm=0 se=1 x=1308 y=4291>Cordelia</option>
-<option s=1 t=M h=1 p=1 a=0 sub=0 atm=0 se=0 x=8991 y=6429>Cruithne</option>
-<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=7615 y=2046>Dactyl Moonlet</option>
-<option s=5 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=7297 y=1547>Davida</option>
-<option s=1 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 x=10317 y=4011>Deimos</option>
-<option s=3 t=D h=4 p=0 a=0 sub=0 atm=0 se=1 x=2301 y=2199>Despina</option>
-<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=7922 y=2555>Didymos</option>
-<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=8349 y=2594>Didymos Moonlet</option>
-<option s=6 t=V h=4 p=0 a=0 sub=1 atm=0 se=0 x=1115 y=6916>Dione</option>
-<option s=2 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=8006 y=2135>Dresda</option>
-<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=3910 y=1423>Echelus</option>
-<option s=4 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 x=9454 y=1993>Eichsfeldia</option>
-<option s=3 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=3935 y=2790>Elara</option>
-<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=9642 y=526>Elatus</option>
-<option s=5 t=M h=4 p=0 a=0 sub=1 atm=0 se=0 x=921 y=5681>Enceladus</option>
-<option s=2 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 x=1967 y=5446>Epimetheus</option>
-<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=8100 y=3104>Eros</option>
-<option s=1 t=D h=0 p=0 a=1 sub=0 atm=0 se=0 x=10195 y=5984>Eureka</option>
-<option s=8 t=S h=4 p=0 a=1 sub=0 atm=0 se=0 x=2986 y=4024>Europa Conamara Chaos</option>
-<option s=8 t=C h=4 p=0 a=0 sub=1 atm=0 se=0 x=3036 y=3709>Europa Subsurface Ocean</option>
-<option s=4 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 x=5470 y=3098>Flora</option>
-<option s=5 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=4443 y=6342>Fortuna</option>
-<option s=2 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 x=3990 y=4627>Friederike</option>
-<option s=3 t=S h=4 p=0 a=1 sub=0 atm=0 se=0 x=2523 y=1976>Galatea</option>
-<option s=9 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 x=3316 y=4176>Ganymede Memphis Facula</option>
-<option s=9 t=V h=4 p=0 a=0 sub=1 atm=0 se=0 x=3529 y=3972>Ganymede Uruk Sulcus</option>
-<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=5006 y=3351>Gaspra</option>
-<option s=2 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=9823 y=2407>Gefion</option>
-<option s=1 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 x=9173 y=907>Glaukos</option>
-<option s=1 t=S h=1 p=1 a=0 sub=0 atm=0 se=0 x=6966 y=5482>Hathor</option>
-<option s=7 t=V h=4 p=0 a=1 sub=0 atm=0 se=1 x=861 y=713>Haumea</option>
-<option s=3 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 x=3245 y=6495>Hektor</option>
-<option s=1 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 x=1456 y=6611>Helene</option>
-<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=4704 y=6423>Hermes A</option>
-<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=4996 y=6721>Hermes B</option>
-<option s=3 t=M h=3 p=0 a=0 sub=0 atm=0 se=0 x=6085 y=2572>Hertha</option>
-<option s=4 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 x=874 y=975>Hi'iaka</option>
-<option s=4 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=4054 y=2388>Himalia</option>
-<option s=5 t=M h=4 p=0 a=1 sub=0 atm=0 se=0 x=3117 y=866>Huya</option>
-<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=694 y=2848>Hydra</option>
-<option s=5 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 x=4141 y=5402>Hygiea</option>
-<option s=3 t=D h=4 p=0 a=0 sub=0 atm=0 se=0 x=1716 y=2950>Hylonome</option>
-<option s=3 t=D h=4 p=0 a=0 sub=0 atm=0 se=0 x=2420 y=6100>Hyperion</option>
-<option s=6 t=C h=4 p=0 a=0 sub=0 atm=0 se=0 x=2409 y=5452>Iapetus</option>
-<option s=1 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 x=3278 y=5237>Icarion</option>
-<option s=1 t=S h=4 p=1 a=1 sub=0 atm=0 se=0 x=6345 y=4332>Icarus</option>
-<option s=2 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=7851 y=1976>Ida</option>
-<option s=9 t=M h=1 p=1 a=1 sub=0 atm=0 se=0 x=3875 y=2143>Io Gish Bar Mons</option>
-<option s=9 t=S h=0 p=1 a=1 sub=0 atm=0 se=0 x=3666 y=2321>Io Loki Patera</option>
-<option s=1 t=S h=0 p=1 a=0 sub=0 atm=0 se=0 x=6572 y=6554>Itokawa</option>
-<option s=1 t=S h=0 p=0 a=1 sub=0 atm=0 se=0 x=4931 y=5727>Ivar</option>
-<option s=2 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 x=2124 y=5656>Janus</option>
-<option s=2 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 x=1493 y=4180>Juliet</option>
-<option s=1 t=S h=2 p=0 a=0 sub=0 atm=0 se=0 x=7901 y=1697>Karin A</option>
-<option s=1 t=S h=3 p=0 a=0 sub=0 atm=0 se=0 x=7570 y=1707>Karin B</option>
-<option s=1 t=S h=2 p=0 a=0 sub=0 atm=0 se=0 x=7241 y=1921>Karin C</option>
-<option s=1 t=S h=2 p=1 a=0 sub=0 atm=0 se=0 x=6489 y=5393>Khufu</option>
-<option s=4 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 x=4397 y=4009>Kleopatra</option>
-<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 x=9206 y=2137>Kollaa</option>
-<option s=3 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=8332 y=1901>Koronis</option>
-<option s=1 t=H h=4 p=0 a=1 sub=0 atm=0 se=0 x=2157 y=4048>Kreutz Sungrazer</option>
-<option s=3 t=D h=0 p=0 a=0 sub=0 atm=0 se=0 x=8333 y=2169>Lacrimosa</option>
-<option s=1 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 x=7490 y=940>Laocoon</option>
-<option s=3 t=D h=3 p=0 a=1 sub=0 atm=0 se=0 x=2686 y=1799>Larissa</option>
-<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=4254 y=2576>Leda</option>
-<option s=9 t=H h=0 p=0 a=0 sub=0 atm=0 se=1 x=9215 y=5095>Luna Aristarchus Plateau</option>
-<option s=9 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 x=9477 y=5109>Luna Shackleton Polar Rim</option>
-<option s=4 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 x=4790 y=6197>Lutetia</option>
-<option s=2 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=4335 y=2271>Lysithea</option>
-<option s=10 t=C h=3 p=0 a=0 sub=0 atm=1 se=1 x=9646 y=3784>Mars Arsia Mons Caves</option>
-<option s=10 t=C h=4 p=0 a=0 sub=0 atm=1 se=0 x=9935 y=3526>Mars Hellas Basin Buried Glaciers</option>
-<option s=10 t=C h=4 p=0 a=0 sub=0 atm=1 se=0 x=9563 y=3505>Mars North Pole</option>
-<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=4424 y=5547>Mathilde</option>
-<option s=2 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 x=8563 y=919>Menoetius</option>
-<option s=10 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=7564 y=5419>Mercury Discovery Rupes</option>
-<option s=10 t=V h=3 p=1 a=0 sub=0 atm=0 se=0 x=7767 y=5617>Mercury North Pole</option>
-<option s=1 t=D h=4 p=0 a=0 sub=1 atm=0 se=0 x=1265 y=5345>Methone</option>
-<option s=2 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 x=9913 y=2586>Miahelena</option>
-<option s=4 t=S h=4 p=0 a=0 sub=1 atm=0 se=0 x=1554 y=5326>Mimas</option>
-<option s=3 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 x=9807 y=2776>Minerva</option>
-<option s=4 t=V h=4 p=0 a=0 sub=0 atm=0 se=0 x=1664 y=3351>Miranda</option>
-<option s=1 t=S h=1 p=1 a=0 sub=0 atm=0 se=0 x=5998 y=4653>Mjolnir</option>
-<option s=3 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 x=391 y=1028>Namaka</option>
-<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=8081 y=1859>Neckar</option>
-<option s=11 t=H h=2 p=0 a=1 sub=0 atm=1 se=1 x=1849 y=2115>Neptune Aerostat</option>
-<option s=4 t=S h=3 p=0 a=0 sub=0 atm=0 se=0 x=1150 y=2290>Nereid</option>
-<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 x=8462 y=2872>Nereus</option>
-<option s=2 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 x=3021 y=6383>Nestor</option>
-<option s=2 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 x=374 y=2620>Nix</option>
-<option s=3 t=M h=0 p=0 a=0 sub=0 atm=0 se=0 x=6671 y=2274>Nysa</option>
-<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 x=10455 y=6186>Nyx</option>
-<option s=7 t=D h=4 p=0 a=0 sub=1 atm=0 se=0 x=396 y=3108>Oberon</option>
-<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=4736 y=690>Okyrhoe</option>
-<option s=1 t=M h=3 p=0 a=0 sub=0 atm=0 se=0 x=8959 y=2507>Oljato</option>
-<option s=2 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 x=2153 y=5888>Pandora</option>
-<option s=2 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 x=9096 y=1231>Patroclus</option>
-<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 x=8918 y=8918>Peking</option>
-<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=3137 y=5494>Philoctetes</option>
-<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=1 x=9754 y=4158>Phobos</option>
-<option s=3 t=C h=4 p=0 a=0 sub=0 atm=0 se=0 x=1628 y=4659>Phoebe</option>
-<option s=4 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=4237 y=579>Pholus</option>
-<option s=7 t=D h=4 p=0 a=0 sub=1 atm=0 se=1 x=393 y=2148>Pluto</option>
-<option s=2 t=D h=1 p=0 a=0 sub=0 atm=0 se=0 x=6395 y=2195>Polana</option>
-<option s=1 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 x=834 y=6703>Polydeuces</option>
-<option s=3 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 x=1639 y=3997>Portia</option>
-<option s=2 t=C h=4 p=0 a=1 sub=0 atm=0 se=1 x=1981 y=6299>Prometheus</option>
-<option s=2 t=V h=4 p=0 a=0 sub=0 atm=0 se=0 x=814 y=4592>Prospero</option>
-<option s=4 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 x=2775 y=1537>Proteus</option>
-<option s=5 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 x=8085 y=1506>Psyche</option>
-<option s=3 t=C h=4 p=0 a=0 sub=0 atm=0 se=0 x=1779 y=3584>Puck</option>
-<option s=7 t=S h=4 p=0 a=0 sub=1 atm=0 se=0 x=3597 y=365>Quaoar</option>
-<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 x=4450 y=3577>Remus Moonlet</option>
-<option s=6 t=V h=4 p=0 a=0 sub=1 atm=0 se=0 x=1781 y=6925>Rhea</option>
-<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 x=4279 y=3748>Romulus Moonlet</option>
-<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=1268 y=2628>Sao</option>
-<option s=11 t=H h=0 p=0 a=0 sub=0 atm=1 se=1 x=1626 y=6311>Saturn Aerostat</option>
-<option s=3 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=1604 y=895>Sawiakera</option>
-<option s=6 t=H h=4 p=0 a=0 sub=1 atm=0 se=0 x=379 y=737>Sedna</option>
-<option s=2 t=V h=4 p=0 a=0 sub=0 atm=0 se=0 x=919 y=4299>Setebos</option>
-<option s=1 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 x=3076 y=6810>Skamandrios Moonlet</option>
-<option s=1 t=S h=2 p=0 a=0 sub=0 atm=0 se=0 x=1996 y=4884>Skoll</option>
-<option s=1 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 x=1825 y=4421>Suttungr</option>
-<option s=3 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 x=1034 y=4468>Sycorax</option>
-<option s=5 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=4636 y=3341>Sylvia</option>
-<option s=4 t=S h=4 p=0 a=1 sub=0 atm=0 se=0 x=1951 y=391>Teharonhiawako</option>
-<option s=3 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 x=3090 y=6116>Telamon</option>
-<option s=1 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 x=1255 y=6054>Telesto</option>
-<option s=5 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 x=872 y=6038>Tethys</option>
-<option s=1 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 x=2016 y=4520>Thymr</option>
-<option s=8 t=C h=0 p=0 a=1 sub=0 atm=1 se=0 x=2687 y=6811>Titan Aerostat</option>
-<option s=9 t=V h=3 p=0 a=0 sub=1 atm=1 se=0 x=2542 y=6308>Titan Kraken Mare</option>
-<option s=9 t=D h=2 p=0 a=1 sub=0 atm=1 se=0 x=2530 y=6654>Titan Ontario Lacus</option>
-<option s=7 t=D h=4 p=0 a=0 sub=1 atm=0 se=0 x=857 y=3072>Titania</option>
-<option s=1 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 x=6614 y=1142>Tithonus</option>
-<option s=1 t=S h=0 p=0 a=1 sub=0 atm=0 se=0 x=5545 y=5039>Toro</option>
-<option s=8 t=M h=4 p=0 a=0 sub=1 atm=0 se=0 x=2545 y=1042>Triton Mahilani Plume</option>
-<option s=8 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 x=2685 y=1260>Triton Tuonela Planitia</option>
-<option s=6 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=1187 y=2997>Umbriel</option>
-<option s=4 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 x=9181 y=1714>Unitas</option>
-<option s=11 t=H h=0 p=0 a=0 sub=1 atm=1 se=1 x=1026 y=4097>Uranus Aerostat</option>
-<option s=3 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 x=8582 y=2069>Urda</option>
-<option s=11 t=C h=0 p=1 a=1 sub=0 atm=1 se=0 x=7369 y=6108>Venus Aerostat-Xity</option>
-<option s=6 t=V h=2 p=0 a=0 sub=0 atm=0 se=0 x=8584 y=1770>Vesta</option>
-<option s=3 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 x=3359 y=865>Weywot</option>
-<option s=1 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 x=1476 y=4864>Ymir</option>
-<option s=1 t=S h=0 p=1 a=0 sub=0 atm=0 se=0 x=8353 y=3730>YORP</option>
+<option s=2 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=672 y=1804>1990OY</option>
+<option s=4 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=429 y=1856>2002TX</option>
+<option s=2 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3870 y=6839>Achilles</option>
+<option s=1 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 z=4 x=10089 y=2908>Aegis Moonlet</option>
+<option s=2 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=6821 y=974>Aeneas</option>
+<option s=3 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3647 y=6146>Agamemnon</option>
+<option s=1 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3590 y=6391>Agamemnon Moonlet</option>
+<option s=1 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4570 y=4257>Alexhelios</option>
+<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=5 x=7809 y=918>Antenor</option>
+<option s=1 t=S h=0 p=1 a=0 sub=0 atm=0 se=0 z=2 x=7570 y=3970>Apophis</option>
+<option s=2 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=5182 y=3553>Ariadne</option>
+<option s=6 t=V h=4 p=0 a=0 sub=1 atm=0 se=0 z=7 x=1452 y=3060>Ariel</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=1108 y=2025>Arrokoth</option>
+<option s=3 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=7 x=1949 y=3254>Asbolus</option>
+<option s=2 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4223 y=5140>Badenia</option>
+<option s=1 t=H h=4 p=0 a=1 sub=0 atm=0 se=0 z=5 x=3459 y=5015>Bee-Zed</option>
+<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=3 x=5171 y=5253>Belenus</option>
+<option s=2 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 z=7 x=1780 y=3794>Belinda</option>
+<option s=1 t=C h=2 p=1 a=0 sub=0 atm=0 se=0 z=2 x=6083 y=5088>Bennu</option>
+<option s=8 t=V h=4 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3803 y=4074>Callisto Asgard Ice Spires</option>
+<option s=8 t=C h=4 p=0 a=0 sub=1 atm=0 se=0 z=5 x=3919 y=3759>Callisto Valhalla</option>
+<option s=1 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 z=6 x=812 y=6477>Calypso</option>
+<option s=6 t=C h=4 p=0 a=0 sub=1 atm=0 se=0 z=4 x=9405 y=2393>Ceres</option>
+<option s=4 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=7 x=1029 y=4719>Chariklo</option>
+<option s=6 t=D h=4 p=0 a=1 sub=0 atm=0 se=1 z=8 x=970 y=2532>Charon</option>
+<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=6294 y=2523>Chaucer</option>
+<option s=4 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 z=5 x=9043 y=444>Chiron</option>
+<option s=1 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 z=4 x=5073 y=2909>Churynmov-Gerasimenko</option>
+<option s=1 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4695 y=3646>Cleoselene</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=4 x=7886 y=1376>Comet Borrelly</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=6 x=2523 y=4829>Comet Crommelin</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=4 x=5423 y=2362>Comet Elst-Pizarro</option>
+<option s=1 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 z=4 x=5834 y=2344>Comet Encke</option>
+<option s=1 t=H h=4 p=0 a=1 sub=0 atm=0 se=0 z=7 x=2450 y=2595>Comet Halley</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=4 x=4361 y=4664>Comet Hartley 2</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=4 x=9660 y=1821>Comet Holmes</option>
+<option s=1 t=H h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=1143 y=614>Comet McNaught</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=5 x=5393 y=1085>Comet Neujmin 1</option>
+<option s=1 t=H h=4 p=1 a=1 sub=0 atm=0 se=0 z=2 x=5953 y=5786>Comet Phaethon</option>
+<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=5 x=2875 y=4580>Comet Schwassmann-Wachmann 1</option>
+<option s=1 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 z=4 x=10511 y=3330>Comet Tempel 1</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=4 x=3945 y=5887>Comet Wild 2</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=4 x=4557 y=5147>Comet Wilson-Harrington</option>
+<option s=1 t=C h=4 p=0 a=1 sub=0 atm=0 se=1 z=7 x=1308 y=4291>Cordelia</option>
+<option s=1 t=M h=1 p=1 a=0 sub=0 atm=0 se=0 z=2 x=8991 y=6429>Cruithne</option>
+<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=7615 y=2046>Dactyl Moonlet</option>
+<option s=5 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=7297 y=1547>Davida</option>
+<option s=1 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 z=3 x=10317 y=4011>Deimos</option>
+<option s=3 t=D h=4 p=0 a=0 sub=0 atm=0 se=1 z=8 x=2301 y=2199>Despina</option>
+<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=3 x=7922 y=2555>Didymos</option>
+<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=3 x=8349 y=2594>Didymos Moonlet</option>
+<option s=6 t=V h=4 p=0 a=0 sub=1 atm=0 se=0 z=6 x=1115 y=6916>Dione</option>
+<option s=2 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=8006 y=2135>Dresda</option>
+<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=6 x=3910 y=1423>Echelus</option>
+<option s=4 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 z=4 x=9454 y=1993>Eichsfeldia</option>
+<option s=3 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3935 y=2790>Elara</option>
+<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=5 x=9642 y=526>Elatus</option>
+<option s=5 t=M h=4 p=0 a=0 sub=1 atm=0 se=0 z=6 x=921 y=5681>Enceladus</option>
+<option s=2 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 z=6 x=1967 y=5446>Epimetheus</option>
+<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=3 x=8100 y=3104>Eros</option>
+<option s=1 t=D h=0 p=0 a=1 sub=0 atm=0 se=0 z=3 x=10195 y=5984>Eureka</option>
+<option s=8 t=S h=4 p=0 a=1 sub=0 atm=0 se=0 z=5 x=2986 y=4024>Europa Conamara Chaos</option>
+<option s=8 t=C h=4 p=0 a=0 sub=1 atm=0 se=0 z=5 x=3036 y=3709>Europa Subsurface Ocean</option>
+<option s=4 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=5470 y=3098>Flora</option>
+<option s=5 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4443 y=6342>Fortuna</option>
+<option s=2 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=3990 y=4627>Friederike</option>
+<option s=3 t=S h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=2523 y=1976>Galatea</option>
+<option s=9 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3316 y=4176>Ganymede Memphis Facula</option>
+<option s=9 t=V h=4 p=0 a=0 sub=1 atm=0 se=0 z=5 x=3529 y=3972>Ganymede Uruk Sulcus</option>
+<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=5006 y=3351>Gaspra</option>
+<option s=2 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=9823 y=2407>Gefion</option>
+<option s=1 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=9173 y=907>Glaukos</option>
+<option s=1 t=S h=1 p=1 a=0 sub=0 atm=0 se=0 z=1 x=6966 y=5482>Hathor</option>
+<option s=7 t=V h=4 p=0 a=1 sub=0 atm=0 se=1 z=8 x=861 y=713>Haumea</option>
+<option s=3 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3245 y=6495>Hektor</option>
+<option s=1 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 z=6 x=1456 y=6611>Helene</option>
+<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4704 y=6423>Hermes A</option>
+<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4996 y=6721>Hermes B</option>
+<option s=3 t=M h=3 p=0 a=0 sub=0 atm=0 se=0 z=4 x=6085 y=2572>Hertha</option>
+<option s=4 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=874 y=975>Hi'iaka</option>
+<option s=4 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=5 x=4054 y=2388>Himalia</option>
+<option s=5 t=M h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=3117 y=866>Huya</option>
+<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=694 y=2848>Hydra</option>
+<option s=5 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4141 y=5402>Hygiea</option>
+<option s=3 t=D h=4 p=0 a=0 sub=0 atm=0 se=0 z=7 x=1716 y=2950>Hylonome</option>
+<option s=3 t=D h=4 p=0 a=0 sub=0 atm=0 se=0 z=6 x=2420 y=6100>Hyperion</option>
+<option s=6 t=C h=4 p=0 a=0 sub=0 atm=0 se=0 z=6 x=2409 y=5452>Iapetus</option>
+<option s=1 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3278 y=5237>Icarion</option>
+<option s=1 t=S h=4 p=1 a=1 sub=0 atm=0 se=0 z=2 x=6345 y=4332>Icarus</option>
+<option s=2 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=7851 y=1976>Ida</option>
+<option s=9 t=M h=1 p=1 a=1 sub=0 atm=0 se=0 z=5 x=3875 y=2143>Io Gish Bar Mons</option>
+<option s=9 t=S h=0 p=1 a=1 sub=0 atm=0 se=0 z=5 x=3666 y=2321>Io Loki Patera</option>
+<option s=1 t=S h=0 p=1 a=0 sub=0 atm=0 se=0 z=2 x=6572 y=6554>Itokawa</option>
+<option s=1 t=S h=0 p=0 a=1 sub=0 atm=0 se=0 z=3 x=4931 y=5727>Ivar</option>
+<option s=2 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 z=6 x=2124 y=5656>Janus</option>
+<option s=2 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 z=7 x=1493 y=4180>Juliet</option>
+<option s=1 t=S h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=7901 y=1697>Karin A</option>
+<option s=1 t=S h=3 p=0 a=0 sub=0 atm=0 se=0 z=4 x=7570 y=1707>Karin B</option>
+<option s=1 t=S h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=7241 y=1921>Karin C</option>
+<option s=1 t=S h=2 p=1 a=0 sub=0 atm=0 se=0 z=2 x=6489 y=5393>Khufu</option>
+<option s=4 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4397 y=4009>Kleopatra</option>
+<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=9206 y=2137>Kollaa</option>
+<option s=3 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=8332 y=1901>Koronis</option>
+<option s=1 t=H h=4 p=0 a=1 sub=0 atm=0 se=0 z=6 x=2157 y=4048>Kreutz Sungrazer</option>
+<option s=3 t=D h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=8333 y=2169>Lacrimosa</option>
+<option s=1 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=7490 y=940>Laocoon</option>
+<option s=3 t=D h=3 p=0 a=1 sub=0 atm=0 se=0 z=8 x=2686 y=1799>Larissa</option>
+<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=5 x=4254 y=2576>Leda</option>
+<option s=9 t=H h=0 p=0 a=0 sub=0 atm=0 se=1 z=2 x=9215 y=5095>Luna Aristarchus Plateau</option>
+<option s=9 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 z=2 x=9477 y=5109>Luna Shackleton Polar Rim</option>
+<option s=4 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4790 y=6197>Lutetia</option>
+<option s=2 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=5 x=4335 y=2271>Lysithea</option>
+<option s=10 t=C h=3 p=0 a=0 sub=0 atm=1 se=1 z=3 x=9646 y=3784>Mars Arsia Mons Caves</option>
+<option s=10 t=C h=4 p=0 a=0 sub=0 atm=1 se=0 z=3 x=9935 y=3526>Mars Hellas Basin Buried Glaciers</option>
+<option s=10 t=C h=4 p=0 a=0 sub=0 atm=1 se=0 z=3 x=9563 y=3505>Mars North Pole</option>
+<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4424 y=5547>Mathilde</option>
+<option s=2 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=8563 y=919>Menoetius</option>
+<option s=10 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=0 x=7564 y=5419>Mercury Discovery Rupes</option>
+<option s=10 t=V h=3 p=1 a=0 sub=0 atm=0 se=0 z=0 x=7767 y=5617>Mercury North Pole</option>
+<option s=1 t=D h=4 p=0 a=0 sub=1 atm=0 se=0 z=6 x=1265 y=5345>Methone</option>
+<option s=2 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=9913 y=2586>Miahelena</option>
+<option s=4 t=S h=4 p=0 a=0 sub=1 atm=0 se=0 z=6 x=1554 y=5326>Mimas</option>
+<option s=3 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 z=4 x=9807 y=2776>Minerva</option>
+<option s=4 t=V h=4 p=0 a=0 sub=0 atm=0 se=0 z=7 x=1664 y=3351>Miranda</option>
+<option s=1 t=S h=1 p=1 a=0 sub=0 atm=0 se=0 z=2 x=5998 y=4653>Mjolnir</option>
+<option s=3 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=391 y=1028>Namaka</option>
+<option s=1 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=8081 y=1859>Neckar</option>
+<option s=11 t=H h=2 p=0 a=1 sub=0 atm=1 se=1 z=8 x=1849 y=2115>Neptune Aerostat</option>
+<option s=4 t=S h=3 p=0 a=0 sub=0 atm=0 se=0 z=8 x=1150 y=2290>Nereid</option>
+<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 z=3 x=8462 y=2872>Nereus</option>
+<option s=2 t=C h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3021 y=6383>Nestor</option>
+<option s=2 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=374 y=2620>Nix</option>
+<option s=3 t=M h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=6671 y=2274>Nysa</option>
+<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 z=3 x=10455 y=6186>Nyx</option>
+<option s=7 t=D h=4 p=0 a=0 sub=1 atm=0 se=0 z=7 x=396 y=3108>Oberon</option>
+<option s=2 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=6 x=4736 y=690>Okyrhoe</option>
+<option s=1 t=M h=3 p=0 a=0 sub=0 atm=0 se=0 z=3 x=8959 y=2507>Oljato</option>
+<option s=2 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 z=6 x=2153 y=5888>Pandora</option>
+<option s=2 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=9096 y=1231>Patroclus</option>
+<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=8921 y=2020>Peking</option>
+<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3137 y=5494>Philoctetes</option>
+<option s=1 t=C h=2 p=0 a=0 sub=0 atm=0 se=1 z=3 x=9754 y=4158>Phobos</option>
+<option s=3 t=C h=4 p=0 a=0 sub=0 atm=0 se=0 z=6 x=1628 y=4659>Phoebe</option>
+<option s=4 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=7 x=4237 y=579>Pholus</option>
+<option s=7 t=D h=4 p=0 a=0 sub=1 atm=0 se=1 z=8 x=393 y=2148>Pluto</option>
+<option s=2 t=D h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=6395 y=2195>Polana</option>
+<option s=1 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 z=6 x=834 y=6703>Polydeuces</option>
+<option s=3 t=V h=4 p=0 a=1 sub=0 atm=0 se=0 z=7 x=1639 y=3997>Portia</option>
+<option s=2 t=C h=4 p=0 a=1 sub=0 atm=0 se=1 z=6 x=1981 y=6299>Prometheus</option>
+<option s=2 t=V h=4 p=0 a=0 sub=0 atm=0 se=0 z=7 x=814 y=4592>Prospero</option>
+<option s=4 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 z=8 x=2775 y=1537>Proteus</option>
+<option s=5 t=M h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=8085 y=1506>Psyche</option>
+<option s=3 t=C h=4 p=0 a=0 sub=0 atm=0 se=0 z=7 x=1779 y=3584>Puck</option>
+<option s=7 t=S h=4 p=0 a=0 sub=1 atm=0 se=0 z=8 x=3597 y=365>Quaoar</option>
+<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4450 y=3577>Remus Moonlet</option>
+<option s=6 t=V h=4 p=0 a=0 sub=1 atm=0 se=0 z=6 x=1781 y=6925>Rhea</option>
+<option s=1 t=V h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4279 y=3748>Romulus Moonlet</option>
+<option s=1 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=1268 y=2628>Sao</option>
+<option s=11 t=H h=0 p=0 a=0 sub=0 atm=1 se=1 z=6 x=1626 y=6311>Saturn Aerostat</option>
+<option s=3 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=1604 y=895>Sawiakera</option>
+<option s=6 t=H h=4 p=0 a=0 sub=1 atm=0 se=0 z=8 x=379 y=737>Sedna</option>
+<option s=2 t=V h=4 p=0 a=0 sub=0 atm=0 se=0 z=7 x=919 y=4299>Setebos</option>
+<option s=1 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3076 y=6810>Skamandrios Moonlet</option>
+<option s=1 t=S h=2 p=0 a=0 sub=0 atm=0 se=0 z=6 x=1996 y=4884>Skoll</option>
+<option s=1 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 z=6 x=1825 y=4421>Suttungr</option>
+<option s=3 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 z=7 x=1034 y=4468>Sycorax</option>
+<option s=5 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=4636 y=3341>Sylvia</option>
+<option s=4 t=S h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=1951 y=391>Teharonhiawako</option>
+<option s=3 t=C h=2 p=0 a=0 sub=0 atm=0 se=0 z=5 x=3090 y=6116>Telamon</option>
+<option s=1 t=S h=4 p=0 a=0 sub=0 atm=0 se=0 z=6 x=1255 y=6054>Telesto</option>
+<option s=5 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 z=6 x=872 y=6038>Tethys</option>
+<option s=1 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 z=6 x=2016 y=4520>Thymr</option>
+<option s=8 t=C h=0 p=0 a=1 sub=0 atm=1 se=0 z=6 x=2687 y=6811>Titan Aerostat</option>
+<option s=9 t=V h=3 p=0 a=0 sub=1 atm=1 se=0 z=6 x=2542 y=6308>Titan Kraken Mare</option>
+<option s=9 t=D h=2 p=0 a=1 sub=0 atm=1 se=0 z=6 x=2530 y=6654>Titan Ontario Lacus</option>
+<option s=7 t=D h=4 p=0 a=0 sub=1 atm=0 se=0 z=7 x=857 y=3072>Titania</option>
+<option s=1 t=D h=2 p=0 a=0 sub=0 atm=0 se=0 z=5 x=6614 y=1142>Tithonus</option>
+<option s=1 t=S h=0 p=0 a=1 sub=0 atm=0 se=0 z=3 x=5545 y=5039>Toro</option>
+<option s=8 t=M h=4 p=0 a=0 sub=1 atm=0 se=0 z=8 x=2545 y=1042>Triton Mahilani Plume</option>
+<option s=8 t=C h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=2685 y=1260>Triton Tuonela Planitia</option>
+<option s=6 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=7 x=1187 y=2997>Umbriel</option>
+<option s=4 t=S h=1 p=0 a=0 sub=0 atm=0 se=0 z=4 x=9181 y=1714>Unitas</option>
+<option s=11 t=H h=0 p=0 a=0 sub=1 atm=1 se=1 z=7 x=1026 y=4097>Uranus Aerostat</option>
+<option s=3 t=S h=0 p=0 a=0 sub=0 atm=0 se=0 z=4 x=8582 y=2069>Urda</option>
+<option s=11 t=C h=0 p=1 a=1 sub=0 atm=1 se=0 z=1 x=7369 y=6108>Venus Aerostat-Xity</option>
+<option s=6 t=V h=2 p=0 a=0 sub=0 atm=0 se=0 z=4 x=8584 y=1770>Vesta</option>
+<option s=3 t=D h=4 p=0 a=1 sub=0 atm=0 se=0 z=8 x=3359 y=865>Weywot</option>
+<option s=1 t=D h=3 p=0 a=0 sub=0 atm=0 se=0 z=6 x=1476 y=4864>Ymir</option>
+<option s=1 t=S h=0 p=1 a=0 sub=0 atm=0 se=0 z=2 x=8353 y=3730>YORP</option>
+
 
           </select>
           </div>
@@ -3421,6 +3450,32 @@
             <select id="elevator">
               <option>Any</option>
               <option>Space Elevator</option>
+            </select>
+            <select id="zone">
+              <option>Any</option>
+              <option>Mercury</option>
+              <option>Venus</option>
+              <option>Earth</option>
+              <option>Mars</option>
+              <option>Ceres</option>
+              <option>Jupiter</option>
+              <option>Saturn</option>
+              <option>Uranus</option>
+              <option>Neptune</option>
+              <option>Venus+</option>
+              <option>Earth+</option>
+              <option>Mars+</option>
+              <option>Ceres+</option>
+              <option>Jupiter+</option>
+              <option>Saturn+</option>
+              <option>Uranus+</option>
+              <option>Venus-</option>
+              <option>Earth-</option>
+              <option>Mars-</option>
+              <option>Ceres-</option>
+              <option>Jupiter-</option>
+              <option>Saturn-</option>
+              <option>Uranus-</option>
             </select>
         </div>
   </div>
