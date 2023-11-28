@@ -266,7 +266,7 @@
         
         //NOTES[COLONIST][1] = "<h6><b>Supreme Cult Future (errata fix):</b> Req (Module 0) = Active Law in authority. Effects = You may lobby without removing the delegate used. All Seniority Disks (past and future) migrate to authority. 10 VP if you control this card at the endgame.</h6>";
         //NOTES[COLONIST][1] = "<h6><b>Josephson Implants(errata fix 2C4b):</b> Your FINAO costs are halved (drop factions).</h6>";
-       NOTES[COLONIST][4] = "<button onClick=\"showJovian()\">Show Jovians</button>";
+       NOTES[COLONIST][4] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showJovian()\">Show Jovians</button>";
        
         //NOTES[COLONIST][6] = "<h6><b>Footfall Future (errata fix):</b> Req = Decommission this card and an Operational thruster with net thrust 7+ on an Industrialized Synodic Comet of yours. This Busts the Site and Decommissions all tokens on it. Effects = Casus belli (1D2c),30 10 VP.</h6>";
         NOTES[COLONIST][6] += "<h6><b>M3 Note on Footfall Future (1D5a, 3F2g):</b> Use the dislodge operation (3D7) to complete these Futures. Completion allows you to convert any Synodic Comet into a synodic dropstone, in which you do not need to pay a bribe.</h6>";
@@ -280,10 +280,10 @@
         NOTES[COLONIST][18] = "<h6><b>Note:</b> This colonist is from promo pack 1.</h6>";
         NOTES[COLONIST][19] = "<h6><b>Note:</b> This colonist is from promo pack 1.</h6>";
 
-        NOTES[COLONIST][27] = "<button onClick=\"findHaumea()\">Show Haumea</button>";
-        NOTES[COLONIST][28] = "<button onClick=\"findEMSunlens()\">Show EM Sunlens</button>";
-        NOTES[COLONIST][32] = "<button onClick=\"showAdAstra()\">Show Ad Astra</button>";
-        NOTES[COLONIST][34] = "<button onClick=\"showAdAstra()\">Show Ad Astra</button>";
+        NOTES[COLONIST][27] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findHaumea()\">Show Haumea</button>";
+        NOTES[COLONIST][28] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findEMSunlens()\">Show EM Sunlens</button>";
+        NOTES[COLONIST][32] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showAdAstra()\">Show Ad Astra</button>";
+        NOTES[COLONIST][34] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showAdAstra()\">Show Ad Astra</button>";
 
         for(let i = 20; i<=MAXs[COLONIST]; ++i)
           NOTES[COLONIST][i] += "<h6><b>Note:</b> This colonist is from M4.</h6>";
@@ -292,27 +292,27 @@
         NOTES[COLONIST][32] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
         NOTES[COLONIST][34] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
         
-        NOTES[GWTHRUSTER][1] = "<button onClick=\"showCentaur()\">Show Centaurs</button>";
+        NOTES[GWTHRUSTER][1] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showCentaur()\">Show Centaurs</button>";
         NOTES[GWTHRUSTER][1] += "<h6><b>M3 Note on Mini-Black Hole (1D3b, 3F2a):</b> May dislodge (3D7a) dropstones from any Size 1 Site. </h6>";
-        NOTES[GWTHRUSTER][2] = "<button onClick=\"showIOAndTriton()\">Show IO and Triton</button>";
+        NOTES[GWTHRUSTER][2] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showIOAndTriton()\">Show IO and Triton</button>";
         NOTES[GWTHRUSTER][2] += "<h6><b>M3 Note on Mass Beam (1D3c, 3F2b):</b> The FV of your guns (3E3b) is their firing rad-hardness minus 1d6. </h6>";
-        NOTES[GWTHRUSTER][3] = "<button onClick=\"showTriton()\">Show Triton and Neptune aerostat</button>";
-        NOTES[GWTHRUSTER][4] = "<button onClick=\"showH()\">Show H sites</button>";
-        NOTES[GWTHRUSTER][5] = "<button onClick=\"showAdAstra()\">Show Ad Astra</button>";
+        NOTES[GWTHRUSTER][3] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showTriton()\">Show Triton and Neptune aerostat</button>";
+        NOTES[GWTHRUSTER][4] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showH()\">Show H sites</button>";
+        NOTES[GWTHRUSTER][5] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showAdAstra()\">Show Ad Astra</button>";
         NOTES[GWTHRUSTER][5] += "<h6><b>M3 Note on Enzmann Starship (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
         NOTES[GWTHRUSTER][5] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
-        NOTES[GWTHRUSTER][6] = "<button onClick=\"showAdAstra()\">Show Ad Astra</button>";
+        NOTES[GWTHRUSTER][6] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showAdAstra()\">Show Ad Astra</button>";
         NOTES[GWTHRUSTER][6] += "<h6><b>M3 Note on Lithiated Ammonia (1D3f, 3F2c):</b> Destroy any dropstone (1/Turn). </h6>";
         NOTES[GWTHRUSTER][6] += "<h6><b>M4 Note on Ad Astra Futures:</b> Players start with an additional 4 Isotopes for each Ad Astra Future that they completed</h6>";
 
-        NOTES[FREIGHTER][0] = "<button onClick=\"showTerraformFuture()\">Show future positions on map</button>";
+        NOTES[FREIGHTER][0] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showTerraformFuture()\">Show future positions on map</button>";
         NOTES[FREIGHTER][1] = "<h6><b>M3 Note on Beehive Ark (1D4b, 3F2d):</b> Your Tokens on Size 1 Sites are immune to all combat. </h6>";
-        NOTES[FREIGHTER][2] = "<button onClick=\"showExoplanetHuntFuture()\">Show Sedna</button>";
-        NOTES[FREIGHTER][4] = "<button onClick=\"showKreuzSungrazer()\">Show Kreuz Sungrazer</button>";
+        NOTES[FREIGHTER][2] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showExoplanetHuntFuture()\">Show Sedna</button>";
+        NOTES[FREIGHTER][4] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showKreuzSungrazer()\">Show Kreuz Sungrazer</button>";
         NOTES[FREIGHTER][4] += "<h6><b>M3 Note on Golden Apples (1D4e, 3F2f):</b> FINAO is no longer a war restriction (3D4i) for all players. If other players pay for FINAO (whether Aqua or Isotopes), you receive the payment. </h6>";
         
         NOTES[FREIGHTER][5] = "<h6><b>M3 Note on Antimatter (1D4f, 3F2e):</b> Gain amat bombs (3E3d), which you can use without paying Aquas. </h6>";
-        NOTES[FREIGHTER][6] = "<button onClick=\"showSunlens()\">Show Sunlenses</button>";
+        NOTES[FREIGHTER][6] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"showSunlens()\">Show Sunlenses</button>";
        
 
         NOTES[BERNAL][0] = "<h6><b>M3 Note:</b> (Promoted) Your Crew and Bernals can fire Antimatter Bombs.</h6>";
@@ -331,41 +331,41 @@
         //NOTES[BERNAL][8] = "<h6><b>Errata fix:</b> Epic Hazard Roll to Anchor at GEO.</h6>";
         NOTES[BERNAL][8] = "<h6><b>M3 Note:</b> Immune to boost & homesteading restrictions. With an Epic Hazard Operation you may build Space Elevator over a (half)lander burn. Doubles FINAO costs for all players.</h6>";
  
-        NOTES[CONTRACT][3] = "<button onClick=\"findMiranda()\">Show Miranda</button>";
-        NOTES[CONTRACT][7] = "<button onClick=\"findChironOkyrhoe()\">Show Chiron and Okyrhoe</button>";
-        NOTES[CONTRACT][9] = "<button onClick=\"findBeeZ()\">Show Bee-Zed</button>";
-        NOTES[CONTRACT][13] = "<button onClick=\"findLcarusKreutz()\">Show Icarus and Kreutz Sungrazer</button>";
-        NOTES[CONTRACT][14] = "<button onClick=\"findLcarus()\">Show Icarus</button>";
-        NOTES[CONTRACT][15] = "<div><button onClick=\"find2p()\">Show 2+ sides</button>";
-        NOTES[CONTRACT][16] = "<div><button onClick=\"findS2p()\">Show S 2+ sides</button>";
-        NOTES[CONTRACT][16] += "<button onClick=\"findPhoebe()\">Show Phoebe</button></div>";
-        NOTES[CONTRACT][17] += "<button onClick=\"findNeujmin()\">Show Neujmin</button>";
-        NOTES[CONTRACT][18] = "<button onClick=\"findVesta()\">Show Vesta</button>";
-        NOTES[CONTRACT][19] = "<button onClick=\"findHyperionSaturn()\">Show Hyperion and Saturn Aerostat</button>";
-        NOTES[CONTRACT][22] = "<button onClick=\"findHolmes()\">Show Comet Holmes</button>";
-        NOTES[CONTRACT][23] = "<button onClick=\"findGanymedeQuaoarHolmes()\">Show Ganymede, Quaoar and Comet Holmes</button>";
+        NOTES[CONTRACT][3] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findMiranda()\">Show Miranda</button>";
+        NOTES[CONTRACT][7] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findChironOkyrhoe()\">Show Chiron and Okyrhoe</button>";
+        NOTES[CONTRACT][9] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findBeeZ()\">Show Bee-Zed</button>";
+        NOTES[CONTRACT][13] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findLcarusKreutz()\">Show Icarus and Kreutz Sungrazer</button>";
+        NOTES[CONTRACT][14] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findLcarus()\">Show Icarus</button>";
+        NOTES[CONTRACT][15] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"find2p()\">Show 2+ sides</button>";
+        NOTES[CONTRACT][16] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findS2p()\">Show S 2+ sides</button>";
+        NOTES[CONTRACT][16] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findPhoebe()\">Show Phoebe</button></div>";
+        NOTES[CONTRACT][17] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findNeujmin()\">Show Neujmin</button>";
+        NOTES[CONTRACT][18] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findVesta()\">Show Vesta</button>";
+        NOTES[CONTRACT][19] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findHyperionSaturn()\">Show Hyperion and Saturn Aerostat</button>";
+        NOTES[CONTRACT][22] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findHolmes()\">Show Comet Holmes</button>";
+        NOTES[CONTRACT][23] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findGanymedeQuaoarHolmes()\">Show Ganymede, Quaoar and Comet Holmes</button>";
         
-        NOTES[CONTRACT][25] = "<button onClick=\"findEcheclus()\">Show Echeclus</button>";
-        NOTES[CONTRACT][26] = "<div><button onClick=\"findPatheon()\">Show Comet Patheon</button>";
-        NOTES[CONTRACT][26] += "<button onClick=\"findRhea()\">Show Rhea</button></div>";
-        NOTES[CONTRACT][28] = "<div><button onClick=\"findDavida()\">Show Davida</button>";
-        NOTES[CONTRACT][28] += "<button onClick=\"findSycorax()\">Show Sycorax</button></div>";
-        NOTES[CONTRACT][29] = "<div><button onClick=\"findCruithne()\">Show Cruithne</button>";
-        NOTES[CONTRACT][29] += "<button onClick=\"findCrommelin()\">Show Comet Crommelin</button></div>";
+        NOTES[CONTRACT][25] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findEcheclus()\">Show Echeclus</button>";
+        NOTES[CONTRACT][26] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findPatheon()\">Show Comet Patheon</button>";
+        NOTES[CONTRACT][26] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findRhea()\">Show Rhea</button></div>";
+        NOTES[CONTRACT][28] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findDavida()\">Show Davida</button>";
+        NOTES[CONTRACT][28] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findSycorax()\">Show Sycorax</button></div>";
+        NOTES[CONTRACT][29] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findCruithne()\">Show Cruithne</button>";
+        NOTES[CONTRACT][29] += "<button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findCrommelin()\">Show Comet Crommelin</button></div>";
 
-        NOTES[CONTRACT][32] = "<button onClick=\"findS20H()\">Show 2+ Sites with 0 Hydration</button>";
+        NOTES[CONTRACT][32] = "<button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findS20H()\">Show 2+ Sites with 0 Hydration</button>";
 
-        NOTES[CONTRACT][33] = "<div><button onClick=\"findPhaethon()\">Show Phaethon</button>";
-        NOTES[CONTRACT][33] += "<button onClick=\"findAgamemmonAenas()\">Show Agamemnon & Aeneas</button></div>";
+        NOTES[CONTRACT][33] = "<div><button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findPhaethon()\">Show Phaethon</button>";
+        NOTES[CONTRACT][33] += "<button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findAgamemmonAenas()\">Show Agamemnon & Aeneas</button></div>";
 
-        NOTES[CONTRACT][36] = "<button onClick=\"findUranus()\">Show Uranus Aerostat</button>";
-        NOTES[CONTRACT][37] = "<div><button onClick=\"findSaturn()\">Show Saturn Aerostat</button>";
-        NOTES[CONTRACT][37] += "<button onClick=\"findPlutoCharon()\">Show Pluto & Charon</button></div>";
-        NOTES[CONTRACT][38] = "<button onClick=\"findLarissa()\">Show Larissa</button>";
-        NOTES[CONTRACT][39] = "<button onClick=\"findQuaoar()\">Show Quaoar</button>";
-        NOTES[CONTRACT][40] = "<button onClick=\"findTeharonhiawako()\">Show Teharonhiawako</button>";
-        NOTES[CONTRACT][41] = "<div><button onClick=\"findArrokh()\">Show Arrokoth</button>";
-        NOTES[CONTRACT][41] += "<button onClick=\"find2002TX()\">Show 2002 TX</button></div>";
+        NOTES[CONTRACT][36] = "<button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findUranus()\">Show Uranus Aerostat</button>";
+        NOTES[CONTRACT][37] = "<div><button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findSaturn()\">Show Saturn Aerostat</button>";
+        NOTES[CONTRACT][37] += "<button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findPlutoCharon()\">Show Pluto & Charon</button></div>";
+        NOTES[CONTRACT][38] = "<button  class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findLarissa()\">Show Larissa</button>";
+        NOTES[CONTRACT][39] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findQuaoar()\">Show Quaoar</button>";
+        NOTES[CONTRACT][40] = "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findTeharonhiawako()\">Show Teharonhiawako</button>";
+        NOTES[CONTRACT][41] = "<div><button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"findArrokh()\">Show Arrokoth</button>";
+        NOTES[CONTRACT][41] += "<button class=\"mdl-button mdl-js-button mdl-button--raised\" onClick=\"find2002TX()\">Show 2002 TX</button></div>";
 
         NOTES2[CREW][1] = "<h6><b>Note:</b> Amat bombs are not used if you are the defender.</h6>";
         NOTES2[CREW][1] += "<h6><b>War Crimes:</b> Player Purple has this Ability, which allows him to perform Felonies against allies during War/ Anarchy (3A3a), perform a sneak attack or dropstone attack without paying a bribe (3B3c,e), to use human kamikazes (3E5d) and manned dropstones (3D7c), and suffer no consequences from genocide (3E2m).</h6>";
@@ -2829,7 +2829,7 @@
                    </i>
              </button>
              <div id="note7" style="text-align:center">
-              <button onClick="showTerraformFuture()">Show future positions on map</button>
+              <button class="mdl-button mdl-js-button mdl-button--raised" onClick="showTerraformFuture()">Show future positions on map</button>
             </div>
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="removeCard(7)">
                   <i class="material-icons">
