@@ -1067,6 +1067,7 @@
           document.getElementById('zone').disabled = findLocation.selectedIndex != 0;
         }
         function findSide(){
+          document.getElementById('b').click();
           if(!isBigImage())
           {
             boards.selectedIndex = 10;
@@ -1886,6 +1887,12 @@
           findPos[i].push(384 / (2*FAC));
           findPos[i].push(738 / (2*FAC));
           findPos[i].push(35);
+        }
+        function switchToBoard()
+        {
+          document.getElementById('b').click();
+          boards.selectedIndex = 10;
+          zoomReset();
         }
         function showTerraformFuture()
         {
@@ -3168,10 +3175,9 @@
           </section>
           <section class = "mdl-layout__tab-panel" id = "Map" style="text-align:center">
             <div>
-            <script style="text-align:center" src="https://zoomhub.net/89GyZ.js?width=auto&height=auto&border=none"></script>
-          </div>
+              <script style="text-align:center" src="https://zoomhub.net/89GyZ.js?width=auto&height=auto&border=none"></script>
+            </div>
             <a data-target="#myModal" role="button" class="btn" data-toggle="modal">Site Finder</a>
-           
           </section>
           
 
