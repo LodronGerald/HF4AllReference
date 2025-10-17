@@ -1222,7 +1222,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          if(boards.selectedIndex == 1) {
+          else if(boards.selectedIndex == 1) {
             image.src = "boards/Player.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -1260,7 +1260,16 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 5) {
+		  else if(boards.selectedIndex == 5) {
+            image.src = "boards/solitaire.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1240,877,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 6) {
             image.src = "boards/M3As.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -1269,7 +1278,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 6) {
+          else if(boards.selectedIndex == 7) {
             image.src = "boards/M3VPs.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -1278,7 +1287,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 7) {
+          else if(boards.selectedIndex == 8) {
             image.src = "boards/M3Battle.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -1287,7 +1296,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 8) {
+          else if(boards.selectedIndex == 9) {
             image.src = "boards/M4.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -1296,7 +1305,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 9) {
+          else if(boards.selectedIndex == 10) {
             image.src = "boards/M4-2.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -1305,7 +1314,34 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 10) {
+		  else if(boards.selectedIndex == 11) {
+            image.src = "boards/M5A.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1240,877,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+		  else if(boards.selectedIndex == 12) {
+            image.src = "boards/M5B.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1754,1418,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+		  else if(boards.selectedIndex == 13) {
+            image.src = "boards/M5C.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1754,1418,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 14) {
             image.src = "boards/MapSmall.jpg";
 
             ctx.drawImage(image, 
@@ -1315,7 +1351,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 11) {
+          else if(boards.selectedIndex == 15) {
             image.src = "boards/VenusMapSmall.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -1375,7 +1411,7 @@
         function findS20H()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           let h = 0;
           let s = 2;
@@ -1427,7 +1463,7 @@
         function findS2p()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           let f = "S";
           let s = 2;
@@ -1492,7 +1528,7 @@
         function findSizePlus(s)
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
 
             let i=0;
@@ -1752,7 +1788,7 @@
           document.getElementById('b').click();
           if(!isBigImage())
           {
-            boards.selectedIndex = 10;
+            boards.selectedIndex = 14;
           }
           zoomReset();
           findPos = [];
@@ -1864,7 +1900,7 @@
         function findChiron()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1876,7 +1912,7 @@
         function findOkyrhoe()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1888,7 +1924,7 @@
         function findMiranda()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1900,7 +1936,7 @@
         function findEcheclus()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1912,7 +1948,7 @@
         function findPatheon()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1924,7 +1960,7 @@
         function findDavida()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1937,7 +1973,7 @@
         function findCrommelin()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1949,7 +1985,7 @@
         function findPlutoCharon()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1967,7 +2003,7 @@
         function find2002TX()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1979,7 +2015,7 @@
         function findArrokh()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -1991,7 +2027,7 @@
         function findTeharonhiawako()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2003,7 +2039,7 @@
         function findQuaoar()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2015,7 +2051,7 @@
         function findLarissa()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2027,7 +2063,7 @@
         function findSaturn()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2039,7 +2075,7 @@
         function findUranus()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2051,7 +2087,7 @@
         function findAgamemmonAenas()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2069,7 +2105,7 @@
         function findPhaethon()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2081,7 +2117,7 @@
         function findCruithne()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2093,7 +2129,7 @@
         function findSycorax()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2105,7 +2141,7 @@
         function findRhea()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2117,7 +2153,7 @@
         function findHolmes()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2129,7 +2165,7 @@
         function findGanymedeQuaoarHolmes()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2153,7 +2189,7 @@
         function findBeeZ()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2165,7 +2201,7 @@
         function showSunlens()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2182,7 +2218,7 @@
         function showH()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2239,7 +2275,7 @@
         function findEMSunlens()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2251,7 +2287,7 @@
         function findHaumea()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2263,7 +2299,7 @@
         function findDropstones()
         {
           //document.getElementById('b').click();
-          //boards.selectedIndex = 10;
+          //boards.selectedIndex = 14;
           //zoomReset();
           
           let i=0;
@@ -2320,7 +2356,7 @@
         function showJovian()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2337,7 +2373,7 @@
         function showAdAstra()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2359,7 +2395,7 @@
         function showTriton()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2376,7 +2412,7 @@
         function showIOAndTriton()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2393,7 +2429,7 @@
         function showIO()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2406,7 +2442,7 @@
         function showCentaur()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2458,7 +2494,7 @@
         function findMercL1L3()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2475,7 +2511,7 @@
         function findNeujmin()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2487,7 +2523,7 @@
         function findHyperion()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2500,7 +2536,7 @@
         function findVesta()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2512,7 +2548,7 @@
         function findPhoebe()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2524,7 +2560,7 @@
         function findKreutz()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2537,7 +2573,7 @@
         function findLcarus()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2549,7 +2585,7 @@
         function showKreuzSungrazer()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2561,7 +2597,7 @@
         function showExoplanetHuntFuture()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2573,13 +2609,13 @@
         function switchToBoard()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
         }
         function showTerraformFuture()
         {
           document.getElementById('b').click();
-          boards.selectedIndex = 10;
+          boards.selectedIndex = 14;
           zoomReset();
           
           let i=0;
@@ -2739,7 +2775,7 @@
         setInterval(requestAnimationFrame( draw ), 500); 
 
         function isBigImage(){
-          if(boards.selectedIndex == 10 || boards.selectedIndex == 11)
+          if(boards.selectedIndex == 14 || boards.selectedIndex == 15)
             return 1;
           else
             return 0;
@@ -2762,6 +2798,7 @@
             cameraOffset.y =0;
           //repositionStage();
           
+		  console.log("boards.selectedIndex:", boards.selectedIndex);
           if(boards.selectedIndex == 0) {
             image.src = "boards/Sun.jpg";
 
@@ -2772,7 +2809,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          if(boards.selectedIndex == 1) {
+          else if(boards.selectedIndex == 1) {
             image.src = "boards/Player.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -2810,7 +2847,18 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 5) {
+		  else if(boards.selectedIndex == 5) {
+		  		  console.log("boards.here:", boards.selectedIndex);
+            image.src = "boards/solitaire.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1397,996,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 6) {
+		   console.log("boards.there:", boards.selectedIndex);
             image.src = "boards/M3As.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -2819,7 +2867,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 6) {
+          else if(boards.selectedIndex == 7) {
             image.src = "boards/M3VPs.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -2828,7 +2876,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 7) {
+          else if(boards.selectedIndex == 8) {
             image.src = "boards/M3Battle.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -2837,7 +2885,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 8) {
+          else if(boards.selectedIndex == 9) {
             image.src = "boards/M4.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -2846,7 +2894,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 9) {
+          else if(boards.selectedIndex == 10) {
             image.src = "boards/M4-2.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -2855,7 +2903,34 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 10) {
+		  else if(boards.selectedIndex == 11) {
+            image.src = "boards/M5A.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1493,1054,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+		  else if(boards.selectedIndex == 12) {
+            image.src = "boards/M5B.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1493,1054,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+		  else if(boards.selectedIndex == 13) {
+            image.src = "boards/M5C.jpg";
+            ctx.drawImage(image, 
+              0,0,           // clip from the source image with top-left at 
+              1493,1054,         // clip 800x600px from the source
+              0,0  ,            // paint the clipping at [0,0] on the canvas
+              WIDTH,HEIGHT          // use the same size that was clipped
+            );
+          }
+          else if(boards.selectedIndex == 14) {
             image.src = "boards/MapSmall.jpg";
 
             ctx.drawImage(image, 
@@ -2865,7 +2940,7 @@
               WIDTH,HEIGHT          // use the same size that was clipped
             );
           }
-          else if(boards.selectedIndex == 11) {
+          else if(boards.selectedIndex == 15) {
             image.src = "boards/VenusMapSmall.jpg";
             ctx.drawImage(image, 
               0,0,           // clip from the source image with top-left at 
@@ -3797,11 +3872,15 @@
                 <option value="B">Player Bernal Board</option>
                 <option value="F">Player Freighter Board</option>
                 <option value="M0">M0 Political Assembly</option>
+				<option value="M0S">M0 Political Assembly Solitaire</option>
                 <option value="M3">M3 Political Assembly</option>
                 <option value="M3VPs">M3 Victory Points</option>
                 <option value="M3Battle">M3 Battle Chart</option>
                 <option value="M4">M4 Isobank/Starship</option>
                 <option value="M42">M4 Playmat</option>
+				<option value="M5A">M5 Isobank</option>
+				<option value="M5B">M5 Shares</option>
+				<option value="M5C">M5 Shares Back</option>
                 <option value="Map">Map</option>
                 <option value="VMap">Venus Map</option>
               </select>
