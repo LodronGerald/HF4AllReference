@@ -5,17 +5,39 @@
     <!--<meta name="viewport" content="initial-scale=1.0">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HF4All Web Reference</title>
+    <!-- Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <!--<link rel="stylesheet" href="https://petershaggynoble.github.io/MDI-Sandbox/light/?icon=arrow-left">-->
-    <!--<script src="https://unpkg.com/konva@9.2.3/konva.min.js"></script>-->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<style>
+
+    <!-- Material Design Lite (CDN that works) -->
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/material-design-lite@1.3.0/dist/material.indigo-pink.min.css">
+
+<script defer
+        src="https://cdn.jsdelivr.net/npm/material-design-lite@1.3.0/dist/material.min.js"></script>
+   <!-- <script defer
+            src="https://cdn.jsdelivr.net/npm/material-design-lite@1.3.0/material.min.js"></script>-->
+
+    <!-- jQuery UI CSS (explicit https to avoid mixed-content issues) -->
+    <link rel="stylesheet"
+          href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- jQuery (must load BEFORE jQuery UI) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap 3 (CSS first, then JS) -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <style>
 
 
         #canvas
@@ -846,7 +868,7 @@
       }
 
     </style>
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"> </script>
+    <!--<script defer src="https://code.getmdl.io/1.3.0/material.min.js"> </script>-->
     <script>
         let IDXs = [];
         let MAXs = [];
